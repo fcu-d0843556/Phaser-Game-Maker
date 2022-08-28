@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 // import phaserGame from './PhaserGame.js'
-import './App.css'
-import Home from './pages/Home/Home'
+
+import Header from './components/Header/Header'
 export default class App extends Component {
   render() {
     return (
-      <Home></Home>
+      <Header></Header>
     )
   }
 }

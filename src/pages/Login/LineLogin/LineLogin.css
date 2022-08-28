@@ -1,0 +1,19 @@
+.LineLogin{
+    /* background-color: tomato; */
+    padding: 30px;
+}
+
+.LineBotton{
+    width: 128px;
+    height: 44px;
+    /* background: url('/src/static/img/btn_login_base.png') no-repeat; */
+    display: inline-block;
+    /* background-color: teal; */
+}
+
+.LineBotton:hover{
+    /* background: url('/src/static/img/btn_login_hover.png') no-repeat; */
+}
+.LineBotton:active{
+    /* background: url('/src/static/img/btn_login_press.png') no-repeat; */
+}
