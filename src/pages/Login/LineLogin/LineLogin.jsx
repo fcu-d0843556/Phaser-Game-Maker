@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 //css
-import './LineLogin.css'
+// import './LineLogin.css'
 
 
 export default class LineLogin extends Component {

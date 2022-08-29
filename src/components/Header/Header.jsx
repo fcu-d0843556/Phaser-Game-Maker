@@ -8,16 +8,14 @@ import MyNavLink from '../MyNavLink/MyNavLink'
 //Pages
 import Login from '../../pages/Login/Login'
 import Home from '../../pages/Home/Home'
+import Register from '../../pages/Register/Register'
+
 
 export default class Header extends Component {
 
-    state = {
-        username: ''
-    }
-
     render() {
 
-        const {username} = this.state
+        // const {username} = this.state
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky">
@@ -57,6 +55,7 @@ export default class Header extends Component {
                     <Switch>
                         <Route component={Login} path="/login"></Route>
                         <Route component={Home} path="/home"></Route>
+                        <Route component={Register} path="/register"></Route>
                         <Redirect to="/home"></Redirect>
                     </Switch>
                 </div>
