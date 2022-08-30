@@ -19,7 +19,7 @@ export default class register extends Component {
             password
           },
         }).then(
-        response => {console.log(response);},
+        response => {alert(response.data.message)},
         error => {console.log(error);}
       )
     };
