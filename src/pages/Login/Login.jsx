@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Button} from 'antd'
+import {Button, Form, Input} from 'antd'
+import axios from 'axios'
 
 //Components
 import MyNavLink from '../../components/MyNavLink/MyNavLink'
@@ -13,27 +14,90 @@ import './Login.css'
 
 export default class Login extends Component {
   render() {
-    return (
-        <div>
-            <div className="loginBox">
-                <div className="loginTitle">登入</div>
-                
-                <form action="/doLogin" method="post">
-                    <input type="text" name="username" className="textbar" placeholder="輸入帳號"/>
-                    <br/>
-                    <input type="password" name="password" className="textbar" placeholder="輸入密碼"/>
-                    <br/><br/>
-                    <input type="submit" className="textbar" value="登入"/>
-                    <br/><br/>
-                    <MyNavLink to="/register">
-                      <Button type="primary">註冊</Button>
-                    </MyNavLink>
-                    <br/><br/>
-                </form>
 
-                <LineLogin></LineLogin>
-            </div>
-        </div>
+    const onFinish = (values) => {
+      const {username,password} = values
+      console.log(values);
+      axios({
+        method: "post",
+        url: "/api1/login",
+        params: {
+          username,
+          password
+        }
+      }).then(
+        response => {
+          if(response.data.isSuccessed) this.props.history.replace(`/home`,{
+            username
+          })
+          else alert(response.data.message)
+        },
+        error => {console.log(error);}
+      )
+    };
+  
+    const onFinishFailed = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+    };
+
+    return (
+      <div className="loginBox">
+          <div className="loginTitle">登入</div>
+          <br/><br/>
+
+        <Form
+          name="basic"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="on"
+        >
+          <Form.Item
+            className="textbar"
+            label="Username" name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your username!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            className="textbar"
+            label="Password" name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              登入
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <MyNavLink to="/register">
+              <Button type="primary" htmlType="submit">
+                註冊
+              </Button>
+            </MyNavLink>
+            <br/><br/><br/>
+          </Form.Item>
+        </Form>
+
+        {/* <LineLogin></LineLogin> */}
+      </div>
     )
   }
 }
