@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import PubSub from 'pubsub-js'
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom'
+import { Button } from 'antd'
 
 //Components
 import MyNavLink from '../MyNavLink/MyNavLink'
@@ -8,12 +10,35 @@ import MyNavLink from '../MyNavLink/MyNavLink'
 import Login from '../../pages/Login/Login'
 import Home from '../../pages/Home/Home'
 import Register from '../../pages/Register/Register'
+import SelectGame from '../../pages/SelectGame/SelectGame'
+import GameMaker from '../../pages/GameMaker/GameMaker'
 
 
 class Header extends Component {
 
+    state = {
+        username: ''
+    }
+    
+    componentDidMount(){
+        PubSub.subscribe("setUsername", (msg,username)=>{
+            this.setState({username})
+        })
+
+        // const {username} = this.props.location.state || {}
+        // if(username){
+        //     this.setState({
+        //         username    
+        //     })
+        // }
+    }
+
+    logOut = () => {
+        this.setState({username: ''})
+    }
+
     render() {
-        // console.log(this.props);
+        console.log(this.props);
         const {username} = this.props.location.state || {}
         return (
             <div>
@@ -30,13 +55,13 @@ class Header extends Component {
                                 username ?  
                                     <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
                                         <li className="nav-item">
-                                            <MyNavLink to="/chooseGame">chooseGame</MyNavLink>
+                                            <MyNavLink to="/selectGame">SelectGame</MyNavLink>
                                         </li>
                                         <li className="nav-item">
                                             <MyNavLink to="/user">您好, {username}</MyNavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <MyNavLink to="/logout">登出</MyNavLink>
+                                            <MyNavLink onClick={this.logOut} to="/home">登出</MyNavLink>
                                         </li>  
                                     </ul> 
                                 :
@@ -56,6 +81,8 @@ class Header extends Component {
                         <Route component={Login} path="/login"></Route>
                         <Route component={Home} path="/home"></Route>
                         <Route component={Register} path="/register"></Route>
+                        <Route component={SelectGame} path="/selectGame"></Route>
+                        <Route component={GameMaker} path="/gameMaker"></Route>
                         <Redirect to="/home"></Redirect>
                     </Switch>
                 </div>

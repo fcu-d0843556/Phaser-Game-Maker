@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PubSub from 'pubsub-js'
 import {Button, Form, Input} from 'antd'
 import axios from 'axios'
 
@@ -27,9 +28,12 @@ export default class Login extends Component {
         }
       }).then(
         response => {
-          if(response.data.isSuccessed) this.props.history.replace(`/home`,{
-            username
-          })
+          if(response.data.isSuccessed){
+            PubSub.publish("setUsername",username)
+            this.props.history.replace(`/home`,{
+              username
+            })
+          } 
           else alert(response.data.message)
         },
         error => {console.log(error);}

@@ -5,7 +5,6 @@ export default class IntroBox extends Component {
     return (
         <div className="boxes">
             <div className="threeBox sideRightBox">
-                {/* <p><%= username%></p> */}
                 <h1>Choose!</h1>
                 <p>Use our already complete game</p>
                 <p>..............</p>

@@ -1,0 +1,45 @@
+
+
+.phone-style{
+    background-image: url("/public/img/phonestyleDis.svg");
+    width: 410px;
+    height: 740px;
+    position: absolute;
+}
+
+.translate-mid{
+    transform: translateX(-50%) !important;
+}
+
+.center-position{
+    left: 50% !important;
+}
+
+.img-center{
+    margin-left: auto;
+    margin-top: 50px;
+    margin-right: auto;
+}
+
+.main{
+    width: 600px;
+    height: 750px;
+    position: absolute;
+}
+
+.carousel-control-next{
+    background-color: rgb(200, 200, 200);
+}
+
+.carousel-control-prev{
+    background-color: rgb(200, 200, 200);
+}
+
+@media (max-height:790px) , (max-width:420px) and (min-height:790px){
+    .phone-style{
+        background-image: none;
+        width: 360px;
+        top: 0;
+        left: 0;
+    }
+}
