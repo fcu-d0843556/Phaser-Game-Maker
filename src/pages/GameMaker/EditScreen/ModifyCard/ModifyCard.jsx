@@ -9,7 +9,14 @@ export default class ModifyCard extends Component {
   render() {
     return (
         <div className="card text-center loginBox" style={{backgroundColor: "orange"}}>
-            
+            <div className="card-header">
+              <div className="mb-3">
+                  <button type="button" style={{float:"left"}} className="btn btn-dark">上一個</button>
+                  <label className="form-label">modifyTitle</label>
+                  <button type="button" style={{float:"right"}} className="btn btn-dark">下一個</button>  
+              </div>
+            </div> 
+
             <ImageSettings></ImageSettings>
             <PreviewImage></PreviewImage>
             <GetItemMessage></GetItemMessage>

@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 
-import HelloWorldScene from './scenes/HelloWorldScene.ts'
+import QuizGameScene from './scenes/QuizGame/QuizGameScene';
+import ShootingGameScene from './scenes/ShootingGame/ShootingGameScene';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export const config = {
@@ -26,7 +27,7 @@ export const config = {
 
 		},
 	},
-	scene: [HelloWorldScene],
+	scene: [QuizGameScene,ShootingGameScene],
 	// scene: {
 	// 	pack: {
 	// 		files: [
@@ -37,6 +38,5 @@ export const config = {
 };
 
 export default function startGame(){
-	const game = new Phaser.Game(config)
-
+	return new Phaser.Game(config)
 }
