@@ -10,7 +10,8 @@ import startGame from '../../PhaserGame'
 export default class GameMaker extends Component {
 
   state = {
-    game: {}
+    game: {},
+    gameScene: "Quiz"
   }
 
   componentDidMount(){
@@ -19,10 +20,16 @@ export default class GameMaker extends Component {
     })
   }
 
-  changeScene = () => {
-      const {game} = this.state
+  changeScene = (type) => {
+    return () => {
+      const {game,gameScene} = this.state
       console.log(game.scene);
-      game.scene.start('shooting')
+      game.scene.stop(gameScene)
+      game.scene.start(type)
+      this.setState({
+        gameScene: type
+      })
+    }
   }
 
   render() {
@@ -30,7 +37,9 @@ export default class GameMaker extends Component {
         <div className="container-fluid">
           <GameScreen></GameScreen>
           <EditScreen></EditScreen>
-          <Button onClick={this.changeScene} type="primary">next scene</Button>
+          <Button onClick={this.changeScene('Shooting')} type="primary">shooting scene</Button>
+          <Button onClick={this.changeScene('Quiz')} type="primary">quiz scene</Button>
+          <Button onClick={this.changeScene('PokeGetItem')} type="primary">PokeGetItem scene</Button>
         </div>
     )
   }

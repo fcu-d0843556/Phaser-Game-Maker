@@ -9,9 +9,9 @@ import GameoverMessage from "../CommonSystem/GameOverMessage"
 
 import ballonSpawner from "./BallonSpawner"
 
-export default class ShootingGame extends Phaser.Scene{
+export default class ShootingGameScene extends Phaser.Scene{
     constructor(userID,appSpot){    
-        super("shooting")
+        super("Shooting")
         this.userID = userID
         this.allJsonData = []
         this.appSpot = appSpot
@@ -30,6 +30,8 @@ export default class ShootingGame extends Phaser.Scene{
         this.load.image('hitbox','/img/Games/ShootingGame/target.png')
         this.load.image('gameover','/img/Games/ShootingGame/gameover/gameoverLabel.png')
         this.load.image('playAgain', '/img/Games/ShootingGame/gameover/playAgainButton.png')
+
+        this.load.image('background','/img/Games/background.png')
 
         this.load.image('balloon1', '/img/Games/ShootingGame/balloon1.png')
         this.load.image('balloon2', '/img/Games/ShootingGame/balloon2.png')

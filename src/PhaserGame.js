@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 
 import QuizGameScene from './scenes/QuizGame/QuizGameScene';
 import ShootingGameScene from './scenes/ShootingGame/ShootingGameScene';
+import ChuochuoleGameScene from './scenes/PokeGetItemGame/PokeGetItemGameScene';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export const config = {
@@ -27,7 +28,7 @@ export const config = {
 
 		},
 	},
-	scene: [QuizGameScene,ShootingGameScene],
+	scene: [QuizGameScene,ShootingGameScene,ChuochuoleGameScene],
 	// scene: {
 	// 	pack: {
 	// 		files: [

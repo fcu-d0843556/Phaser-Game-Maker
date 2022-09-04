@@ -5,7 +5,7 @@ import ImgControl from "./ImgControl"
 
 export default class QuizGameScene extends Phaser.Scene{
     constructor(userID,appSpot){
-        super("quiz")
+        super("Quiz")
         this.userID = userID
         this.allJsonData = []
         this.appSpot = appSpot
