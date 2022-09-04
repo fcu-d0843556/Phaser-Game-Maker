@@ -23,7 +23,7 @@ export default class GameMaker extends Component {
   changeScene = (type) => {
     return () => {
       const {game,gameScene} = this.state
-      console.log(game.scene);
+      // console.log(game.scene);
       game.scene.stop(gameScene)
       game.scene.start(type)
       this.setState({
@@ -38,6 +38,7 @@ export default class GameMaker extends Component {
       {name: "Quiz"},
       {name: "PokeGetItem"},
       {name: "CatchFruit"},
+      {name: "Cooking"},
       
     ]
 

@@ -98,7 +98,6 @@ export default class CatchFruitGameScene extends Phaser.Scene{
             "fontSize": 32,
             "fill": "#000"
         })
-        console.log('gameTimer');
         this.gameTimer = new GameTimer(this,timerLabel2,"time")
         this.gameTimer.start(this.gameover.bind(this),3000)//5s
 
