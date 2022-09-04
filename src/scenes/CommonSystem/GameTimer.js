@@ -56,10 +56,11 @@ export default class GameTimer {
         if(!this.timerEvent || this.duration <= 0){
             return
         }
-
+        
         const elapsed = this.timerEvent.getElapsed()  //從0開始，計算過程中跑的時間   碼錶
         const remaining = this.duration - elapsed   //反著來 等於 設定時間 - 經過時間 倒數計時
         const seconds = remaining / 1000            //把 毫秒 換算為 秒
+        console.log(this.text + " : " + seconds.toFixed(0) );
         this.label.text = this.text + " : " + seconds.toFixed(0)        //到小數點 2 位數
     }
 

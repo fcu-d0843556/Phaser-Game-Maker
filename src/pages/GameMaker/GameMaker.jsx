@@ -33,13 +33,23 @@ export default class GameMaker extends Component {
   }
 
   render() {
+    const gameScenes = [
+      {name: "Shooting"},
+      {name: "Quiz"},
+      {name: "PokeGetItem"},
+      {name: "CatchFruit"},
+      
+    ]
+
     return (
         <div className="container-fluid">
           <GameScreen></GameScreen>
           <EditScreen></EditScreen>
-          <Button onClick={this.changeScene('Shooting')} type="primary">shooting scene</Button>
-          <Button onClick={this.changeScene('Quiz')} type="primary">quiz scene</Button>
-          <Button onClick={this.changeScene('PokeGetItem')} type="primary">PokeGetItem scene</Button>
+          {
+            gameScenes.map((gameSceneObj)=>{
+              return <Button key={gameSceneObj.name} onClick={this.changeScene(gameSceneObj.name)} type="primary">{gameSceneObj.name} scene</Button>
+            })
+          }
         </div>
     )
   }

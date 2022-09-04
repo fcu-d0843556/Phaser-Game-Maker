@@ -23,7 +23,7 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
         this.load.image('finger','/img/Games/PokeGetItemGame/finger.png')
         this.load.image('heart','/img/Games/PokeGetItemGame/heartRed.png')
 
-        this.load.image('background','/img/Games/background.png')
+        this.load.image('background','/img/Games/Common/background.png')
 
         // const items = this.jsonData.items
         // console.log("all items = ")

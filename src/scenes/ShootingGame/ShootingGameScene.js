@@ -28,10 +28,10 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.load.image('gun','/img/Games/ShootingGame/gun.png')
         this.load.image('target','/img/Games/ShootingGame/target.png')
         this.load.image('hitbox','/img/Games/ShootingGame/target.png')
-        this.load.image('gameover','/img/Games/ShootingGame/gameover/gameoverLabel.png')
-        this.load.image('playAgain', '/img/Games/ShootingGame/gameover/playAgainButton.png')
+        this.load.image('gameover','/img/Games/Common/gameover/gameoverLabel.png')
+        this.load.image('playAgain', '/img/Games/Common/gameover/playAgainButton.png')
 
-        this.load.image('background','/img/Games/background.png')
+        this.load.image('background','/img/Games/Common/background.png')
 
         this.load.image('balloon1', '/img/Games/ShootingGame/balloon1.png')
         this.load.image('balloon2', '/img/Games/ShootingGame/balloon2.png')
@@ -74,7 +74,7 @@ export default class ShootingGameScene extends Phaser.Scene{
             "fill": "#000"
         })
         this.gameTimer = new GameTimer(this,timerLabel2,"time")
-        this.gameTimer.start(this.gameover.bind(this),10000)//5s
+        this.gameTimer.start(this.gameover.bind(this),3000)//5s
 
         //Score
         const scoreTextLabel = this.add.text(16,16, "score", {
@@ -154,6 +154,7 @@ export default class ShootingGameScene extends Phaser.Scene{
 
     gameover(){
         this.physics.pause()
+        this.starCoolDown.stop()
         this.gameOver = true
         let gameoverMessage = new GameoverMessage(this,this.scoreText.getScore())
         gameoverMessage.create()
