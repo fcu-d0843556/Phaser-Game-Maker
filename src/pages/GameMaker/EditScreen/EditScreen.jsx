@@ -8,6 +8,9 @@ import './EditScreen.css'
 
 export default class EditScreen extends Component {
   render() {
+    const {gameModifyDatas} = this.props
+    console.log("gg",gameModifyDatas);
+
     return (
         <div className="row justify-content-end right-select-bar">
             <div className="col-4"></div>
@@ -20,11 +23,16 @@ export default class EditScreen extends Component {
                     <div className="col-5" id="allCards">
                         <div className="bd-link">
                             <form action="/doUpload" id="dataForm" method="post">
-
-                                <div id="allCards">
-                                    <ModifyCard></ModifyCard>
-                                    <ModifyCard></ModifyCard>
-                                </div>
+                                
+                                    <div id="allCards">
+                                        {
+                                            gameModifyDatas.map((dataObj)=>{
+                                                return <ModifyCard key={dataObj.name} {...dataObj}></ModifyCard>
+                                            }) 
+                                        }
+                                         
+                                    </div>
+                                
 
                                 <div className="card-footer text-muted">
                                     <button type="submit" className="btn btn-warning">提交資料</button>
