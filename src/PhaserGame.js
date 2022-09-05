@@ -2,7 +2,7 @@ import Phaser from 'phaser'
 
 import QuizGameScene from './scenes/QuizGame/QuizGameScene';
 import ShootingGameScene from './scenes/ShootingGame/ShootingGameScene';
-import ChuochuoleGameScene from './scenes/PokeGetItemGame/PokeGetItemGameScene';
+import PokeGetItemGameScene from './scenes/PokeGetItemGame/PokeGetItemGameScene';
 import CatchFruitGameScene from './scenes/CatchFruitGame/CatchFruitGameScene';
 import CookingGameScene from './scenes/CookingGame/CookingGameScene';
 
@@ -30,7 +30,7 @@ export const config = {
 
 		},
 	},
-	scene: [QuizGameScene,ShootingGameScene,ChuochuoleGameScene,CatchFruitGameScene,CookingGameScene],
+	scene: [],
 	// scene: {
 	// 	pack: {
 	// 		files: [
@@ -40,6 +40,27 @@ export const config = {
 	// }
 };
 
-export default function startGame(){
-	return new Phaser.Game(config)
+export default function startGame(gameId){
+	const game = new Phaser.Game(config)
+	switch(gameId){
+		case "Quiz":
+			game.scene.add(gameId, new QuizGameScene())
+			break
+		case "Shooting":
+			game.scene.add(gameId, new ShootingGameScene())
+			break
+		case "PokeGetItem":
+			game.scene.add(gameId, new PokeGetItemGameScene())
+			break
+		case "CatchFruit":
+			game.scene.add(gameId, new CatchFruitGameScene())
+			break
+		case "Cooking":
+			game.scene.add(gameId, new CookingGameScene())
+			break
+		default:
+			console.log("error!");
+	}
+	game.scene.start(gameId)
+	return game
 }

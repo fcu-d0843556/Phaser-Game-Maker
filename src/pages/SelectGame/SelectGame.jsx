@@ -7,12 +7,12 @@ export default class ChooseGame extends Component {
 
     render() {
         const gameDatas = [
-            { id: "001", name: "cooking", src: "cookingTitle" },
-            { id: "002", name: "catchFruit", src: "catchFruitTitle" },
-            { id: "003", name: "shooting", src: "shootingTitle" },
-            { id: "004", name: "chuochuole", src: "chuochuoleTitle" },
-            { id: "005", name: "quiz", src: "quizTitle" },
-            { id: "006", name: "caution", src: "caution" },
+            { id: "001", name: "Cooking", src: "cookingTitle" },
+            { id: "002", name: "CatchFruit", src: "catchFruitTitle" },
+            { id: "003", name: "Shooting", src: "shootingTitle" },
+            { id: "004", name: "PokeGetItem", src: "pokeGetItemTitle" },
+            { id: "005", name: "Quiz", src: "quizTitle" },
+            { id: "006", name: "Caution", src: "caution" },
         ]
 
         return (
@@ -34,7 +34,12 @@ export default class ChooseGame extends Component {
                                     gameDatas.map((gameDataObj,index)=>{
                                         return (
                                             <div className={index ? "carousel-item" : "carousel-item active"} key={gameDataObj.id}>
-                                                <MyNavLink to="gameMaker">
+                                                <MyNavLink to={{
+                                                    pathname: "/gameMaker",
+                                                    state: {
+                                                        gameId: gameDataObj.name
+                                                    }
+                                                }}>
                                                     <img alt="empty_img" src={`/img/SelectGame/${gameDataObj.src}.png`} className="d-block img-center"/>
                                                 </MyNavLink>
                                             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Button} from 'antd'
+ 
 
 //Pages
 import GameScreen from './GameScreen/GameScreen'
@@ -11,46 +12,56 @@ export default class GameMaker extends Component {
 
   state = {
     game: {},
-    gameScene: "Quiz"
+    gameModifyDatas: [],
   }
 
   componentDidMount(){
+    const {gameId} = this.props.location.state
+
+    //get user data
+
+    //result get background object
+    const gameModifyDatas = [
+      {
+        modifyTitle: "遊 戲 背 景",
+        name: "background",
+        type: "png",
+        src: "/img/Games/Common/background.png",
+        position: {
+          x: 400,
+          y: 320
+        },
+        size: 100
+      },
+      {
+        modifyTitle: "時 間 文 字 方 塊",
+        name: "timeText",
+        text: {
+          content: "time",
+          style: {
+            fontSize: 32,
+            fill: "#000"
+          },
+          x: 16,
+          y: 54
+        }
+      }
+      
+    ]
+
     this.setState({
-      game: startGame()
+      game: startGame(gameId),
+      gameModifyDatas
     })
   }
 
-  changeScene = (type) => {
-    return () => {
-      const {game,gameScene} = this.state
-      // console.log(game.scene);
-      game.scene.stop(gameScene)
-      game.scene.start(type)
-      this.setState({
-        gameScene: type
-      })
-    }
-  }
-
   render() {
-    const gameScenes = [
-      {name: "Shooting"},
-      {name: "Quiz"},
-      {name: "PokeGetItem"},
-      {name: "CatchFruit"},
-      {name: "Cooking"},
-      
-    ]
+    const {gameModifyDatas} = this.state
 
     return (
         <div className="container-fluid">
           <GameScreen></GameScreen>
-          <EditScreen></EditScreen>
-          {
-            gameScenes.map((gameSceneObj)=>{
-              return <Button key={gameSceneObj.name} onClick={this.changeScene(gameSceneObj.name)} type="primary">{gameSceneObj.name} scene</Button>
-            })
-          }
+          <EditScreen gameModifyDatas={gameModifyDatas}></EditScreen>
         </div>
     )
   }
