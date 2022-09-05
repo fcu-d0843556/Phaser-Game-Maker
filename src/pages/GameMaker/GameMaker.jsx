@@ -50,7 +50,7 @@ export default class GameMaker extends Component {
     ]
 
     this.setState({
-      game: startGame(gameId),
+      game: startGame(gameId,gameModifyDatas),
       gameModifyDatas
     })
   }

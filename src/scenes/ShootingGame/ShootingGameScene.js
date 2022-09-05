@@ -10,20 +10,21 @@ import GameoverMessage from "../CommonSystem/GameOverMessage"
 import ballonSpawner from "./BallonSpawner"
 
 export default class ShootingGameScene extends Phaser.Scene{
-    constructor(userID,appSpot){    
+    constructor(){    
         super("Shooting")
-        this.userID = userID
         this.allJsonData = []
-        this.appSpot = appSpot
         this.scoreText = undefined
 
     }
 
 
     preload(){
-        this.jsonData = this.cache.json.get('jsonData');
-        console.log("find jsonData")
-        console.log(this.jsonData)
+        //getModifyDatas
+        this.modifyDatas = this.scene.settings.data.reduce((pre, currentData) => ( { ...pre, [currentData.name]: currentData}), {} )
+        console.log("modifyDatas : ", this.modifyDatas)
+        const {background} = this.modifyDatas
+        // console.log("backgound",background);
+
 
         this.load.image('gun','/img/Games/ShootingGame/gun.png')
         this.load.image('target','/img/Games/ShootingGame/target.png')
@@ -31,7 +32,9 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.load.image('gameover','/img/Games/Common/gameover/gameoverLabel.png')
         this.load.image('playAgain', '/img/Games/Common/gameover/playAgainButton.png')
 
-        this.load.image('background','/img/Games/Common/background.png')
+        // this.load.image('background','/img/Games/Common/background.png')
+        this.load.image(background.name,background.src)
+
 
         this.load.image('balloon1', '/img/Games/ShootingGame/balloon1.png')
         this.load.image('balloon2', '/img/Games/ShootingGame/balloon2.png')
@@ -39,50 +42,23 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.load.image('balloon4', '/img/Games/ShootingGame/balloon4.png')
         this.load.image('balloon5', '/img/Games/ShootingGame/balloon5.png')
 
-        // const items = this.jsonData.items
-        // console.log("all items = ")
-        // console.log(items)
-
-        // for(let t=0; t<items.length; t++){
-        //     if(items[t].items){
-        //         for(let s=0; s<items[t].items.length; s++){
-        //             this.load.image(items[t].items[s].name, this.appSpot + items[t].items[s].src)
-        //         }
-        //         this.allJsonData[items[t].name] = items[t]
-        //     }else{
-        //         if(items[t].src){
-        //             this.load.image(items[t].name, this.appSpot + items[t].src)
-        //         }
-        //         this.allJsonData[items[t].name] = items[t]
-        //     }
-            
-        // }
-
-        // console.log("all allJsonData = ")
-        // console.log(this.allJsonData)
     }
 
     create(){
-        this.add.image(400,320 ,'background').setScale(1)
+        const {background,timeText} = this.modifyDatas
+        
+        // this.add.image(400,320 ,'background').setScale(1)
+        this.add.image(background.position.x,background.position.y ,'background').setScale(background.size/100)
+
 
         this.cursor = this.input.keyboard.createCursorKeys()
         this.add.image(170,550,'gun').setScale(0.21,0.21).setDepth(1);
 
-        //Timer
-        const timerLabel2 = this.add.text(16, 54, "time", {
-            "fontSize": 32,
-            "fill": "#000"
-        })
-        this.gameTimer = new GameTimer(this,timerLabel2,"time")
-        this.gameTimer.start(this.gameover.bind(this),3000)//5s
 
-        //Score
-        const scoreTextLabel = this.add.text(16,16, "score", {
-            "fontSize": 32,
-            "fill": "#000"
-        })
-        this.scoreText = new Score(this,scoreTextLabel,"score",0)
-        this.scoreText.showScoreText()
+        this.createGameTimer(timeText)
+        
+        this.createScoreBoard()
+        
 
         this.allJsonData.balloon = {
             items: [{
@@ -122,33 +98,11 @@ export default class ShootingGameScene extends Phaser.Scene{
         //Ballon Timer
         this.starCoolDown = new DropTimeCounter(this,"")
         this.starCoolDown.start(this.createBalloon.bind(this),500)//5s
- 
-
-        // const moveSpotLabel = this.add.text(10,580,'moveSpot: ',{fontSize:12,fill:'#000'})
 
 
 
-
-        this.target = this.physics.add.sprite(400,500,'target').setScale(0.8,0.8)
-        this.target.setGravityY(0)
-
-
-        this.mouseSpot = new GetMouseSpot(this,"")  
-        this.input.on('pointermove',function(pointer){
-            this.mouseSpot.get(pointer)
-            this.target.x = pointer.x
-            this.target.y = pointer.y
-            this.clickMouseSpot.get(pointer)
-        },this)
-
-
-        // const clickSpotLabel = this.add.text(10,600,'clickSpot: ',{fontSize:12,fill:'#000'}).setDepth(1);
-        this.clickMouseSpot = new GetMouseSpot(this,"")
-
-        this.input.on('pointerdown',function(pointer){
-            this.clickMouseSpot.get(pointer)
-            
-        },this)
+        this.createMouseTracker()
+        
 
     }
 
@@ -160,8 +114,53 @@ export default class ShootingGameScene extends Phaser.Scene{
         gameoverMessage.create()
     }
 
+    createGameTimer(timeText){
+        const {text} = timeText
+        //Timer
+        // const timerLabel2 = this.add.text(16, 54, "time", {
+        //     "fontSize": 32,
+        //     "fill": "#000"
+        // })
+        const timerLabel2 = this.add.text(text.x, text.y, text.content, text.style)
+        this.gameTimer = new GameTimer(this, timerLabel2, text.content)
+        this.gameTimer.start(this.gameover.bind(this),3000)//5s
+    }
+
+    createScoreBoard(){
+        //Score
+        const scoreTextLabel = this.add.text(16,16, "score", {
+            "fontSize": 32,
+            "fill": "#000"
+        })
+        this.scoreText = new Score(this,scoreTextLabel,"score",0)
+        this.scoreText.showScoreText()
+    }
+
     createBalloon(){
         this.balloon.spawn()
+    }
+
+    createMouseTracker(){
+
+
+        this.target = this.physics.add.sprite(400,500,'target').setScale(0.8,0.8)
+        this.target.setGravityY(0)
+
+        const moveSpotLabel = this.add.text(10,580,'moveSpot: ',{fontSize:12,fill:'#000'}).setDepth(1)
+        this.mouseSpot = new GetMouseSpot(this,moveSpotLabel)  
+        this.input.on('pointermove',function(pointer){
+            // this.mouseSpot.get(pointer)
+            this.target.x = pointer.x
+            this.target.y = pointer.y
+        },this)
+
+        const clickSpotLabel = this.add.text(10,600,'clickSpot: ',{fontSize:12,fill:'#000'}).setDepth(1);
+        this.clickMouseSpot = new GetMouseSpot(this,clickSpotLabel)
+
+        this.input.on('pointerdown',function(pointer){
+            // this.clickMouseSpot.get(pointer)
+            
+        },this)
     }
 
     update(){

@@ -9,7 +9,7 @@ import './EditScreen.css'
 export default class EditScreen extends Component {
   render() {
     const {gameModifyDatas} = this.props
-    console.log("gg",gameModifyDatas);
+    // console.log("gg",gameModifyDatas);
 
     return (
         <div className="row justify-content-end right-select-bar">

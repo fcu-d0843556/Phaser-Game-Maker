@@ -40,7 +40,7 @@ export const config = {
 	// }
 };
 
-export default function startGame(gameId){
+export default function startGame(gameId,gameModifyDatas){
 	const game = new Phaser.Game(config)
 	switch(gameId){
 		case "Quiz":
@@ -61,6 +61,6 @@ export default function startGame(gameId){
 		default:
 			console.log("error!");
 	}
-	game.scene.start(gameId)
+	game.scene.start(gameId,gameModifyDatas)
 	return game
 }

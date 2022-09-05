@@ -9,7 +9,7 @@ export default class ModifyCard extends Component {
   render() {
 
     const {modifyTitle,items,src,text} = this.props
-    console.log("modify",this.props);
+    // console.log("modify",this.props);
     
     return (
         <div className="card text-center loginBox" style={{backgroundColor: "orange"}}>

@@ -8,8 +8,8 @@ export default class ballonSpawner{
         this.score = score
         this.data = data
         this.number = 0
-        console.log("score: ");
-        console.log(this.score);
+        // console.log("score: ");
+        // console.log(this.score);
     }
 
     get group(){

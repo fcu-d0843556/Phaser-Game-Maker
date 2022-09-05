@@ -38,7 +38,7 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         const {username} = this.props.location.state || {}
         return (
             <div>
