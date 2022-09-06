@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class GetItemMessage extends Component {
   render() {
-    const {modifyTitle,description} = this.props
+    const {description} = this.props
     return (
         <div>
             <div className="card-header">

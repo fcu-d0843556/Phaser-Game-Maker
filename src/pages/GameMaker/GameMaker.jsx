@@ -70,7 +70,17 @@ export default class GameMaker extends Component {
               size: 55
             }
           ]
-        }
+        },gun: {
+          modifyTitle: "舉 槍 的 圖 片",
+          name: "gun",
+          type: "png",
+          src: "/img/Games/ShootingGame/gun.png",
+          position: {
+            x: 200,
+            y: 210
+          },
+          size: 50
+        },
       }
 
       this.setState({

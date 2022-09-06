@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import GetItemMessage from './GetItemMessage/GetItemMessage'
 import ImageSettings from './ImageSettings/ImageSettings'
 
+import './ModifyCard.css'
+
 export default class ModifyCard extends Component {
   render() {
     // console.log("modify",this.props);
@@ -11,7 +13,7 @@ export default class ModifyCard extends Component {
     const {modifyTitle,items,src,text} = this.props
     
     return (
-        <div className="card text-center loginBox" style={{backgroundColor: "orange"}}>
+        <div className="card text-center modify-card" style={{backgroundColor: "orange"}}>
             <div className="card-header">
               {
                 items ? 
