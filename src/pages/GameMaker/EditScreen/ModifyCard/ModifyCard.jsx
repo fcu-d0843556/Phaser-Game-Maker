@@ -3,13 +3,12 @@ import React, { Component } from 'react'
 //Pages
 import GetItemMessage from './GetItemMessage/GetItemMessage'
 import ImageSettings from './ImageSettings/ImageSettings'
-import PreviewImage from './PreviewImage/PreviewImage'
 
 export default class ModifyCard extends Component {
   render() {
+    // console.log("modify",this.props);
 
     const {modifyTitle,items,src,text} = this.props
-    // console.log("modify",this.props);
     
     return (
         <div className="card text-center loginBox" style={{backgroundColor: "orange"}}>
@@ -31,11 +30,7 @@ export default class ModifyCard extends Component {
             {
               src ? 
                 <div>
-                  <ImageSettings></ImageSettings>
-                  <PreviewImage src={src}></PreviewImage>
-                  <div className="card-footer text-muted">
-                    <button type="button" className="btn btn-dark">使用其他提供的圖片</button>
-                  </div>
+                  <ImageSettings {...this.props}></ImageSettings>
                 </div>
               : 
                 <div></div>
@@ -43,7 +38,7 @@ export default class ModifyCard extends Component {
             
             {
               text ? 
-                <GetItemMessage></GetItemMessage>
+                <GetItemMessage {...this.props}></GetItemMessage>
               :
                 <div></div>
             }

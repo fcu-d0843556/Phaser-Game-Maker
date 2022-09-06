@@ -20,7 +20,7 @@ export default class ShootingGameScene extends Phaser.Scene{
 
     preload(){
         //getModifyDatas
-        this.modifyDatas = this.scene.settings.data.reduce((pre, currentData) => ( { ...pre, [currentData.name]: currentData}), {} )
+        this.modifyDatas = this.scene.settings.data
         console.log("modifyDatas : ", this.modifyDatas)
         const {background} = this.modifyDatas
         // console.log("backgound",background);
