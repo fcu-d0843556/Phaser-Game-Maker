@@ -16,7 +16,7 @@ export default class EditScreen extends Component {
 
     handleformSubmit = (event) => {
         event.preventDefault()
-        const {positionX} = this
+        PubSub.publish("refreshGame")
         // console.log(positionX);
     }
 

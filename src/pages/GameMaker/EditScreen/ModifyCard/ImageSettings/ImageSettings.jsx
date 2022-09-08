@@ -11,9 +11,6 @@ export default class ImageSettings extends Component {
         this.setState({
             ImageDatas: {...this.props}
         })
-        const ImageDatas = this.props
-        console.log(ImageDatas == {...this.props});
-        
     }
 
     changePositionValue = (type) => {
