@@ -46,20 +46,30 @@ export default class GameMaker extends Component {
             }
           ]
         },
-        // timeText: {
-        //   modifyTitle: "時 間 文 字 方 塊",
-        //   description: "當接到、擊破道具時會出現的文字",
-        //   name: "timeText",
-        //   text: {
-        //     content: "time",
-        //     style: {
-        //       fontSize: 32,
-        //       fill: "#000"
-        //     },
-        //     x: 16,
-        //     y: 54
-        //   }
-        // },
+        timeText: {
+          modifyTitle: "時 間 文 字 方 塊",
+          name: "timeText",
+          items: [
+            {
+              parent: "timeText",
+              name: "timeText",
+              modifyTitle: "時 間 文 字 方 塊",
+              text: {
+                modifyTitle: "時 間",
+                description: "當接到、擊破道具時會出現的文字",
+                content: "time",
+                style: {
+                  fontSize: 32,
+                  fill: "#000"
+                },
+                x: 16,
+                y: 54
+              }
+            }
+          ]
+          
+          
+        },
         balloon: {
           modifyTitle: "氣 球",
           name: "balloon",
@@ -77,6 +87,8 @@ export default class GameMaker extends Component {
                 size: 55
               },
               text: {
+                modifyTitle: "氣 球 擊 破 文 字",
+                description: "擊破氣球時會顯示出的文字",
                 content: "祝你天天開心！",
               }
             },
@@ -93,6 +105,8 @@ export default class GameMaker extends Component {
                 size: 55
               },
               text: {
+                modifyTitle: "氣 球 擊 破 文 字",
+                description: "擊破氣球時會顯示出的文字",
                 content: "祝你事事順利！",
               }
             }

@@ -24,7 +24,7 @@ export default class ModifyCard extends Component {
                 //   </div>
                 // :
                   <div className="mb-3">
-                    <label className="form-label">{modifyTitle}</label>
+                    <label className="form-label modify-card-title">{modifyTitle}</label>
                   </div>
               }
             </div> 

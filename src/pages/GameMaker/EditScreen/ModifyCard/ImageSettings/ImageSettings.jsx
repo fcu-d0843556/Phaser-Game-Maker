@@ -29,7 +29,7 @@ export default class ImageSettings extends Component {
 
     render() {
         const {position,size,src} = this.props.img
-        console.log("imgae",this.props);
+        // console.log("imgae",this.props);
 
         return (
             <div>
@@ -58,10 +58,10 @@ export default class ImageSettings extends Component {
                         <h5 className="card-title">預覽圖</h5>
                         <img src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
                     </div>
-                </div>
 
-                <div className="card-footer text-muted">
-                    <button type="button" className="btn btn-dark">使用其他提供的圖片</button>
+                    <div className="card-body">
+                        <button type="button" className="btn btn-dark">使用其他提供的圖片</button>
+                    </div>
                 </div>
             </div>
         )
