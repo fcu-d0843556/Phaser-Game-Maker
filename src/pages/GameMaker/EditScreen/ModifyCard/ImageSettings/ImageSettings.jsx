@@ -16,19 +16,20 @@ export default class ImageSettings extends Component {
     changePositionValue = (type) => {
         const {ImageDatas} = this.state
         return (event) => {
-            ImageDatas.position[type] = parseInt(event.target.value)
+            ImageDatas.img.position[type] = parseInt(event.target.value)
             PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
         }
     }
 
     changeSizeValue = (event) => {
         const {ImageDatas} = this.state
-        ImageDatas.size = event.target.value
+        ImageDatas.img.size = event.target.value
         PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
     }
 
     render() {
-        const {position,size,src} = this.props
+        const {position,size,src} = this.props.img
+        console.log("imgae",this.props);
 
         return (
             <div>
@@ -37,7 +38,7 @@ export default class ImageSettings extends Component {
                     <div className="row">
                         <div className="col">
                             <label className="form-label">生成的X位置</label>
-                            <input ref={c => this.positionX = c} className="form-control" type="number" onChange={this.changePositionValue("x")} value={position.x}/>
+                            <input className="form-control" type="number" onChange={this.changePositionValue("x")} value={position.x}/>
                         </div>
                         <div className="col">
                             <label className="form-label">生成的Y位置</label>

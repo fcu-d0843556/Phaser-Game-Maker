@@ -22,7 +22,7 @@ export default class ShootingGameScene extends Phaser.Scene{
         //getModifyDatas
         this.modifyDatas = this.scene.settings.data
         console.log("modifyDatas : ", this.modifyDatas)
-        const {background} = this.modifyDatas
+        // const {background} = this.modifyDatas
         // console.log("backgound",background);
 
 
@@ -32,8 +32,8 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.load.image('gameover','/img/Games/Common/gameover/gameoverLabel.png')
         this.load.image('playAgain', '/img/Games/Common/gameover/playAgainButton.png')
 
-        // this.load.image('background','/img/Games/Common/background.png')
-        this.load.image(background.name,background.src)
+        this.load.image('background','/img/Games/Common/background.png')
+        // this.load.image(background.name,background.src)
 
 
         this.load.image('balloon1', '/img/Games/ShootingGame/balloon1.png')
@@ -47,8 +47,8 @@ export default class ShootingGameScene extends Phaser.Scene{
     create(){
         const {background,timeText} = this.modifyDatas
         
-        // this.add.image(400,320 ,'background').setScale(1)
-        this.add.image(background.position.x,background.position.y ,'background').setScale(background.size/100)
+        this.add.image(400,320 ,'background').setScale(1)
+        // this.add.image(background.position.x,background.position.y ,'background').setScale(background.size/100)
 
 
         this.cursor = this.input.keyboard.createCursorKeys()
@@ -115,14 +115,16 @@ export default class ShootingGameScene extends Phaser.Scene{
     }
 
     createGameTimer(timeText){
-        const {text} = timeText
+        // const {text} = timeText
         //Timer
-        // const timerLabel2 = this.add.text(16, 54, "time", {
-        //     "fontSize": 32,
-        //     "fill": "#000"
-        // })
-        const timerLabel2 = this.add.text(text.x, text.y, text.content, text.style)
-        this.gameTimer = new GameTimer(this, timerLabel2, text.content)
+        const timerLabel2 = this.add.text(16, 54, "time", {
+            "fontSize": 32,
+            "fill": "#000"
+        })
+        // const timerLabel2 = this.add.text(text.x, text.y, text.content, text.style)
+        // this.gameTimer = new GameTimer(this, timerLabel2, text.content)
+        this.gameTimer = new GameTimer(this, timerLabel2, "time")
+
         this.gameTimer.start(this.gameover.bind(this),3000)//5s
     }
 

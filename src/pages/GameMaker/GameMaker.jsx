@@ -29,58 +29,75 @@ export default class GameMaker extends Component {
         background: {
           modifyTitle: "遊 戲 背 景",
           name: "background",
-          type: "png",
-          src: "/img/Games/Common/background.png",
-          position: {
-            x: 400,
-            y: 320
-          },
-          size: 100
+          items: [
+            {
+              parent: "background",
+              name: "background",
+              modifyTitle: "遊 戲 背 景",
+              img: {
+                type: "png",
+                src: "/img/Games/Common/background.png",
+                position: {
+                  x: 400,
+                  y: 320
+                },
+                size: 100
+              }
+            }
+          ]
         },
-        timeText: {
-          modifyTitle: "時 間 文 字 方 塊",
-          description: "當接到、擊破道具時會出現的文字",
-          name: "timeText",
-          text: {
-            content: "time",
-            style: {
-              fontSize: 32,
-              fill: "#000"
-            },
-            x: 16,
-            y: 54
-          }
-        },
+        // timeText: {
+        //   modifyTitle: "時 間 文 字 方 塊",
+        //   description: "當接到、擊破道具時會出現的文字",
+        //   name: "timeText",
+        //   text: {
+        //     content: "time",
+        //     style: {
+        //       fontSize: 32,
+        //       fill: "#000"
+        //     },
+        //     x: 16,
+        //     y: 54
+        //   }
+        // },
         balloon: {
-          modifyTitle: "時 間 文 字 方 塊",
+          modifyTitle: "氣 球",
           name: "balloon",
           items: [
             {
-              modifyTitle: "氣 球 1",
+              parent: "balloon",
               name: "balloon1",
-              text: "祝你天天開心！",
-              src: "src/assets/balloon1.png",
-              size: 55
+              modifyTitle: "氣 球 1",
+              img: {
+                src: "/img/Games/ShootingGame/balloon1.png",
+                position: {
+                  x: 400,
+                  y: 320
+                },
+                size: 55
+              },
+              text: {
+                content: "祝你天天開心！",
+              }
             },
             {
-              modifyTitle: "氣 球 2",
+              parent: "balloon",
               name: "balloon2",
-              text: "祝你事事順利！",
-              src: "src/assets/balloon2.png",
-              size: 55
+              modifyTitle: "氣 球 2",
+              img: {
+                src: "/img/Games/ShootingGame/balloon2.png",
+                position: {
+                  x: 400,
+                  y: 320
+                },
+                size: 55
+              },
+              text: {
+                content: "祝你事事順利！",
+              }
             }
           ]
-        },gun: {
-          modifyTitle: "舉 槍 的 圖 片",
-          name: "gun",
-          type: "png",
-          src: "/img/Games/ShootingGame/gun.png",
-          position: {
-            x: 200,
-            y: 210
-          },
-          size: 50
-        },
+        }
       }
 
       this.setState({
@@ -89,8 +106,23 @@ export default class GameMaker extends Component {
       })
       
       PubSub.subscribe("setFormDatas", (msg,datas)=>{
+        const {parent} = datas.values
+        const {items} = this.state.gameModifyDatas[parent]
+        console.log("data", datas);
+        console.log(items);
+        const newItems = items.map((itemObj)=>{
+          if(itemObj.name === datas.values.name){
+            return datas.values
+          }else{
+            return itemObj
+          }
+        })
+        console.log("new", newItems);
         this.setState({
-          gameModifyDatas: {...gameModifyDatas, [datas.name]: datas.values}
+          gameModifyDatas: {...gameModifyDatas, [parent]: {
+            ...gameModifyDatas[parent],
+            items: newItems
+          }}
         })
       })
 
@@ -106,7 +138,7 @@ export default class GameMaker extends Component {
 
   render() {
     const {gameModifyDatas} = this.state
-    // console.log(gameModifyDatas);
+    console.log("game: ", gameModifyDatas);
     return (
         <div className="container-fluid">
           <GameScreen></GameScreen>

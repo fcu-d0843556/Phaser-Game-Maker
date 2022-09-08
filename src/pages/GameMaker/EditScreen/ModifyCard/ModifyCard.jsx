@@ -10,19 +10,19 @@ export default class ModifyCard extends Component {
   render() {
     // console.log("modify",this.props);
 
-    const {modifyTitle,items,src,text} = this.props
-    
+    const {modifyTitle,img,text} = this.props
+    // console.log("modif",this.props);
     return (
         <div className="card text-center modify-card" style={{backgroundColor: "orange"}}>
             <div className="card-header">
               {
-                items ? 
-                  <div className="mb-3">
-                    <button type="button" style={{float:"left"}} className="btn btn-dark">上一個</button>
-                    <label className="form-label">{modifyTitle}</label>
-                    <button type="button" style={{float:"right"}} className="btn btn-dark">下一個</button>
-                  </div>
-                :
+                // items ? 
+                //   <div className="mb-3">
+                //     <button type="button" style={{float:"left"}} className="btn btn-dark">上一個</button>
+                //     <label className="form-label">{modifyTitle}</label>
+                //     <button type="button" style={{float:"right"}} className="btn btn-dark">下一個</button>
+                //   </div>
+                // :
                   <div className="mb-3">
                     <label className="form-label">{modifyTitle}</label>
                   </div>
@@ -30,7 +30,7 @@ export default class ModifyCard extends Component {
             </div> 
 
             {
-              src ? 
+              img ? 
                 <div>
                   <ImageSettings {...this.props}></ImageSettings>
                 </div>

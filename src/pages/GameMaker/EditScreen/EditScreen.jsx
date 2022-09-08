@@ -41,9 +41,19 @@ export default class EditScreen extends Component {
                                     <div id="allCards">
                                         {
                                             Object.keys(gameModifyDatas).map((key) => {
-                                                return (
-                                                    <ModifyCard key={gameModifyDatas[key].name}  {...gameModifyDatas[key]}></ModifyCard>
-                                                )
+                                                if(gameModifyDatas[key].items){
+                                                    return gameModifyDatas[key].items.map((itemObj) => {
+                                                        // console.log(itemObj);
+                                                        return (
+                                                            <ModifyCard key={itemObj.name}  {...itemObj}></ModifyCard>
+                                                        )
+                                                    })
+                                                    
+                                                }else{
+                                                    return (
+                                                        <ModifyCard key={gameModifyDatas[key].name}  {...gameModifyDatas[key]}></ModifyCard>
+                                                    )
+                                                }
                                             })
                                         }
                                             
