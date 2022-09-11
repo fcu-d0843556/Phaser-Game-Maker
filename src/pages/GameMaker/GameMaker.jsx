@@ -109,6 +109,59 @@ export default class GameMaker extends Component {
                 description: "擊破氣球時會顯示出的文字",
                 content: "祝你事事順利！",
               }
+            },
+            {
+              parent: "balloon",
+              name: "balloon3",
+              modifyTitle: "氣 球 3",
+              img: {
+                src: "/img/Games/ShootingGame/balloon3.png",
+                position: {
+                  x: 400,
+                  y: 320
+                },
+                size: 55
+              },
+              text: {
+                modifyTitle: "氣 球 擊 破 文 字",
+                description: "擊破氣球時會顯示出的文字",
+                content: "祝你事事順利！",
+              }
+            },{
+              parent: "balloon",
+              name: "balloon4",
+              modifyTitle: "氣 球 4",
+              img: {
+                src: "/img/Games/ShootingGame/balloon4.png",
+                position: {
+                  x: 400,
+                  y: 320
+                },
+                size: 55
+              },
+              text: {
+                modifyTitle: "氣 球 擊 破 文 字",
+                description: "擊破氣球時會顯示出的文字",
+                content: "祝你事事順利！",
+              }
+            },
+            {
+              parent: "balloon",
+              name: "balloon5",
+              modifyTitle: "氣 球 5",
+              img: {
+                src: "/img/Games/ShootingGame/balloon5.png",
+                position: {
+                  x: 400,
+                  y: 320
+                },
+                size: 55
+              },
+              text: {
+                modifyTitle: "氣 球 擊 破 文 字",
+                description: "擊破氣球時會顯示出的文字",
+                content: "祝你事事順利！",
+              }
             }
           ]
         }

@@ -99,8 +99,6 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.starCoolDown = new DropTimeCounter(this,"")
         this.starCoolDown.start(this.createBalloon.bind(this),500)//5s
 
-
-
         this.createMouseTracker()
         
 

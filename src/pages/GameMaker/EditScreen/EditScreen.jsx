@@ -4,6 +4,7 @@ import PubSub from 'pubsub-js'
 //Pages
 import DefaultFileBox from './DefaultFileBox/DefaultFileBox'
 import ModifyCard from './ModifyCard/ModifyCard'
+import ModifyTab from './ModifyTab/ModifyTab'
 
 import './EditScreen.css'
 
@@ -42,18 +43,35 @@ export default class EditScreen extends Component {
                                         {
                                             Object.keys(gameModifyDatas).map((key) => {
                                                 if(gameModifyDatas[key].items){
-                                                    return gameModifyDatas[key].items.map((itemObj) => {
-                                                        // console.log(itemObj);
+                                                    return gameModifyDatas[key].items.map((itemObj,index) => {
                                                         return (
-                                                            <ModifyCard key={itemObj.name}  {...itemObj}></ModifyCard>
+                                                            !index ? 
+                                                                <div key={itemObj.name}>
+                                                                    {
+                                                                        gameModifyDatas[key].items.map((itemObj,index) => {
+                                                                            // console.log(itemObj);
+                                                                            return (
+                                                                                
+                                                                                <ModifyTab key={itemObj.name} parent={itemObj.parent} keyword={itemObj.name} modifyTitle={itemObj.modifyTitle} ></ModifyTab>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                    <ModifyCard key={itemObj.name} {...itemObj} showCard={true}></ModifyCard>
+                                                                </div>
+                                                            :
+                                                                <div key={itemObj.name}>
+                                                                    <ModifyCard key={itemObj.name} {...itemObj} showCard={false}></ModifyCard>
+                                                                </div>
+                                                            
                                                         )
                                                     })
                                                     
-                                                }else{
-                                                    return (
-                                                        <ModifyCard key={gameModifyDatas[key].name}  {...gameModifyDatas[key]}></ModifyCard>
-                                                    )
                                                 }
+                                                // else{
+                                                //     return (
+                                                //         <ModifyCard key={gameModifyDatas[key].name}  {...gameModifyDatas[key]}></ModifyCard>
+                                                //     )
+                                                // }
                                             })
                                         }
                                             

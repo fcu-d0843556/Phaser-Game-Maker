@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 export default class DefaultFileBox extends Component {
   render() {
     return (
-        <div id="detailCard" className="overflow card col-7">
+        <div id="detailCard" className="overflow card col-7" style={{backgroundColor: "lightpink"}}>
             
             <button type="button" style={{float: "right"}} className="btn-close" aria-label="Close"></button>
             
