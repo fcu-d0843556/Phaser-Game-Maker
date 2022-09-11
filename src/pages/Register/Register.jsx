@@ -18,7 +18,8 @@ export default class register extends Component {
             username,
             password
           },
-        }).then(
+        }
+      ).then(
         response => {
           if (response.data.isSuccessed) this.props.history.replace(`/home`,{
             username

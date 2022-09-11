@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import axios from 'axios'
 import {Button} from 'antd'
  
 
@@ -21,156 +22,28 @@ export default class GameMaker extends Component {
       const {gameId} = this.props.location.state
       this.setState({gameId}) 
 
-    
+      let gameModifyDatas
       //get user data
-
-      //result get background object
-      const gameModifyDatas = {
-        background: {
-          modifyTitle: "遊 戲 背 景",
-          name: "background",
-          items: [
-            {
-              parent: "background",
-              name: "background",
-              modifyTitle: "遊 戲 背 景",
-              img: {
-                type: "png",
-                src: "/img/Games/Common/background.png",
-                position: {
-                  x: 400,
-                  y: 320
-                },
-                size: 100
-              }
-            }
-          ]
-        },
-        timeText: {
-          modifyTitle: "時 間 文 字 方 塊",
-          name: "timeText",
-          items: [
-            {
-              parent: "timeText",
-              name: "timeText",
-              modifyTitle: "時 間 文 字 方 塊",
-              text: {
-                modifyTitle: "時 間",
-                description: "當接到、擊破道具時會出現的文字",
-                content: "time",
-                style: {
-                  fontSize: 32,
-                  fill: "#000"
-                },
-                x: 16,
-                y: 54
-              }
-            }
-          ]
-          
-          
-        },
-        balloon: {
-          modifyTitle: "氣 球",
-          name: "balloon",
-          items: [
-            {
-              parent: "balloon",
-              name: "balloon1",
-              modifyTitle: "氣 球 1",
-              img: {
-                src: "/img/Games/ShootingGame/balloon1.png",
-                position: {
-                  x: 400,
-                  y: 320
-                },
-                size: 55
-              },
-              text: {
-                modifyTitle: "氣 球 擊 破 文 字",
-                description: "擊破氣球時會顯示出的文字",
-                content: "祝你天天開心！",
-              }
-            },
-            {
-              parent: "balloon",
-              name: "balloon2",
-              modifyTitle: "氣 球 2",
-              img: {
-                src: "/img/Games/ShootingGame/balloon2.png",
-                position: {
-                  x: 400,
-                  y: 320
-                },
-                size: 55
-              },
-              text: {
-                modifyTitle: "氣 球 擊 破 文 字",
-                description: "擊破氣球時會顯示出的文字",
-                content: "祝你事事順利！",
-              }
-            },
-            {
-              parent: "balloon",
-              name: "balloon3",
-              modifyTitle: "氣 球 3",
-              img: {
-                src: "/img/Games/ShootingGame/balloon3.png",
-                position: {
-                  x: 400,
-                  y: 320
-                },
-                size: 55
-              },
-              text: {
-                modifyTitle: "氣 球 擊 破 文 字",
-                description: "擊破氣球時會顯示出的文字",
-                content: "祝你事事順利！",
-              }
-            },{
-              parent: "balloon",
-              name: "balloon4",
-              modifyTitle: "氣 球 4",
-              img: {
-                src: "/img/Games/ShootingGame/balloon4.png",
-                position: {
-                  x: 400,
-                  y: 320
-                },
-                size: 55
-              },
-              text: {
-                modifyTitle: "氣 球 擊 破 文 字",
-                description: "擊破氣球時會顯示出的文字",
-                content: "祝你事事順利！",
-              }
-            },
-            {
-              parent: "balloon",
-              name: "balloon5",
-              modifyTitle: "氣 球 5",
-              img: {
-                src: "/img/Games/ShootingGame/balloon5.png",
-                position: {
-                  x: 400,
-                  y: 320
-                },
-                size: 55
-              },
-              text: {
-                modifyTitle: "氣 球 擊 破 文 字",
-                description: "擊破氣球時會顯示出的文字",
-                content: "祝你事事順利！",
-              }
-            }
-          ]
+      axios(
+        {
+          method: 'get',
+          url: 'api1/getGameDatas',
+          params: {
+            gameId
+          }
         }
-      }
-
-      this.setState({
-        game: startGame(gameId,gameModifyDatas),
-        gameModifyDatas
-      })
+      ).then(
+        response => {
+          
+          gameModifyDatas = response.data
+          this.setState({
+            game: startGame(gameId,gameModifyDatas),
+            gameModifyDatas
+          })
+        },
+        error => {console.log(error);}
+      )
+      
       
       PubSub.subscribe("setFormDatas", (msg,datas)=>{
         const {parent} = datas.values
