@@ -4,6 +4,7 @@ import PubSub from 'pubsub-js'
 //Pages
 import GetItemMessage from './GetItemMessage/GetItemMessage'
 import ImageSettings from './ImageSettings/ImageSettings'
+import QuestionCard from './QuestionCard/QuestionCard'
 
 import './ModifyCard.css'
 
@@ -34,7 +35,7 @@ export default class ModifyCard extends Component {
 
   render() {
 
-    const {modifyTitle,img,text,name} = this.props
+    const {modifyTitle,img,text,name,question} = this.props
     const {showCard} = this.state
     
     return (
@@ -63,6 +64,12 @@ export default class ModifyCard extends Component {
                 <div></div>
             }
 
+            {
+              question ? 
+                <QuestionCard {...this.props}></QuestionCard>
+              :
+                <div></div>
+            }
         </div>
     )
   }
