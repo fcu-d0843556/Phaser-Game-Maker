@@ -48,8 +48,8 @@ export default class GameMaker extends Component {
       PubSub.subscribe("setFormDatas", (msg,datas)=>{
         const {parent} = datas.values
         const {items} = this.state.gameModifyDatas[parent]
-        console.log("data", datas);
-        console.log(items);
+        // console.log("data", datas);
+        // console.log(items);
         const newItems = items.map((itemObj)=>{
           if(itemObj.name === datas.values.name){
             return datas.values
@@ -57,7 +57,7 @@ export default class GameMaker extends Component {
             return itemObj
           }
         })
-        console.log("new", newItems);
+        // console.log("new", newItems);
         this.setState({
           gameModifyDatas: {...gameModifyDatas, [parent]: {
             ...gameModifyDatas[parent],
@@ -78,7 +78,7 @@ export default class GameMaker extends Component {
 
   render() {
     const {gameModifyDatas} = this.state
-    console.log("game: ", gameModifyDatas);
+    // console.log("game: ", gameModifyDatas);
     return (
         <div className="container-fluid">
           <GameScreen></GameScreen>

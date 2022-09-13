@@ -23,7 +23,7 @@ export default class GetItemMessage extends Component {
     }
   
     render() {
-        const {description,content,modifyTitle} = this.props.text
+        const {description,content,modifyTitle,inputType} = this.props.text
         return (
             <div>
 
@@ -31,7 +31,7 @@ export default class GetItemMessage extends Component {
                     <div className="mb-3">
                         <label className="form-label modify-card-title">{modifyTitle}</label>
                         <br/>
-                        填入訊息： <input type="text" onChange={this.changeValue("content")} value={content}/>
+                        填入訊息： <input type={inputType} onChange={this.changeValue("content")} value={content}/>
                     </div>
                 </div>
                 

@@ -21,25 +21,22 @@ class Header extends Component {
     }
     
     componentDidMount(){
+        localStorage.setItem('username', '')
+        
         PubSub.subscribe("setUsername", (msg,username)=>{
             this.setState({username})
+            localStorage.setItem('username', username)
         })
 
-        // const {username} = this.props.location.state || {}
-        // if(username){
-        //     this.setState({
-        //         username    
-        //     })
-        // }
     }
 
     logOut = () => {
         this.setState({username: ''})
+        localStorage.setItem('username', '')
     }
 
     render() {
-        // console.log(this.props);
-        const {username} = this.props.location.state || {}
+        const username = localStorage.getItem('username') || ''
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky">
