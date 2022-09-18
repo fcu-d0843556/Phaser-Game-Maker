@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import './GameScreen.css'
+
 export default class GameScreen extends Component {
 
   render() {

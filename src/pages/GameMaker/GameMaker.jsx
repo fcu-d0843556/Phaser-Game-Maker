@@ -84,7 +84,6 @@ export default class GameMaker extends Component {
           <GameScreen></GameScreen>
           {/* <EditScreen gameId={this.props.gameId}></EditScreen> */}
           <EditScreen gameModifyDatas={gameModifyDatas}></EditScreen>
-
         </div>
     )
   }

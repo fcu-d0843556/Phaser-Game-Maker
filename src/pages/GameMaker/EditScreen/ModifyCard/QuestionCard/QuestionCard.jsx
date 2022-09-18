@@ -1,8 +1,7 @@
-import React, { Component, useState }  from 'react'
+import React, { Component }  from 'react'
 import PubSub from 'pubsub-js'
 
 import { Input, Radio, Space } from 'antd';
-
 
 
 export default class QuestionCard extends Component {

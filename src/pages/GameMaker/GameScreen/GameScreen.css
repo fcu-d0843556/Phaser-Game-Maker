@@ -1,0 +1,39 @@
+.phone-style{
+    background-image: url("/public/img/phonestyleDis.svg");
+    width: 410px;
+    height: 740px;
+    position: absolute;
+}
+
+#phaser-container {
+    /* width           : 40% !important; */
+    /* padding: 25px; */
+	margin-top      : 50px;
+    margin-left     : auto;
+    margin-right    : auto;
+	display			: flex;
+	justify-content	: center;
+    z-index         : 10;
+}
+
+@media (max-width:480px) {
+    #phaser-container{
+        width: 100% !important;
+        justify-content	: center;
+    }
+}
+
+@media (max-height:790px) , (max-width:576px) and (min-height:790px){
+    #phaser-container{
+        margin-top      : 56px;
+    }
+
+    .phone-style{
+        /* background-image: none;
+        width: 360px;
+        top: 0;
+        left: 0; */
+        display: none;
+    }
+}
+

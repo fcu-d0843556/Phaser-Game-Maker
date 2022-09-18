@@ -7,6 +7,16 @@
     position: absolute;
 }
 
+@media (max-height:790px) , (max-width:420px) and (min-height:790px){
+    .phone-style{
+        background-image: none;
+        width: 360px;
+        top: 0;
+        left: 0;
+    }
+}
+
+
 .translate-mid{
     transform: translateX(-50%) !important;
 }
@@ -35,11 +45,3 @@
     background-color: rgb(200, 200, 200);
 }
 
-@media (max-height:790px) , (max-width:420px) and (min-height:790px){
-    .phone-style{
-        background-image: none;
-        width: 360px;
-        top: 0;
-        left: 0;
-    }
-}

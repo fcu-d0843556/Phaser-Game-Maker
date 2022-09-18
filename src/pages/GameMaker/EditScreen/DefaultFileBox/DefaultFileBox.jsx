@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 
+import './DefaultFileBox.css'
 
 export default class DefaultFileBox extends Component {
   render() {
     return (
-        <div id="detailCard" className="overflow card col-7" style={{backgroundColor: "lightpink"}}>
+        <div className="overflow card col-6 detail-card" style={{backgroundColor: "lightpink"}}>
             
             <button type="button" style={{float: "right"}} className="btn-close" aria-label="Close"></button>
             

@@ -1,15 +1,5 @@
 
-/* body{
-	background-color	: rgb(255, 199, 127) !important;
-} */
-
-.middle{
-    margin-left: auto;
-    margin-right: auto;
-	justify-content	: center;
-}
-
-.bd-link{
+.modify-cards-screen{
     left: 100%;
     /* position: sticky; */
     /* display: block !important; */
@@ -19,49 +9,11 @@
     overflow-y: auto;
 }
 
-.loginBox{
-    margin-bottom: 30px;
-    background-color: orange;
+.edit-button{
+    float: right;
 }
 
-.fixed{
-    position: fixed;
-}
-
-/* .overflow{
-    position: sticky;
-    display: block !important;
-    height: calc(100vh - 4rem);
-    overflow-y: auto;
-    visibility: hidden;
-} */
-
-
-#phaser-app {
-    /* width           : 40% !important; */
-    /* padding: 25px; */
-	margin-top      : 50px;
-    margin-left     : auto;
-    margin-right    : auto;
-	display			: flex;
-	justify-content	: center;
-    z-index         : 10;
-}
-
-
-/* .mobile{
-    display: none;
-} */
-
-.sticky{
-    position: sticky !important;
-    top: 0;
-    right: 0;
-    z-index: 20;
-}
-
-
-
+/* 
 #guideMark{
     position: absolute;
     bottom: 30px;
@@ -77,53 +29,24 @@
 #guideMark svg{
     width: 70px;
     height: 70px;
-}
+} */
 
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width:576px){
 
-
-.phone-style{
-    background-image: url("/public/img/phonestyleDis.svg");
-    width: 410px;
-    height: 740px;
-    position: fixed;
-    /* z-index         : 1000; */
-}
-
-.md{
-    margin-left: auto;
-    width: 100%;
-    height: 100%;
-    margin-right: auto;
-}
-
-@media (max-width:480px) {
-
-    #phaser-app {
-        width: 100% !important;
-        justify-content	: center;
+    .modify-with-default-screen{
+        width: 100%;
     }
 
     .right-select-bar{
-        visibility: hidden;
-    }
-
-}
-
-@media (max-width:900px) {
-
-    .mobile{
-        display: flex;
+        width: 100%;
     }
 }
 
-@media (max-height:790px) , (max-width:420px) and (min-height:790px){
-    .phone-style{
-        background-image: none;
-        width: 360px;
-        top: 0;
-        left: 0;
-    }
-    #phaser-app{
-        margin-top      : 56px;
+/* Medium devices (tablets, 768px and up) */
+@media (max-width:768px){
+
+    .modify-with-default-screen{
+        width: 100%;
     }
 }
