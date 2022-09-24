@@ -44,7 +44,10 @@ export default class GameMaker extends Component {
         error => {console.log(error);}
       )
       
-      
+      PubSub.subscribe("getGameId",(msg)=>{
+        const {gameId} = this.state
+        return gameId
+      })
       PubSub.subscribe("setFormDatas", (msg,datas)=>{
         const {parent} = datas.values
         const {items} = this.state.gameModifyDatas[parent]
@@ -77,13 +80,13 @@ export default class GameMaker extends Component {
   }
 
   render() {
-    const {gameModifyDatas} = this.state
+    const {gameModifyDatas,gameId} = this.state
     // console.log("game: ", gameModifyDatas);
     return (
         <div className="container-fluid">
           <GameScreen></GameScreen>
           {/* <EditScreen gameId={this.props.gameId}></EditScreen> */}
-          <EditScreen gameModifyDatas={gameModifyDatas}></EditScreen>
+          <EditScreen gameModifyDatas={gameModifyDatas} gameId={gameId}></EditScreen>
         </div>
     )
   }

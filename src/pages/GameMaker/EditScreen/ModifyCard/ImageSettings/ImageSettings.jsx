@@ -11,6 +11,11 @@ export default class ImageSettings extends Component {
         this.setState({
             ImageDatas: {...this.props}
         })
+        PubSub.subscribe("usingDefaultDatas",(msg,defaultItem)=>{
+            // const {ImageDatas} = this.state
+            // console.log(ImageDatas);
+            PubSub.publish("setFormDatas",{name: this.props.name, values: defaultItem})
+        })
     }
 
     changePositionValue = (type) => {
@@ -25,6 +30,11 @@ export default class ImageSettings extends Component {
         const {ImageDatas} = this.state
         ImageDatas.img.size = event.target.value
         PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+    }
+
+    showDefaultCard = () => {
+        const {parent} = this.state.ImageDatas
+        PubSub.publish('showDefaultCard',parent)
     }
 
     render() {
@@ -60,7 +70,7 @@ export default class ImageSettings extends Component {
                     </div>
 
                     <div className="card-body">
-                        <button type="button" className="btn btn-dark">使用其他提供的圖片</button>
+                        <button type="button" onClick={this.showDefaultCard} className="btn btn-dark">使用其他提供的圖片</button>
                     </div>
                 </div>
             </div>

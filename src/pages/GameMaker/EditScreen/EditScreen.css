@@ -32,6 +32,7 @@
 } */
 
 /* Small devices (landscape phones, 576px and up) */
+/* Only have right yellow cards */
 @media (max-width:576px){
 
     .modify-with-default-screen{
@@ -44,6 +45,7 @@
 }
 
 /* Medium devices (tablets, 768px and up) */
+/* default and modify cards 100%*/
 @media (max-width:768px){
 
     .modify-with-default-screen{

@@ -13,7 +13,7 @@ export default class ModifyCard extends Component {
   state = {
     showCard: undefined
   }
-
+  
   componentDidMount(){
     const {name,parent} = this.props
     this.setState({

@@ -21,15 +21,21 @@ export default class ShootingGameScene extends Phaser.Scene{
     preload(){
 
         this.modifyDatas = this.scene.settings.data
-        // console.log("modifyDatas : ", this.modifyDatas)
+        console.log("modifyDatas : ", this.modifyDatas)
+
+        this.textures.remove('background')
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
             this.modifyDatas[key].items.forEach((itemObj)=>{
-                if( itemObj.img ) this.load.image( itemObj.name, itemObj.img.src )
+                if( itemObj.img ) {
+                    // console.log("itemObj.img",itemObj.img);
+                    this.load.image( itemObj.name, itemObj.img.src )
+                }
             })
         })
 
+        
         this.load.image('gun','/img/Games/ShootingGame/gun.png')
         this.load.image('target','/img/Games/ShootingGame/target.png')
         this.load.image('hitbox','/img/Games/ShootingGame/target.png')

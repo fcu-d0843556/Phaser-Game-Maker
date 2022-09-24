@@ -23,7 +23,7 @@ export default class EditScreen extends Component {
 
     render() {
         // console.log(this.props);
-        const {gameModifyDatas} = this.props
+        const {gameModifyDatas,gameId} = this.props
         // console.log("gg",gameModifyDatas);
 
         return (
@@ -33,7 +33,7 @@ export default class EditScreen extends Component {
                 <div className="col-8 modify-with-default-screen">
                     <div className="row">
 
-                        <DefaultFileBox></DefaultFileBox>
+                        <DefaultFileBox gameId={gameId}></DefaultFileBox>
 
                         <div className="col-6 right-select-bar" id="allCards" >
                             <div className="modify-cards-screen">
@@ -78,7 +78,7 @@ export default class EditScreen extends Component {
                                     </div>
 
                                     <div className="card-footer text-muted fixed-bottom" style={{backgroundColor: "rgba(0, 0, 0, 0.664)"}}>
-                                        <button type="submit" className="btn btn-warning edit-button">提交資料</button>
+                                        <button className="btn btn-warning edit-button">提交資料</button>
                                         {/* <button type="button" className="btn btn-danger edit-button">回到默認資料</button>
                                         <button type="button" className="btn btn-primary edit-button">生成遊戲</button> */}
                                     </div>
