@@ -23,41 +23,46 @@ export default class DefaultFileBox extends Component {
         PubSub.subscribe('showDefaultCard', (msg,ids)=>{
             const {gameId} = this.props
             const {selectedCardName} = this.state
-            
-            axios({
-                method: "get",
-                url: "/api1/getDefaultImgDatas",
-                params: {
-                    gameId: gameId,
-                    name: ids.parent
-                }
-            }).then(
-                response => {
-                    const title = response.data.items[0].modifyTitle.replaceAll(" ","")
-                    this.setState({
-                        defaultItems: response.data.items,
-                        modifyTitle: title
-                    })
-                    console.log(response.data.items);
+            // console.log("selectedCardName",selectedCardName);
+            if(ids.name === selectedCardName){
+                // console.log("close");
+                this.setState({
+                    selectedCardName: "",
+                    isDefaultCardOpen: false
+                })
+            }else{
+                // console.log("open");
+                this.setState({
+                    selectedCardName: ids.name,
+                    isDefaultCardOpen: true
+                })
 
-                    if(ids.name === selectedCardName){
-                        this.setState({
-                            selectedCardName: "",
-                            isDefaultCardOpen: false
-                        })
-                    }else{
-                        this.setState({
-                            selectedCardName: ids.name,
-                            isDefaultCardOpen: true
-                        })
+                axios({
+                    method: "get",
+                    url: "/api1/getDefaultImgDatas",
+                    params: {
+                        gameId: gameId,
+                        name: ids.parent
                     }
-                },
-                error => {
-                    console.log(error);
-                }
-            )
-            
-            
+                }).then(
+                    response => {
+                        // console.log(ids);
+                        const title = response.data.items.find((item)=>{
+                            // console.log(ids.name,item.name);
+                            return ids.name === item.name
+                        })
+                        const modifyTitle = title.modifyTitle.replaceAll(" ","")
+                        this.setState({
+                            defaultItems: response.data.items,
+                            modifyTitle: modifyTitle,
+    
+                        })
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                )
+            }
         })
         
     }
@@ -65,28 +70,33 @@ export default class DefaultFileBox extends Component {
     selectCard = (id) => {
         return () => {
             
-            const {defaultItems,selectedItem} = this.state
+            const {defaultItems,selectedCardName,selectedItemId} = this.state
 
             const item = defaultItems.find((item)=>{ return id === item.defaultData.description})
-            if(selectedItem === item){
+            // console.log("item222",selectedItemId,item);
+            if(selectedItemId === item.defaultData.description){
                 this.setState({
-                    selectedItem: {},
+                    // selectedItem: {},
                     selectedItemId: ""
                 })
                 PubSub.publish("usingDefaultDatas",{
                     isSelected: false,
-                    selectedItem: item
+                    selectedItem: item,
+                    selectedCardName
                 })
-                console.log("rere");
+                // console.log("rere");
             }else{
-                PubSub.publish("usingDefaultDatas",{
-                    isSelected: true,
-                    selectedItem: item
+                // console.log("selectedItemId",id);
+                this.setState({
+                    // selectedItem: item,
+                    selectedItemId: item.defaultData.description
                 })
 
-                this.setState({
+                
+                PubSub.publish("usingDefaultDatas",{
+                    isSelected: true,
                     selectedItem: item,
-                    selectedItemId: item.defaultData.description
+                    selectedCardName
                 })
             }
             
@@ -95,7 +105,7 @@ export default class DefaultFileBox extends Component {
 
     render() {
         const {isDefaultCardOpen,defaultItems,selectedItemId,modifyTitle} = this.state
-        // console.log(this.state);
+        // console.log(modifyTitle);
 
         return (
             <div className="overflow card col-6 detail-card default-card-screen" style={{backgroundColor: "lightpink", visibility: isDefaultCardOpen ? 'visible' : 'hidden'}}>

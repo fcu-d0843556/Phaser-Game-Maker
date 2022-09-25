@@ -5,7 +5,6 @@ export default class ImageSettings extends Component {
 
     state = {
         ImageDatas: {},
-        saveItem: {}
     }
     
     componentDidMount(){
@@ -15,18 +14,20 @@ export default class ImageSettings extends Component {
         })
 
         PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
-            const {saveItem,ImageDatas} = this.state
-           
-            if(status.selectedItem.name === ImageDatas.name){
+            const {ImageDatas} = this.state
+            // console.log(ImageDatas);
+            // console.log("status.selectedCardName",status.selectedCardName,ImageDatas.name);
+            if(status.selectedCardName === ImageDatas.name){
+                // console.log('dd',ImageDatas);
                 if(status.isSelected){
-                    this.setState({
-                        ImageDatas: status.selectedItem,
-                        saveItem: ImageDatas
-                    })
-                    PubSub.publish("setFormDatas",{name: this.props.name, values: status.selectedItem})
+                    // console.log("ok");
+                    ImageDatas.img = status.selectedItem.img
+                    this.setState({ImageDatas})
+                    PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }else{
-                    this.setState({ImageDatas: saveItem})
-                    PubSub.publish("setFormDatas",{name: this.props.name, values: saveItem})
+                    // console.log("no",saveItem);
+                    // this.setState({ImageDatas: saveItem})
+                    // PubSub.publish("setFormDatas",{name: this.props.name, values: saveItem})
                 }
             }
         })
@@ -42,7 +43,7 @@ export default class ImageSettings extends Component {
 
     changeSizeValue = (event) => {
         const {ImageDatas} = this.state
-        ImageDatas.img.size = event.target.value
+        ImageDatas.img.size = parseInt(event.target.value)
         PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
     }
 
@@ -51,7 +52,8 @@ export default class ImageSettings extends Component {
             const {parent} = this.state.ImageDatas
             // console.log("get : " , name, parent);
             PubSub.publish('showDefaultCard',{
-                name,parent
+                name: name,
+                parent: parent
             })
         }
     }
@@ -92,7 +94,7 @@ export default class ImageSettings extends Component {
                     </div>
 
                     <div className="card-body">
-                        <button type="button" onClick={this.showDefaultCard({name})} className="btn btn-dark">使用其他提供的圖片</button>
+                        <button type="button" onClick={this.showDefaultCard(name)} className="btn btn-dark">使用其他提供的圖片</button>
                     </div>
                 </div>
             </div>
