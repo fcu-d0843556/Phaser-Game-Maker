@@ -37,7 +37,7 @@ export default class ModifyCard extends Component {
 
     const {modifyTitle,img,text,name,question} = this.props
     const {showCard} = this.state
-    
+    // console.log(this.props);
     return (
         <div name={name} className="card text-center modify-card" style={{display: showCard ? 'block': 'none'}}>
             <div className="card-header">

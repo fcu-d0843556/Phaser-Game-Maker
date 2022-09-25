@@ -1,11 +1,9 @@
 
 .modify-cards-screen{
     left: 100%;
-    /* position: sticky; */
-    /* display: block !important; */
-    height: calc(100vh - 4rem);
-    padding-left: 0.25rem;
-    margin-left: -0.25rem;
+    height: calc(100vh - 4rem); 
+    /* padding-left: 0.25rem; */
+    /* margin-left: -0.25rem; */
     overflow-y: auto;
 }
 

@@ -11,3 +11,8 @@
 .selected-default-card{
     border: 5px #0d6efd solid;
 }
+
+.default-card-screen{
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
