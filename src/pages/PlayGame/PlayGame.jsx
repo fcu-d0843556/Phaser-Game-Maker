@@ -24,15 +24,22 @@ export default class RenderGame extends Component {
       url: "/api1/getGameDatas",
       params: {
         gameId,
-        username
+        username,
+        userMode: "play"
       }
     }).then(
       response => {
-        // console.log("data",response.data );
-        this.setState({
-          game: startGame(gameId,response.data),
-        })
-        console.log("res", response);
+        if(!response.data.notFound){
+          this.setState({
+            game: startGame(gameId,response.data.gameDatas),
+          })
+        }else{
+          alert(response.data.message)
+        }
+        
+        // console.log("message: ",response.data.message );
+        // console.log(response.data.notFound);
+        // console.log("res", response);
       },
       error => {
         console.log("err", error);

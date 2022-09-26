@@ -34,14 +34,16 @@ export default class GameMaker extends Component {
           method: 'get',
           url: 'api1/getGameDatas',
           params: {
-            gameId
+            gameId,
+            username: localStorage.getItem('username'),
+            userMode: "modify"
           }
         }
       ).then(
         response => {
           
-          gameModifyDatas = response.data
-          // console.log("data",response.data );
+          gameModifyDatas = response.data.gameDatas
+          console.log("message: ",response.data.message );
           this.setState({
             game: startGame(gameId,gameModifyDatas),
             gameModifyDatas
