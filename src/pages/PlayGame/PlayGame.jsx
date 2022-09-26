@@ -15,6 +15,8 @@ export default class RenderGame extends Component {
   }
 
   componentDidMount(){
+
+    console.log("playGame!");
     const {search} = this.props.location;
     const {gameId, username} = qs.parse(search.slice(1))
     console.log(gameId,username);

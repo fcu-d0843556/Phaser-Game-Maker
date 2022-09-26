@@ -1,14 +1,23 @@
 import React, { Component } from 'react'
-import {Button} from 'antd'
-import { Divider, Radio, Typography } from 'antd';
+import { withRouter } from 'react-router-dom';
+
+import {Button,Typography} from 'antd'
+
 const { Paragraph } = Typography;
 
-export default class RenderGameDone extends Component {
+class RenderGameDone extends Component {
+
 
     componentDidMount(){
         const {autoClick} = this
         autoClick.click()
-        // console.log("auto",);
+    }
+
+    goToPlayGame = () => {
+        const {continueModifyButton} = this
+        const {gameUrl} = this.props    
+        continueModifyButton.click()
+        this.props.history.replace(gameUrl)
     }
 
     render() {
@@ -18,27 +27,26 @@ export default class RenderGameDone extends Component {
         return (
             <div>
                 <div className="modal fade" id="staticBackdrop" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
                         <div className="modal-content" style={{"backgroundColor": "rgb(235, 152, 0)"}}>
                             <div className="modal-header">
                                 <h5 className="modal-title" id="staticBackdropLabel">完 成！</h5>
                             </div>
-
-                            <div className="card-body">
-                                <p className="card-text">您已經完成遊戲的製作了</p>
-                                <p className="card-text">趕快分享給對方遊玩吧！！</p>
-                                <div className="mb-3">
-                                    <label htmlFor="disabledTextInput" className="form-label" >這個是生成出來的鏈接：</label>
-                                    <Paragraph className="form-control" copyable>{"http://localhost:3000/" + gameUrl}</Paragraph>
+                        
+                            <div className="modal-body"  style={{backgroundColor: "orange"}}>
+                                <div className="card-body">
+                                    <p className="card-text">您已經完成遊戲的製作了</p>
+                                    <p className="card-text">趕快分享給對方遊玩吧！！</p>
+                                    <div className="mb-3">
+                                        <label htmlFor="disabledTextInput" className="form-label" >這個是生成出來的鏈接：</label>
+                                        <Paragraph className="form-control" copyable>{"http://localhost:3000/" + gameUrl}</Paragraph>
+                                    </div>
                                 </div>
                             </div>
-                            {/* <div className="modal-body">
-                                ...
-                                
-                            </div> */}
+
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">繼續編輯</button>
-                                <button type="button" className="btn btn-primary">前往遊玩網頁</button>
+                                <button ref={c => this.continueModifyButton = c} type="button" className="btn btn-secondary" data-bs-dismiss="modal">繼續編輯</button>
+                                <button onClick={this.goToPlayGame} type="button" className="btn btn-primary">前往遊玩網頁</button>
                             </div>
                         </div>
                     </div>
@@ -49,3 +57,5 @@ export default class RenderGameDone extends Component {
         )
     }
 }
+
+export default withRouter(RenderGameDone)
