@@ -14,10 +14,6 @@ import './EditScreen.css'
 
 export default class EditScreen extends Component {
 
-    // state = {
-    //     game: {},
-    //     gameModifyDatas: {},
-    // }
 
     handleformSubmit = (event) => {
         event.preventDefault()
@@ -27,12 +23,14 @@ export default class EditScreen extends Component {
     }
 
     renderGame = () => {
-        PubSub.publishSync("publishGame")
+        PubSub.publish("publishGame")
+        
     }
 
     render() {
         // console.log(this.props);
         const {gameModifyDatas,gameId} = this.props
+
         // console.log("gg",gameModifyDatas);
 
         return (

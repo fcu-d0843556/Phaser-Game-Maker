@@ -12,7 +12,7 @@ import Home from '../../pages/Home/Home'
 import Register from '../../pages/Register/Register'
 import SelectGame from '../../pages/SelectGame/SelectGame'
 import GameMaker from '../../pages/GameMaker/GameMaker'
-import RenderGame from '../../pages/RenderGame/RenderGame'
+import PlayGame from '../../pages/PlayGame/PlayGame'
 
 class Header extends Component {
 
@@ -80,7 +80,7 @@ class Header extends Component {
                         <Route component={Register} path="/register"></Route>
                         <Route component={SelectGame} path="/selectGame"></Route>
                         <Route component={GameMaker} path="/gameMaker"></Route>
-                        <Route component={RenderGame} path="/renderGame"></Route>
+                        <Route component={PlayGame} path="/playGame"></Route>
                         <Redirect to="/home"></Redirect>
                     </Switch>
                 </div>

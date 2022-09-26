@@ -7,7 +7,9 @@ import {Button} from 'antd'
 //Pages
 import GameScreen from './GameScreen/GameScreen'
 import EditScreen from './EditScreen/EditScreen'
+import RenderGameDone from './RenderGameDone/RenderGameDone'
 
+//Phaser Game
 import startGame from '../../PhaserGame'
 
 export default class GameMaker extends Component {
@@ -16,6 +18,9 @@ export default class GameMaker extends Component {
     gameId: '',
     game: {},
     gameModifyDatas: {},
+
+    isRenderDone: false,
+    gameUrl: ""
   }
 
   componentDidMount(){
@@ -80,12 +85,13 @@ export default class GameMaker extends Component {
       })
 
       PubSub.subscribe("publishGame", (msg)=>{
-        console.log("let's publishGame!");
+
+        this.setState({isRenderDone: false})
 
         const {gameId,gameModifyDatas} = this.state
         const username = localStorage.getItem('username')
-        console.log(gameId,gameModifyDatas);
-        console.log("username",username);
+
+
         axios({
           method: 'post',
           url: '/api1/publishGame',
@@ -96,23 +102,25 @@ export default class GameMaker extends Component {
           }
         }).then(
           response => {
-            console.log(response);
+            this.setState({
+              isRenderDone: true,
+              gameUrl: response.data.gameUrl
+            })
+            // console.log("response",response.data);
           },
-          error => {console.log(error);}
+          error => {console.log("error",error);}
         )
-        // console.log("gameModifyDatas",gameModifyDatas);
-        // game.scene.stop()
-        // game.scene.start(gameId,gameModifyDatas)
+
       })
   }
 
   render() {
-    const {gameModifyDatas,gameId} = this.state
+    const {gameModifyDatas,gameId,isRenderDone,gameUrl} = this.state
     // console.log("game: ", gameModifyDatas);
     return (
         <div className="container-fluid">
+          {isRenderDone ? <RenderGameDone gameUrl={gameUrl}/> : <div/>}
           <GameScreen></GameScreen>
-          {/* <EditScreen gameId={this.props.gameId}></EditScreen> */}
           <EditScreen gameModifyDatas={gameModifyDatas} gameId={gameId}></EditScreen>
         </div>
     )
