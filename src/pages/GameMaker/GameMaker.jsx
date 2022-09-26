@@ -36,6 +36,7 @@ export default class GameMaker extends Component {
         response => {
           
           gameModifyDatas = response.data
+          // console.log("data",response.data );
           this.setState({
             game: startGame(gameId,gameModifyDatas),
             gameModifyDatas
@@ -76,9 +77,33 @@ export default class GameMaker extends Component {
         // console.log("gameModifyDatas",gameModifyDatas);
         game.scene.stop()
         game.scene.start(gameId,gameModifyDatas)
-
       })
 
+      PubSub.subscribe("publishGame", (msg)=>{
+        console.log("let's publishGame!");
+
+        const {gameId,gameModifyDatas} = this.state
+        const username = localStorage.getItem('username')
+        console.log(gameId,gameModifyDatas);
+        console.log("username",username);
+        axios({
+          method: 'post',
+          url: '/api1/publishGame',
+          params: {
+            gameId,
+            gameModifyDatas,
+            username
+          }
+        }).then(
+          response => {
+            console.log(response);
+          },
+          error => {console.log(error);}
+        )
+        // console.log("gameModifyDatas",gameModifyDatas);
+        // game.scene.stop()
+        // game.scene.start(gameId,gameModifyDatas)
+      })
   }
 
   render() {

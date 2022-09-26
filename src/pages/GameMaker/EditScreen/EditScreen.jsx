@@ -6,6 +6,10 @@ import DefaultFileBox from './DefaultFileBox/DefaultFileBox'
 import ModifyCard from './ModifyCard/ModifyCard'
 import ModifyTab from './ModifyTab/ModifyTab'
 
+//Components
+import MyNavLink from '../../../components/MyNavLink/MyNavLink'
+
+
 import './EditScreen.css'
 
 export default class EditScreen extends Component {
@@ -17,8 +21,13 @@ export default class EditScreen extends Component {
 
     handleformSubmit = (event) => {
         event.preventDefault()
+        console.log(event);
         PubSub.publish("refreshGame")
         // console.log(positionX);
+    }
+
+    renderGame = () => {
+        PubSub.publishSync("publishGame")
     }
 
     render() {
@@ -78,9 +87,11 @@ export default class EditScreen extends Component {
                                     </div>
 
                                     <div className="card-footer text-muted fixed-bottom" style={{backgroundColor: "rgba(0, 0, 0, 0.664)"}}>
-                                        <button className="btn btn-warning edit-button">提交資料</button>
-                                        {/* <button type="button" className="btn btn-danger edit-button">回到默認資料</button>
-                                        <button type="button" className="btn btn-primary edit-button">生成遊戲</button> */}
+                                        <button type='button' onClick={this.renderGame} className="btn btn-primary edit-button">生成遊戲</button>
+                                        <button type='submit' className="btn btn-warning edit-button">提交資料</button>
+                                        
+                                        {/* <button type="button" className="btn btn-danger edit-button">回到默認資料</button> */}
+                                        
                                     </div>
                                 </form>
                             </div>  
