@@ -17,12 +17,20 @@ import PlayGame from '../../pages/PlayGame/PlayGame'
 class Header extends Component {
 
     state = {
-        username: ''
+        username: '',
+        isPlayGameMode: false
     }
     
     componentDidMount(){
         // localStorage.setItem('username', '')
-        
+        PubSub.subscribe("playGameMode", (msg,isPlayGameMode)=>{
+            console.log(msg);
+            console.log(isPlayGameMode);
+            this.setState({
+                isPlayGameMode: isPlayGameMode
+            })
+        })
+
         PubSub.subscribe("setUsername", (msg,username)=>{
             this.setState({username})
             localStorage.setItem('username', username)
@@ -36,40 +44,46 @@ class Header extends Component {
     }
 
     render() {
+        const {isPlayGameMode} = this.state
         const username = localStorage.getItem('username') || ''
+
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky">
 
                     <div className="container-fluid">
                         <MyNavLink className="navbar-brand" to="/home">Home</MyNavLink>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <button style={{display: isPlayGameMode ? "none": ""}} className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
 
-                        <div className="collapse navbar-collapse" id="navbarText">
-                            {
-                                username ?  
-                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
-                                        <li className="nav-item">
-                                            <MyNavLink to="/selectGame">SelectGame</MyNavLink>
-                                        </li>
-                                        <li className="nav-item">
-                                            <MyNavLink to="/user">您好, {username}</MyNavLink>
-                                        </li>
-                                        <li className="nav-item">
-                                            <MyNavLink onClick={this.logOut} to="/home">登出</MyNavLink>
-                                        </li>  
-                                    </ul> 
-                                :
-                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
-                                        <li className="nav-item">
-                                            <MyNavLink to="/Login">Login</MyNavLink>
-                                        </li>
-                                    </ul> 
-                            }
-                        </div>
-                        
+                        {
+                            (!isPlayGameMode) ? 
+                                <div className="collapse navbar-collapse" id="navbarText">
+                                    {
+                                        username ?  
+                                            <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
+                                                <li className="nav-item">
+                                                    <MyNavLink to="/selectGame">SelectGame</MyNavLink>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <MyNavLink to="/user">您好, {username}</MyNavLink>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <MyNavLink onClick={this.logOut} to="/home">登出</MyNavLink>
+                                                </li>  
+                                            </ul> 
+                                        :
+                                            <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
+                                                <li className="nav-item">
+                                                    <MyNavLink to="/Login">Login</MyNavLink>
+                                                </li>
+                                            </ul> 
+                                    }
+                                </div>
+                            :
+                            <div></div>
+                        }
                     </div>
                 </nav>
 

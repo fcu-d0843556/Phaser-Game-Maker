@@ -24,7 +24,6 @@ export default class EditScreen extends Component {
 
     renderGame = () => {
         PubSub.publish("publishGame")
-        
     }
 
     render() {

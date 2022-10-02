@@ -7,7 +7,7 @@ import CatchFruitGameScene from './scenes/CatchFruitGame/CatchFruitGameScene';
 import CookingGameScene from './scenes/CookingGame/CookingGameScene';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export const config = {
+const modifyGameConfig = {
 	type: Phaser.AUTO,
 	// type: Phaser.CANVAS,
 	parent: 'phaser-container',
@@ -40,8 +40,39 @@ export const config = {
 	// }
 };
 
-export default function startGame(gameId,gameModifyDatas){
-	const game = new Phaser.Game(config)
+const playGameConfig = {
+    type: Phaser.AUTO,
+    backgroundColor: '#000000',
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-play-screen',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 360,
+        height: 640
+    },
+	dom: {
+		createContainer: true,
+	},
+	physics: {
+		default: 'arcade',
+		arcade: {
+		gravity: { x: 0, y: 0 },
+
+		},
+	},
+    scene: []
+};
+
+
+export default function startGame(gameId,gameModifyDatas,type){
+	console.log(type);
+	let game;
+	if(type === "playGame"){
+		game = new Phaser.Game(playGameConfig)
+	}else if(type === "modifyGame"){
+		game = new Phaser.Game(modifyGameConfig)
+	}	
+	
 	switch(gameId){
 		case "Quiz":
 			game.scene.add(gameId, new QuizGameScene())

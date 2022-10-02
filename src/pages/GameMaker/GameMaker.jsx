@@ -45,7 +45,7 @@ export default class GameMaker extends Component {
           gameModifyDatas = response.data.gameDatas
           console.log("message: ",response.data.message );
           this.setState({
-            game: startGame(gameId,gameModifyDatas),
+            game: startGame(gameId,gameModifyDatas,"modifyGame"),
             gameModifyDatas
           })
         },
@@ -81,7 +81,6 @@ export default class GameMaker extends Component {
 
       PubSub.subscribe("refreshGame", (msg)=>{
         const {game,gameId,gameModifyDatas} = this.state
-        // console.log("gameModifyDatas",gameModifyDatas);
         game.scene.stop()
         game.scene.start(gameId,gameModifyDatas)
       })
