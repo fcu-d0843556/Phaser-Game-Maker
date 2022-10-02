@@ -1,9 +1,14 @@
 /* Small devices (landscape phones, 576px and up) */
 /* Only have right yellow cards */
+
 @media (max-width:576px){
 
     .detail-card{
-        display: none;
+        /* display: none; */
+        position: absolute;
+        right: 0px;
+        width: 100%;
+        z-index: 1;
     }
 
 }

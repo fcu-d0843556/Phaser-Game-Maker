@@ -27,18 +27,18 @@ class RenderGameDone extends Component {
         return (
             <div>
                 <div className="modal fade" id="staticBackdrop" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg ">
                         <div className="modal-content" style={{"backgroundColor": "rgb(235, 152, 0)"}}>
                             <div className="modal-header">
-                                <h5 className="modal-title" id="staticBackdropLabel">完 成！</h5>
+                                <h2 className="modal-title" id="staticBackdropLabel">完 成！</h2>
                             </div>
                         
                             <div className="modal-body"  style={{backgroundColor: "orange"}}>
                                 <div className="card-body">
-                                    <p className="card-text">您已經完成遊戲的製作了</p>
-                                    <p className="card-text">趕快分享給對方遊玩吧！！</p>
+                                    <h4 className="card-text">您已經完成遊戲的製作了</h4>
+                                    <h4 className="card-text">趕快分享給對方遊玩吧！！</h4>
                                     <div className="mb-3">
-                                        <label htmlFor="disabledTextInput" className="form-label" >這個是生成出來的鏈接：</label>
+                                        <h4 htmlFor="disabledTextInput" className="form-label" >這個是生成出來的鏈接：</h4>
                                         <Paragraph className="form-control" copyable>{"http://localhost:3000/" + gameUrl}</Paragraph>
                                     </div>
                                 </div>

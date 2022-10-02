@@ -12,6 +12,10 @@ export default class DefaultFileBox extends Component {
         selectedCardName: "",
 
 
+
+        height: undefined,
+        width: undefined,
+
         defaultItems: [],
         selectedItem: {},
         selectedItemId: "",
@@ -19,7 +23,7 @@ export default class DefaultFileBox extends Component {
     }
 
     componentDidMount(){
-        
+
         PubSub.subscribe('showDefaultCard', (msg,ids)=>{
             const {gameId} = this.props
             const {selectedCardName} = this.state
@@ -65,6 +69,22 @@ export default class DefaultFileBox extends Component {
             }
         })
         
+        // PubSub.subscribe('getWindowSize', (msg,size)=>{
+        //     const {width} = this.state
+
+        //     if(size.width <= 576 && width > 576){
+                
+        //     }
+
+        //     this.setState({
+        //         height: size.height, 
+        //         width: size.width
+        //     })
+
+            
+            
+        //     // console.log(size.height, size.width);
+        // })
     }
 
     selectCard = (id) => {
@@ -103,35 +123,43 @@ export default class DefaultFileBox extends Component {
         }
     }
 
+    closeCard = () => {
+        this.setState({
+            selectedCardName: "",
+            isDefaultCardOpen: false
+        })
+    }
+
     render() {
         const {isDefaultCardOpen,defaultItems,selectedItemId,modifyTitle} = this.state
         // console.log(modifyTitle);
 
         return (
             <div className="overflow card col-6 detail-card default-card-screen" style={{backgroundColor: "lightpink", visibility: isDefaultCardOpen ? 'visible' : 'hidden'}}>
-                                                                                                    
-                <button type="button" style={{float: "right"}} className="btn-close" aria-label="Close"></button>
-                
-                <h4 style={{textAlign:"center"}}>{modifyTitle} - 預設圖片</h4>
-
-                <div>
-                    <div className="row row-cols-1 row-cols-md-2 g-4 " >
-                        {
-                            defaultItems.map((item)=>{
-                                return (
-                                    <div className="col" key={item.defaultData.description}>
-                                        <div className={ selectedItemId === item.defaultData.description ? "selected-default-card card" : "card"} onClick={this.selectCard(item.defaultData.description)}>
-                                            <img src={item.img.src} className="card-img-top" alt="..."/>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{item.defaultData.description}</h5>
+                {
+                    <div>                                                              
+                        <button type="button" onClick={this.closeCard} style={{float: "right"}} className="btn-close" aria-label="Close"></button>
+                        <h4 style={{textAlign:"center"}}>{modifyTitle} - 預設圖片</h4>
+                        <div>
+                            <div className="row row-cols-1 row-cols-md-2 g-4 " >
+                                {
+                                    defaultItems.map((item)=>{
+                                        return (
+                                            <div className="col" key={item.defaultData.description}>
+                                                <div className={ selectedItemId === item.defaultData.description ? "selected-default-card card" : "card"} onClick={this.selectCard(item.defaultData.description)}>
+                                                    <img src={item.img.src} className="card-img-top" alt="..."/>
+                                                    <div className="card-body">
+                                                        <h5 className="card-title">{item.defaultData.description}</h5>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                </div>
+                                        )
+                                    })
+                                } 
+                            </div>
+                        </div>
+                    </div>  
+                }
             </div>
         )
     }
