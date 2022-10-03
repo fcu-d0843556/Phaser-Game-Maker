@@ -37,13 +37,13 @@ export default class GetItemMessage extends Component {
 
                 <div className="card-header">
                     <div className="mb-3">
-                        {/* <label className="form-label modify-card-title">{modifyTitle}</label> */}
+                        <label className="form-label modify-card-title">{modifyTitle}</label>
                         <br/>
                         {
                             (inputType === "number") ? 
                                 <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
                             :
-                                <Input placeholder={modifyTitle} allowClear onChange={changeTextValue} />
+                                <Input placeholder={modifyTitle} allowClear value={content} onChange={changeTextValue} />
                                 // <input type={inputType} onChange={this.changeValue("content")} value={content}/>
                         }
                         

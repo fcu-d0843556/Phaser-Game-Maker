@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
+import { InputNumber } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Space, Upload } from 'antd';
 
 export default class ImageSettings extends Component {
 
@@ -33,20 +36,6 @@ export default class ImageSettings extends Component {
         })
     }
 
-    changePositionValue = (type) => {
-        const {ImageDatas} = this.state
-        return (event) => {
-            ImageDatas.img.position[type] = parseInt(event.target.value)
-            PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
-        }
-    }
-
-    changeSizeValue = (event) => {
-        const {ImageDatas} = this.state
-        ImageDatas.img.size = parseInt(event.target.value)
-        PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
-    }
-
     showDefaultCard = (name) => {
         return () => {
             const {parent} = this.state.ImageDatas
@@ -62,6 +51,23 @@ export default class ImageSettings extends Component {
         const {position,size,src} = this.props.img
         const {name} = this.props
 
+        const changeSizeValue = (value) => {
+            const {ImageDatas} = this.state
+            ImageDatas.img.size = value
+            PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+        };
+
+        const changePositionValue = (type) => {
+            const {ImageDatas} = this.state
+            return (value) => {
+                ImageDatas.img.position[type] = value
+                PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+            }
+        }
+
+        const test = () => {
+            console.log("test");
+        }
 
         return (
             <div>
@@ -73,7 +79,7 @@ export default class ImageSettings extends Component {
                                 position.x ? 
                                     <div className="col">
                                         <label className="form-label">圖片水平位置</label>
-                                        <input className="form-control" type="number" onChange={this.changePositionValue("x")} value={position.x}/>
+                                        <InputNumber min={0} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
                                     </div>
                                 :   <div></div>
                             }
@@ -82,7 +88,7 @@ export default class ImageSettings extends Component {
                                 position.y ?
                                 <div className="col">
                                     <label className="form-label">圖片垂直位置</label>
-                                    <input className="form-control" type="number" onChange={this.changePositionValue("y")} value={position.y}/>
+                                    <InputNumber min={0} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
                                 </div>
                                 :   <div></div> 
                             }
@@ -95,7 +101,7 @@ export default class ImageSettings extends Component {
                     <div className="row">
                         <div className="col">
                             <label className="form-label">圖片的大小</label>
-                            <input className="form-control" type="number" onChange={this.changeSizeValue} value={size} />
+                            <InputNumber min={1} max={1000} defaultValue={size} onChange={changeSizeValue} />
                         </div>
                     </div>
 
@@ -103,6 +109,27 @@ export default class ImageSettings extends Component {
                         <h5 className="card-title">圖片預覽</h5>
                         <img src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
                     </div>
+
+
+                    <div className="card-body">
+                        <Space
+                            direction="vertical"
+                            style={{
+                            width: '100%',
+                            }}
+                            size="large"
+                        >
+                            <Upload
+                                action="/api1/uploadFile"
+                                listType="picture"
+                                maxCount={1}
+                            >
+                                <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+                            </Upload>
+                        </Space>
+                    </div>
+
+
 
                     <div className="card-body">
                         <button type="button" onClick={this.showDefaultCard(name)} className="btn btn-dark">使用其他提供的圖片</button>
