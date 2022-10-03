@@ -26,7 +26,7 @@ export default class ballonSpawner{
             balloonChild.setData('text',this.data[type-1].text.content)
             this.getItemMessage = new ShowMessage(this.scene,balloonChild.getData('text'))
             this.getItemMessage.start(this.getItemMessage.stop(),500)//5s
-            this.score.addScore(10)
+            this.score.addScore(this.data[type-1].score.content)
             balloonChild.destroy(true,true)
         },this)
 

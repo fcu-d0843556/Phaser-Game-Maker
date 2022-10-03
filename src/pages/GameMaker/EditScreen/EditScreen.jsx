@@ -7,7 +7,6 @@ import ModifyCard from './ModifyCard/ModifyCard'
 import ModifyTab from './ModifyTab/ModifyTab'
 
 //Components
-import MyNavLink from '../../../components/MyNavLink/MyNavLink'
 
 
 import './EditScreen.css'
@@ -78,13 +77,7 @@ export default class EditScreen extends Component {
                                                             
                                                         )
                                                     })
-                                                    
                                                 }
-                                                // else{
-                                                //     return (
-                                                //         <ModifyCard key={gameModifyDatas[key].name}  {...gameModifyDatas[key]}></ModifyCard>
-                                                //     )
-                                                // }
                                             })
                                         }
 

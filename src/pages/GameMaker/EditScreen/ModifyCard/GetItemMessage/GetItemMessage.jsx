@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 
+import { Input,InputNumber } from 'antd';
+const { TextArea } = Input;
+
 
 export default class GetItemMessage extends Component {
     
@@ -14,24 +17,36 @@ export default class GetItemMessage extends Component {
         })
     }
 
-    changeValue = (type) => {
-        const {textDatas} = this.state
-        return (event) => {
+    render() {
+        const {description,content,modifyTitle,inputType} = this.props.text
+        
+        const changeNumberValue = (value) => {
+            const {textDatas} = this.state
+            textDatas.text.content = value
+            PubSub.publish("setFormDatas",{name: this.props.name, values: textDatas})
+        };
+        
+        const changeTextValue = (event) => {
+            const {textDatas} = this.state
             textDatas.text.content = event.target.value
             PubSub.publish("setFormDatas",{name: this.props.name, values: textDatas})
         }
-    }
-  
-    render() {
-        const {description,content,modifyTitle,inputType} = this.props.text
+
         return (
             <div>
 
                 <div className="card-header">
                     <div className="mb-3">
-                        <label className="form-label modify-card-title">{modifyTitle}</label>
+                        {/* <label className="form-label modify-card-title">{modifyTitle}</label> */}
                         <br/>
-                        填入訊息： <input type={inputType} onChange={this.changeValue("content")} value={content}/>
+                        {
+                            (inputType === "number") ? 
+                                <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
+                            :
+                                <Input placeholder={modifyTitle} allowClear onChange={changeTextValue} />
+                                // <input type={inputType} onChange={this.changeValue("content")} value={content}/>
+                        }
+                        
                     </div>
                 </div>
                 
