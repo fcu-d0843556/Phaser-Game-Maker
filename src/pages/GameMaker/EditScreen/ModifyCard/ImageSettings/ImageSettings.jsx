@@ -71,11 +71,11 @@ export default class ImageSettings extends Component {
                 
                     <div className="row">
                         <div className="col">
-                            <label className="form-label">生成的X位置</label>
+                            <label className="form-label">圖片水平位置</label>
                             <input className="form-control" type="number" onChange={this.changePositionValue("x")} value={position.x}/>
                         </div>
                         <div className="col">
-                            <label className="form-label">生成的Y位置</label>
+                            <label className="form-label">圖片垂直位置</label>
                             <input className="form-control" type="number" onChange={this.changePositionValue("y")} value={position.y}/>
                         </div>
                     </div>
@@ -83,13 +83,13 @@ export default class ImageSettings extends Component {
 
                     <div className="row">
                         <div className="col">
-                            <label className="form-label">圖片的縮放</label>
+                            <label className="form-label">圖片的大小</label>
                             <input className="form-control" type="number" onChange={this.changeSizeValue} value={size} />
                         </div>
                     </div>
 
                     <div className="card-body">
-                        <h5 className="card-title">預覽圖</h5>
+                        <h5 className="card-title">圖片預覽</h5>
                         <img src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
                     </div>
 

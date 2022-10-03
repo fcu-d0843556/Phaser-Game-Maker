@@ -80,12 +80,7 @@ export default class RenderGame extends Component {
   render() {
     
     return (
-        // <div className="container-fluid">
-            // {/* <div className="phone-style"> */}
-            // {/* </div> */}
-        // </div>
         <div>
-          
           <div id="phaser-play-screen"></div>
 
           <div className="card-footer text-muted fixed-bottom" style={{backgroundColor: "rgba(0, 0, 0, 0.664)"}}>

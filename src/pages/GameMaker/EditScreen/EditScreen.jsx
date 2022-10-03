@@ -22,8 +22,15 @@ export default class EditScreen extends Component {
         // console.log(positionX);
     }
 
+    //發佈遊戲
     renderGame = () => {
         PubSub.publish("publishGame")
+    }
+
+    //回到默認狀態
+    backToDefaultDatas = () => {
+        console.log("back");
+        PubSub.publish("getGameData", "default")
     }
 
     render() {
@@ -85,9 +92,9 @@ export default class EditScreen extends Component {
 
                                     <div className="card-footer text-muted fixed-bottom" style={{backgroundColor: "rgba(0, 0, 0, 0.664)"}}>
                                         <button type='button' onClick={this.renderGame} className="btn btn-primary edit-button">生成遊戲</button>
-                                        <button type='submit' className="btn btn-warning edit-button">提交資料</button>
+                                        <button type='submit' className="btn btn-warning edit-button">預覽變化</button>
                                         
-                                        {/* <button type="button" className="btn btn-danger edit-button">回到默認資料</button> */}
+                                        <button type="button" onClick={this.backToDefaultDatas} className="btn btn-danger edit-button">回到默認資料</button>
                                         
                                     </div>
                                 </form>
