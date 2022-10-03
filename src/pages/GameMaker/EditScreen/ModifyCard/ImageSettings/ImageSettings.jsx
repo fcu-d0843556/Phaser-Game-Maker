@@ -61,26 +61,37 @@ export default class ImageSettings extends Component {
     render() {
         const {position,size,src} = this.props.img
         const {name} = this.props
-        // console.log("imgae",name);
 
-        // console.log("imgae",this.props);
 
         return (
             <div>
                 <div className="card-header">
+                    {
+                        position ? 
+                            <div className="row">
+                            {
+                                position.x ? 
+                                    <div className="col">
+                                        <label className="form-label">圖片水平位置</label>
+                                        <input className="form-control" type="number" onChange={this.changePositionValue("x")} value={position.x}/>
+                                    </div>
+                                :   <div></div>
+                            }
+                            
+                            {
+                                position.y ?
+                                <div className="col">
+                                    <label className="form-label">圖片垂直位置</label>
+                                    <input className="form-control" type="number" onChange={this.changePositionValue("y")} value={position.y}/>
+                                </div>
+                                :   <div></div> 
+                            }
+                            </div>
+                        :
+                        <div></div>
+                    }
+                    
                 
-                    <div className="row">
-                        <div className="col">
-                            <label className="form-label">圖片水平位置</label>
-                            <input className="form-control" type="number" onChange={this.changePositionValue("x")} value={position.x}/>
-                        </div>
-                        <div className="col">
-                            <label className="form-label">圖片垂直位置</label>
-                            <input className="form-control" type="number" onChange={this.changePositionValue("y")} value={position.y}/>
-                        </div>
-                    </div>
-                
-
                     <div className="row">
                         <div className="col">
                             <label className="form-label">圖片的大小</label>
