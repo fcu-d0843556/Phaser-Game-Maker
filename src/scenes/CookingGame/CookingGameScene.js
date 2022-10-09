@@ -140,7 +140,7 @@ export default class CookingGameScene extends Phaser.Scene{
     setInputInteractive(){
         // return this.food
         this.input.on('dragover', function (pointer, gameObject, dropZone) {
-            if(dropZone.texture.key == "cookSpot"){
+            if(dropZone.texture.key === "cookSpot"){
                 dropZone.setTint(0xffffff);
                 // console.log('name : ' + gameObject.name)
                 var name = parseInt(gameObject.name)
@@ -158,7 +158,7 @@ export default class CookingGameScene extends Phaser.Scene{
 
         this.input.on('dragleave', function (pointer, gameObject, dropZone) {
             
-            if(dropZone.texture.key == "cookSpot"){
+            if(dropZone.texture.key === "cookSpot"){
                 dropZone.clearTint();
                 var name = parseInt(gameObject.name)
                 if(this.foodGroup[name].timer.label){

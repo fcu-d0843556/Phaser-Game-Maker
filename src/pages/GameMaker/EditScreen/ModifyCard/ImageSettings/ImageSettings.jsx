@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
 import { InputNumber } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Space, Upload } from 'antd';
+import { Button, Space, Upload, message } from 'antd';
+import axios from 'axios';
+
 
 export default class ImageSettings extends Component {
 
@@ -65,8 +67,40 @@ export default class ImageSettings extends Component {
             }
         }
 
-        const test = () => {
-            console.log("test");
+        const beforeUpload = (file) => {
+            const isPNG = file.type === 'image/png';
+
+            if (!isPNG) {
+            message.error(`${file.name} is not a png file`);
+            }
+
+            return isPNG || Upload.LIST_IGNORE;
+        }
+
+
+        const uploadFile = (file) => {
+            console.log(file);
+            // file.file.status = "done"
+            if(file.file.status === "uploading"){
+                axios(
+                    {
+                        method: 'post',
+                        url: '/uploadFile',
+                        params: {
+                            file: file.file,
+                            cool: "nihao"
+                        }
+                    }
+                ).then(
+                    response => {
+                        
+                    }
+                )
+                message.success(`文件上传成功`)
+            }
+            
+            
+            
         }
 
         return (
@@ -120,8 +154,11 @@ export default class ImageSettings extends Component {
                             size="large"
                         >
                             <Upload
-                                action="/api1/uploadFile"
-                                listType="picture"
+                                action="/uploadFile"
+                                // listType="picture"
+                                method='post'
+                                // beforeUpload={beforeUpload}
+                                onChange={uploadFile}
                                 maxCount={1}
                             >
                                 <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>

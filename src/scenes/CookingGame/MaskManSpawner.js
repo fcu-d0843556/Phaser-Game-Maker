@@ -19,7 +19,7 @@ export default class maskManSpawner{
         this.maskMan = this.scene.physics.add.sprite(250,250,this.key).setScale(0.7)
 
         this.scene.input.on('drop', function (pointer, gameObject, dropZone) {
-            if(dropZone.texture.key == "wantedItem"){
+            if(dropZone.texture.key === "wantedItem"){
                 switch(gameObject.texture.key){
                     case 'rawFood':
                         this.maskMan.setTexture('maskManAngry')

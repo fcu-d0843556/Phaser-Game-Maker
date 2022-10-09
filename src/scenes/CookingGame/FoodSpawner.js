@@ -42,7 +42,7 @@ export default class foodSpawner{
             default:
                 break;
         }
-        if(this.foodcountdown==3){
+        if(this.foodcountdown===3){
             this.timer.stop()
         }else{
             this.timer.start(this.countEnd.bind(this),2000)
