@@ -18,6 +18,7 @@ export default class GameMaker extends Component {
     gameId: '',
     game: {},
     gameModifyDatas: {},
+    username: '',
 
     height: window.innerHeight, 
     width: window.innerWidth,
@@ -36,6 +37,7 @@ export default class GameMaker extends Component {
   componentDidMount(){
       window.addEventListener("resize", this.updateDimensions);
 
+      this.setState({username: localStorage.getItem('username')})
       const {gameId} = this.props.location.state
       this.setState({gameId}) 
 
@@ -146,14 +148,14 @@ export default class GameMaker extends Component {
   }
 
   render() {
-    const {gameModifyDatas,gameId,isRenderDone,gameUrl} = this.state
+    const {gameModifyDatas,gameId,isRenderDone,gameUrl,username} = this.state
     const {width} = this.state
     //console.log("game: ", height,width);
     return (
         <div className="container-fluid">
           {isRenderDone ? <RenderGameDone gameUrl={gameUrl}/> : <div/>}
           <GameScreen width={width}></GameScreen>
-          <EditScreen width={width} gameModifyDatas={gameModifyDatas} gameId={gameId}></EditScreen>
+          <EditScreen username={username} width={width} gameModifyDatas={gameModifyDatas} gameId={gameId}></EditScreen>
         </div>
     )
   }

@@ -43,7 +43,7 @@ export default class EditScreen extends Component {
 
     render() {
         // console.log(this.props);
-        const {gameModifyDatas,gameId} = this.props
+        const {gameModifyDatas,gameId,username} = this.props
         
         const {width} = this.props
         const {mobileModifyMode} = this.state;
@@ -79,11 +79,11 @@ export default class EditScreen extends Component {
                                                                             )
                                                                         })
                                                                     }
-                                                                    <ModifyCard key={itemObj.name} {...itemObj} showCard={true}></ModifyCard>
+                                                                    <ModifyCard username={username} key={itemObj.name} {...itemObj} showCard={true}></ModifyCard>
                                                                 </div>
                                                             :
                                                                 <div key={itemObj.name}>
-                                                                    <ModifyCard key={itemObj.name} {...itemObj} showCard={false}></ModifyCard>
+                                                                    <ModifyCard username={username} key={itemObj.name} {...itemObj} showCard={false}></ModifyCard>
                                                                 </div>
                                                             
                                                         )

@@ -20,7 +20,7 @@ export default class GameScreen extends Component {
   render() {
     const {mobileModifyMode} = this.state
     const {width} = this.props
-    console.log(mobileModifyMode);
+    // console.log(mobileModifyMode);
     return (
         <div>
           {

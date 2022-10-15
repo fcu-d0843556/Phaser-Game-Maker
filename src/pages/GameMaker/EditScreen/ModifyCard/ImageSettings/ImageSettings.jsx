@@ -79,17 +79,22 @@ export default class ImageSettings extends Component {
 
 
         const uploadFile = (file) => {
-            console.log(file);
+            const {username} = this.props
+            // console.log("g",username);
+            // console.log(file);
             // file.file.status = "done"
-            if(file.file.status === "uploading"){
+            if(file.file.percent !== 100){
+                console.log("in");
                 axios(
                     {
                         method: 'post',
                         url: '/uploadFile',
                         params: {
+                            username: username,
                             file: file.file,
                             cool: "nihao"
-                        }
+                        },
+                        
                     }
                 ).then(
                     response => {
