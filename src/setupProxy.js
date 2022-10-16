@@ -17,11 +17,12 @@ const storage = multer.diskStorage({
       // console.log("dd",req.query,file,cb);
       // console.log("fnin",userData.username);
       //1.獲取當前日期 20211016
+      // console.log("get name ", userData.username);
       if(userData.username !== ""){
         let day = sd.format(new Date(), 'YYYYMMDD')
 
         //2.按照日期生成圖片存儲目錄，mkdirp是一個異步的方法
-        let dir = path.join("public/upload",userData.username)
+        let dir = path.join("src/pages/GameMaker/EditScreen/ModifyCard/ImageSettings/upload",userData.username)
         // console.log("dir",dir);
         await mkdirp(dir)
 
@@ -35,7 +36,7 @@ const storage = multer.diskStorage({
       // file.fieldname 獲取html sumbit後的name
       // file.originalname 獲取原本上傳檔案的名字
 
-      // console.debug("filename",file)
+      // console.log("filename",file)
       // console.debug(req)
 
       if(userData.username !== ""){
@@ -59,20 +60,22 @@ module.exports = function(app) {
       pathRewrite:{'^/api1':''}        //重寫請求路徑
     })
   );
-//multer({storage: storage}).any(),
-  app.post('/uploadFile', function(req,res){
+// 
+  app.post('/uploadFile',multer({storage: storage}).any(), function(req,res){
     
     const {username,fileName,fileContent} = req.query;
+    userData.username = username
     let extname;
     if(typeof(fileContent) === "string"){
-      console.log(req.query);
+      // console.log(req.query);
       
       extname = path.extname(JSON.parse(fileContent).name)
       // console.log("fileaa",);
       // console.log(extname);
       
     }
-    userData.username = username
+    
+    // console.log("name set");
     // console.log("fileContent",req.query);
     // console.log("dd",fileContent);
     
@@ -83,9 +86,10 @@ module.exports = function(app) {
       res.json({success: true})
       // console.log("okok");
     }else{
+      console.log(username);
       res.json({
         success: true,
-        location: `/upload/${username}/${fileName + extname}`,
+        location: `./upload/${username}/${fileName + extname}`,
         selectedCardName: fileName
       })
     }

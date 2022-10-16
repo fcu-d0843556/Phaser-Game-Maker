@@ -68,6 +68,10 @@ export default class DefaultFileBox extends Component {
                 )
             }
         })
+
+        PubSub.subscribe('closeDefaultCard', (msg)=>{
+            this.closeCard()
+        })
     }
 
     selectCard = (id) => {

@@ -18,7 +18,7 @@ export default class Login extends Component {
 
     const onFinish = (values) => {
       const {username,password} = values
-      console.log(values);
+      // console.log(values);
       axios({
         method: "post",
         url: "/api1/login",
