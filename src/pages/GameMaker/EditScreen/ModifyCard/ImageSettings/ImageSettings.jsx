@@ -9,7 +9,7 @@ import axios from 'axios';
 export default class ImageSettings extends Component {
 
     state = {
-        ImageDatas: {},
+        ImageDatas: {}
     }
     
     componentDidMount(){
@@ -20,7 +20,7 @@ export default class ImageSettings extends Component {
 
         PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
             const {ImageDatas} = this.state
-            // console.log(ImageDatas);
+            // console.log(ImageDatas,status.selectedCardName);
             // console.log("status.selectedCardName",status.selectedCardName,ImageDatas.name);
             if(status.selectedCardName === ImageDatas.name){
                 // console.log('dd',ImageDatas);
@@ -30,9 +30,9 @@ export default class ImageSettings extends Component {
                     this.setState({ImageDatas})
                     PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }else{
-                    // console.log("no",saveItem);
-                    // this.setState({ImageDatas: saveItem})
-                    // PubSub.publish("setFormDatas",{name: this.props.name, values: saveItem})
+                    ImageDatas.img.src = status.uploadFileSrc
+                    this.setState({ImageDatas})
+                    PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }
             }
         })
@@ -52,7 +52,7 @@ export default class ImageSettings extends Component {
     render() {
         const {position,size,src} = this.props.img
         const {name} = this.props
-
+       
         const changeSizeValue = (value) => {
             const {ImageDatas} = this.state
             ImageDatas.img.size = value
@@ -68,37 +68,50 @@ export default class ImageSettings extends Component {
         }
 
         const beforeUpload = (file) => {
-            const isPNG = file.type === 'image/png';
-
-            if (!isPNG) {
-            message.error(`${file.name} is not a png file`);
+            // console.log("type" , file.type);
+            let isPic = false;
+            if(file.type === "image/png" || file.type === "image/jpeg"){
+                isPic = true
             }
 
-            return isPNG || Upload.LIST_IGNORE;
+            if (!isPic) {
+                message.error(`${file.name} is not a png file`);
+            }
+
+            return isPic || Upload.LIST_IGNORE;
         }
 
 
         const uploadFile = (file) => {
             const {username} = this.props
             // console.log("g",username);
-            // console.log(file);
+            console.log(file);
             // file.file.status = "done"
+            if(file.status === "removed"){
+                
+            }
             if(file.file.percent !== 100){
                 console.log("in");
-                axios(
-                    {
-                        method: 'post',
-                        url: '/uploadFile',
-                        params: {
-                            username: username,
-                            file: file.file,
-                            cool: "nihao"
-                        },
-                        
+                axios({
+                    method: 'post',
+                    url: '/uploadFile',
+                    params: {
+                        username: username,
+                        fileName: name,
+                        fileContent: file.file
                     }
-                ).then(
+                }).then(
                     response => {
-                        
+                        const {selectedCardName,location} = response.data
+                        // console.log();
+                        // console.log("res", response.data.location);
+                        PubSub.publish("usingDefaultDatas",{
+                            selectedCardName,
+                            uploadFileSrc: location
+                        })
+                    },
+                    error => {
+                        console.log(error)
                     }
                 )
                 message.success(`文件上传成功`)
@@ -160,9 +173,9 @@ export default class ImageSettings extends Component {
                         >
                             <Upload
                                 action="/uploadFile"
-                                // listType="picture"
+                                name={name}
                                 method='post'
-                                // beforeUpload={beforeUpload}
+                                beforeUpload={beforeUpload}
                                 onChange={uploadFile}
                                 maxCount={1}
                             >

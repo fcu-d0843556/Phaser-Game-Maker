@@ -112,7 +112,7 @@ export default class GameMaker extends Component {
   }
 
   getGameData = (type) => {
-    console.log("dd");
+    // console.log("dd");
         const {gameId} = this.props.location.state
         let gameModifyDatas
         //get user data
@@ -131,7 +131,7 @@ export default class GameMaker extends Component {
           response => {
             
             gameModifyDatas = response.data.gameDatas
-            console.log("message: ",response.data.message );
+            // console.log("message: ",response.data.message );
             if(type === "default"){
               this.setState({gameModifyDatas})
               PubSub.publish("refreshGame")

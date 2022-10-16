@@ -65,7 +65,7 @@ const playGameConfig = {
 
 
 export default function startGame(gameId,gameModifyDatas,type){
-	console.log(type);
+	// console.log(type);
 	let game;
 	if(type === "playGame"){
 		game = new Phaser.Game(playGameConfig)
