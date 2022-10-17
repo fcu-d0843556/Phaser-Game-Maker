@@ -110,7 +110,8 @@ export default class ShootingGameScene extends Phaser.Scene{
         const scoreTextLabel = this.add.text(16,16, "score", {
             "fontSize": 32,
             "fill": "#fff",
-            "backgroundColor": "#000"
+            "stroke": "#000",
+            "strokeThickness": 2
         })
         this.scoreText = new Score(this,scoreTextLabel,"score",0)
         this.scoreText.showScoreText()
