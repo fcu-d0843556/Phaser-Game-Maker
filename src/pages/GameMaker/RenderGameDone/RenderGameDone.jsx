@@ -39,7 +39,7 @@ class RenderGameDone extends Component {
                                     <h4 className="card-text">趕快分享給對方遊玩吧！！</h4>
                                     <div className="mb-3">
                                         <h4 htmlFor="disabledTextInput" className="form-label" >這個是生成出來的鏈接：</h4>
-                                        <Paragraph className="form-control" copyable>{"http://localhost:3000/" + gameUrl}</Paragraph>
+                                        <Paragraph className="form-control" copyable>{"http://140.134.26.66:5051/" + gameUrl}</Paragraph>
                                     </div>
                                 </div>
                             </div>
