@@ -7,12 +7,12 @@ import PubSub from 'pubsub-js'
 export default class PriorityCard extends Component {
     
     state = {
-        textDatas: {}
+        itemDatas: {}
     }
 
     componentDidMount(){
         this.setState({
-            textDatas: {...this.props}
+            itemDatas: {...this.props}
         })
     }
 
@@ -37,10 +37,10 @@ export default class PriorityCard extends Component {
 
         const changeValue = (value) => {
             
-            const {textDatas} = this.state
-            // console.log(textDatas);
-            textDatas.priority = value
-            PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
+            const {itemDatas} = this.state
+            // console.log(itemDatas);
+            itemDatas.priority = value
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: itemDatas})
         };
         
         // ,modifyTitle,inputType

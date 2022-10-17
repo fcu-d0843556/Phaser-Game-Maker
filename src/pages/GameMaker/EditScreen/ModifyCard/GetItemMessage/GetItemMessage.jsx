@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 
-import { Input,InputNumber } from 'antd';
+
+import { QuestionCircleTwoTone } from '@ant-design/icons';
+import { Input,InputNumber, Button, Divider, Tooltip } from 'antd';
 const { TextArea } = Input;
 
 
@@ -34,9 +36,14 @@ export default class GetItemMessage extends Component {
 
         return (
             <div>
-
+                
                 <div className="card-header">
+                    <Tooltip title={description} placement="left">
+                        <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
+                    </Tooltip>
+                    
                     <div className="mb-3">
+                    
                         <label className="form-label modify-card-title">{modifyTitle}</label>
                         <br/>
                         {
@@ -44,15 +51,9 @@ export default class GetItemMessage extends Component {
                                 <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
                             :
                                 <Input placeholder={modifyTitle} allowClear value={content} onChange={changeTextValue} />
-                                // <input type={inputType} onChange={this.changeValue("content")} value={content}/>
                         }
                         
                     </div>
-                </div>
-                
-                <div className="card-body">
-                    <p>說明：</p>
-                    <p>{description}</p>
                 </div>
 
             </div>
