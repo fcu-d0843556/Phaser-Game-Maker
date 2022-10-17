@@ -4,7 +4,7 @@ const addLessLoader = require('customize-cra-less-loader');
 
 const addDevServerConfig = () => (config) => {
   config.static.watch.ignored = ['**/public', "/^(?!E:\/FCU\/Phaser\x2dGame\x2dMaker\/src\/).+\/node_modules\//g"]
-  // console.log(config);
+  console.log(config);
   return config
 } 
 
