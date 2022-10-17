@@ -22,7 +22,9 @@ const storage = multer.diskStorage({
         let day = sd.format(new Date(), 'YYYYMMDD')
 
         //2.按照日期生成圖片存儲目錄，mkdirp是一個異步的方法
-        let dir = path.join("src/pages/GameMaker/EditScreen/ModifyCard/ImageSettings/upload",userData.username)
+        // let dir = path.join("src/pages/GameMaker/EditScreen/ModifyCard/ImageSettings/upload",userData.username)
+        let dir = path.join("public/upload",userData.username)
+
         // console.log("dir",dir);
         await mkdirp(dir)
 
@@ -55,7 +57,7 @@ module.exports = function(app) {
   app.use(
     '/api1', //遇見api1前綴的請求，就會觸發該代理配置
     createProxyMiddleware({
-      target: 'http://localhost:5000', //請求轉發給誰
+      target: 'http://140.134.26.66:5050', //請求轉發給誰
       changeOrigin: true,              //控制服務器收到的請求頭中Host字段的值
       pathRewrite:{'^/api1':''}        //重寫請求路徑
     })
@@ -86,12 +88,12 @@ module.exports = function(app) {
       res.json({success: true})
       // console.log("okok");
     }else{
-      console.log(username);
-      res.json({
-        success: true,
-        location: `./upload/${username}/${fileName + extname}`,
-        selectedCardName: fileName
-      })
+      // console.log(username);
+      // res.json({
+      //   success: true,
+      //   location: `./upload/${username}/${fileName + extname}`,
+      //   selectedCardName: fileName
+      // })
     }
     
   });
