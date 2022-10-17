@@ -29,7 +29,7 @@ export default class Login extends Component {
       }).then(
         response => {
           if(response.data.isSuccessed){
-            PubSub.publish("setUsername",username)
+            PubSub.publishSync("setUsername",username)
             this.props.history.replace(`/home`,{
               username
             })

@@ -7,6 +7,14 @@ export default class ballonSpawner{
         this.scene = scene
         this.score = score
         this.data = data
+
+        this.balloonPriority = []
+        let total = 0
+        data.forEach(balloon => {
+            total += balloon.priority
+            this.balloonPriority.push(total)
+        });        
+
         this.number = 0
     }
 
@@ -18,7 +26,20 @@ export default class ballonSpawner{
     }
     spawn(){
         let x = Phaser.Math.Between(40,300)
-        let type = Phaser.Math.Between(1,5)
+
+        let ramdomPriority = Phaser.Math.Between(1,this.balloonPriority[this.balloonPriority.length - 1])
+        let type
+        for(let i=this.balloonPriority.length - 1 ;i >= 0;i--){
+            if(i === 0){
+                type = 1
+                break
+            }else if(ramdomPriority <= this.balloonPriority[i] && ramdomPriority > this.balloonPriority[i - 1]){
+                type = (i + 1)
+                break
+            }
+        }
+        // console.log(ramdomPriority ,type);
+
         let speed = Phaser.Math.Between(-150,-300)
         
         let balloonChild = this.scene.physics.add.sprite(x,700,'balloon'+type ).setScale(this.data[type-1].img.size/100).setGravity(0, speed);

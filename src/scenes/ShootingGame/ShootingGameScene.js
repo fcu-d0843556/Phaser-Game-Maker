@@ -95,12 +95,13 @@ export default class ShootingGameScene extends Phaser.Scene{
 
     createGameTimer(timeTextDatas,gameTimer){
         //Timer
-        // const timerLabel2 = this.add.text(16, 54, "time", {
-        //     "fontSize": 32,
-        //     "fill": "#000"
-        // })
-        // this.gameTimer = new GameTimer(this, timerLabel2, "time")
-        const gameTimerLabel = this.add.text(timeTextDatas.text.x, timeTextDatas.text.y, timeTextDatas.text.content, timeTextDatas.text.style)
+        const gameTimerLabel = this.add.text(16, 54, "time", {
+            "fontSize": 32,
+            "fill": "#fff",
+            "stroke": "#000",
+            "strokeThickness": 2
+        })
+        // const gameTimerLabel = this.add.text(timeTextDatas.text.x, timeTextDatas.text.y, timeTextDatas.text.content, timeTextDatas.text.style)
         this.gameTimer = new GameTimer(this, gameTimerLabel, timeTextDatas.text.content)
         this.gameTimer.start(this.gameover.bind(this),gameTimer.text.content * 1000)//5s
     }
@@ -118,6 +119,7 @@ export default class ShootingGameScene extends Phaser.Scene{
     }
 
     createBalloon(){
+
         this.balloon.spawn()
     }
 

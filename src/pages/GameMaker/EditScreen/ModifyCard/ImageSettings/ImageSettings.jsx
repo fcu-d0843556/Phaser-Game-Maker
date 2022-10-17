@@ -30,12 +30,12 @@ export default class ImageSettings extends Component {
                     // console.log("ok");
                     ImageDatas.img = status.selectedItem.img
                     this.setState({ImageDatas})
-                    PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+                    PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }else if(status.uploadFileSrc !== undefined){
                     // console.log("dd");
                     ImageDatas.img.src = status.uploadFileSrc
                     this.setState({ImageDatas})
-                    PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+                    PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }
             }
         })
@@ -45,7 +45,7 @@ export default class ImageSettings extends Component {
         return () => {
             const {parent} = this.state.ImageDatas
             // console.log("get : " , name, parent);
-            PubSub.publish('showDefaultCard',{
+            PubSub.publishSync('showDefaultCard',{
                 name: name,
                 parent: parent
             })
@@ -53,26 +53,23 @@ export default class ImageSettings extends Component {
     }
 
     render() {
-        const {isUploadFile,location} = this.state
-        let uploadSrc = ''
+        const {isUploadFile} = this.state
         const {position,size,src} = this.props.img
         // console.log("src",src);
         const {name} = this.props
-        if(isUploadFile){
-            uploadSrc = require('' +location)
-        }
+
 
         const changeSizeValue = (value) => {
             const {ImageDatas} = this.state
             ImageDatas.img.size = value
-            PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
         };
 
         const changePositionValue = (type) => {
             const {ImageDatas} = this.state
             return (value) => {
                 ImageDatas.img.position[type] = value
-                PubSub.publish("setFormDatas",{name: this.props.name, values: ImageDatas})
+                PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
             }
         }
 
@@ -90,17 +87,14 @@ export default class ImageSettings extends Component {
             return isPic || Upload.LIST_IGNORE;
         }
 
-
         const uploadFile = (file) => {
             const {username} = this.props
-            console.log("g",username);
-            // console.log(file);
-            // file.file.status = "done"
+            // console.log("g",username);
+
             if(file.file.status === "removed"){
                 this.setState({isUploadFile: false})
             }
             if(file.file.percent !== 100){
-                // console.log("in");
                 axios({
                     method: 'post',
                     url: '/uploadFile',
@@ -111,27 +105,25 @@ export default class ImageSettings extends Component {
                     }
                 }).then(
                     response => {
-                        PubSub.publish('closeDefaultCard')
+                        PubSub.publishSync('closeDefaultCard')
 
                         const {selectedCardName,location} = response.data
                         this.setState({location})
                         // console.log("res", response.data.location);
                         
                         this.setState({isUploadFile: true})
-                        PubSub.publish("usingDefaultDatas",{
+                        PubSub.publishSync("usingDefaultDatas",{
                             selectedCardName,
                             uploadFileSrc: location
                         })
+
+                        message.success(`文件上传成功`)
                     },
                     error => {
                         console.log(error)
                     }
                 )
-                message.success(`文件上传成功`)
             }
-            
-            
-            
         }
 
         return (
@@ -173,10 +165,7 @@ export default class ImageSettings extends Component {
                     <div className="card-body">
                         <h5 className="card-title">圖片預覽</h5>
                         {
-                            isUploadFile ? 
-                                <Image src={uploadSrc} style={{width: "50%", height: "50%"}} alt="empty_image" />
-                            :
-                                <Image src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
+                            <Image src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
                         }
                         
                     </div>

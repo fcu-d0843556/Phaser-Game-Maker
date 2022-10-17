@@ -21,7 +21,7 @@ export default class ScoreCard extends Component {
         const changeValue = (value) => {
             const {textDatas} = this.state
             textDatas.score.content = value
-            PubSub.publish("setFormDatas",{name: this.props.name, values: textDatas})
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         };
         
         const {content} = this.props.score

@@ -73,28 +73,18 @@ module.exports = function(app) {
       // console.log(req.query);
       
       extname = path.extname(JSON.parse(fileContent).name)
-      // console.log("fileaa",);
       // console.log(extname);
-      
     }
-    
-    // console.log("name set");
-    // console.log("fileContent",req.query);
-    // console.log("dd",fileContent);
-    
-    
-    // console.log(req.query);
 
     if(Object.keys(req.query).length === 0){
       res.json({success: true})
-      // console.log("okok");
     }else{
-      // console.log(username);
-      // res.json({
-      //   success: true,
-      //   location: `./upload/${username}/${fileName + extname}`,
-      //   selectedCardName: fileName
-      // })
+      console.log(username);
+      res.json({
+        success: true,
+        location: `./upload/${username}/${fileName + extname}`,
+        selectedCardName: fileName
+      })
     }
     
   });

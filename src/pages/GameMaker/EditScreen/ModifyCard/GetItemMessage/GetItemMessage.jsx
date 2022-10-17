@@ -23,13 +23,13 @@ export default class GetItemMessage extends Component {
         const changeNumberValue = (value) => {
             const {textDatas} = this.state
             textDatas.text.content = value
-            PubSub.publish("setFormDatas",{name: this.props.name, values: textDatas})
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         };
         
         const changeTextValue = (event) => {
             const {textDatas} = this.state
             textDatas.text.content = event.target.value
-            PubSub.publish("setFormDatas",{name: this.props.name, values: textDatas})
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         }
 
         return (

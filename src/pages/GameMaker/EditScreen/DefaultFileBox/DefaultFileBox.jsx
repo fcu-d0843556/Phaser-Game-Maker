@@ -85,7 +85,7 @@ export default class DefaultFileBox extends Component {
                 this.setState({
                     selectedItemId: ""
                 })
-                PubSub.publish("usingDefaultDatas",{
+                PubSub.publishSync("usingDefaultDatas",{
                     isSelected: false,
                     selectedItem: item,
                     selectedCardName
@@ -96,7 +96,7 @@ export default class DefaultFileBox extends Component {
                 })
 
                 
-                PubSub.publish("usingDefaultDatas",{
+                PubSub.publishSync("usingDefaultDatas",{
                     isSelected: true,
                     selectedItem: item,
                     selectedCardName

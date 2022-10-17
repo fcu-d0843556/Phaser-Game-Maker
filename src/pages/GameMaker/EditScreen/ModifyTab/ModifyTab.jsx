@@ -6,7 +6,7 @@ export default class ModifyTab extends Component {
 
     changeCard = () => {
         const {keyword,parent} = this.props
-        PubSub.publish('changeCard',{
+        PubSub.publishSync('changeCard',{
             keyword,
             parent
         })

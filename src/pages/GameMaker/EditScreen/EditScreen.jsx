@@ -20,25 +20,25 @@ export default class EditScreen extends Component {
     handleformSubmit = (event) => {
         event.preventDefault()
         console.log(event);
-        PubSub.publish("refreshGame")
+        PubSub.publishSync("refreshGame")
     }
 
     changeModifyMode = () => {
         const {mobileModifyMode} = this.state
         
         this.setState({mobileModifyMode: (mobileModifyMode === "modify" ? "game" : "modify")})
-        PubSub.publish("setMobileModifyMode",(mobileModifyMode === "modify" ? "game" : "modify"))
+        PubSub.publishSync("setMobileModifyMode",(mobileModifyMode === "modify" ? "game" : "modify"))
     }
 
     //發佈遊戲
     renderGame = () => {
-        PubSub.publish("publishGame")
+        PubSub.publishSync("publishGame")
     }
 
     //回到默認狀態
     backToDefaultDatas = () => {
         console.log("back");
-        PubSub.publish("getGameData", "default")
+        PubSub.publishSync("getGameData", "default")
     }
 
     render() {

@@ -35,7 +35,7 @@ export default class QuestionCard extends Component {
                     break
                 default:
             }
-            PubSub.publish("setFormDatas",{name: this.props.name, values: questionDatas})
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: questionDatas})
         }
     }
   

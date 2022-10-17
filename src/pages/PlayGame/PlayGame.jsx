@@ -42,7 +42,7 @@ export default class RenderGame extends Component {
             gameId: gameId,
             gameModifyDatas: response.data.gameDatas
           })
-          PubSub.publish("playGameMode", true);
+          PubSub.publishSync("playGameMode", true);
         }else{
           alert(response.data.message)
         }
@@ -58,7 +58,7 @@ export default class RenderGame extends Component {
   }
 
   componentWillUnmount(){
-    PubSub.publish("playGameMode", false);
+    PubSub.publishSync("playGameMode", false);
   }
 
   fullScreen = () => {
