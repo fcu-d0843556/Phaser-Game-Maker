@@ -3,14 +3,17 @@ import PubSub from 'pubsub-js';
 import qs from 'qs'
 import axios from 'axios';
 import {FullscreenOutlined,RetweetOutlined} from '@ant-design/icons';
-import {Button} from 'antd';//Pages
-
+import {Button,Layout, Space} from 'antd';
 
 //Pages
 // import GameScreen from '../GameMaker/GameScreen/GameScreen'
 
 //Phaser Game
 import startGame from '../../PhaserGame'
+
+
+
+const { Footer } = Layout;
 
 export default class RenderGame extends Component {
 
@@ -82,18 +85,21 @@ export default class RenderGame extends Component {
         <div>
           <div id="phaser-play-screen"></div>
 
-          <div className="card-footer text-muted fixed-bottom" style={{backgroundColor: "rgba(0, 0, 0, 0.664)"}}>
-              
-              <Button onClick={this.fullScreen} type='primary'>
-                Full Screen
-                <FullscreenOutlined />
-              </Button>
+          <Layout>
+              <Footer className="fixed-game-footer" >
+                
+                <Button onClick={this.fullScreen} type='primary'>
+                  Full Screen
+                  <FullscreenOutlined />
+                </Button>
 
-              <Button onClick={this.restartGame} style={{float: "right"}}>
-                Replay
-                <RetweetOutlined />
-              </Button>
-          </div>
+                <Button style={{backgroundColor: "#ffa940", float: "right"}} onClick={this.restartGame}>
+                  Replay
+                  <RetweetOutlined />
+                </Button>
+                  
+              </Footer>
+          </Layout>
         </div>
 
 

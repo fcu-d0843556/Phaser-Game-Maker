@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import {Button, Layout, Space} from 'antd';
 
 //Pages
 import DefaultFileBox from './DefaultFileBox/DefaultFileBox'
@@ -11,15 +12,17 @@ import ModifyTab from './ModifyTab/ModifyTab'
 
 import './EditScreen.css'
 
+const { Footer } = Layout;
+
+
 export default class EditScreen extends Component {
 
     state = {
         mobileModifyMode: "modify"
     }
 
-    handleformSubmit = (event) => {
-        event.preventDefault()
-        console.log(event);
+    refreshGame = (event) => {
+        // console.log(event);
         PubSub.publishSync("refreshGame")
     }
 
@@ -39,6 +42,7 @@ export default class EditScreen extends Component {
     backToDefaultDatas = () => {
         console.log("back");
         PubSub.publishSync("getGameData", "default")
+        this.refreshGame()
     }
 
     render() {
@@ -60,7 +64,7 @@ export default class EditScreen extends Component {
 
                         <div className="col-6 right-select-bar" id="allCards" >
                             <div className="modify-cards-screen">
-                                <form onSubmit={this.handleformSubmit} >
+                                <form>
                                     
                                     <div id="allCards" style={{display: (mobileModifyMode === "modify" || width >= 576) ? "block" : "none", zIndex: 1}}>
                                         {
@@ -91,16 +95,24 @@ export default class EditScreen extends Component {
                                                 }
                                             })
                                         }
-
                                     </div>
+                                    <Layout>
+                                        <Footer className="fixed-game-footer" >
 
-                                    <div className="card-footer text-muted fixed-bottom" style={{backgroundColor: "rgba(0, 0, 0, 0.664)"}}>
-                                        <button type='button' onClick={this.renderGame} className="btn btn-primary edit-button">生成遊戲</button>
-                                        <button type='submit' onClick={this.changeModifyMode} className="btn btn-warning edit-button preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</button>
-                                        <button type='submit' className="btn btn-warning edit-button preview-button-PC">預覽變化</button>
-                                        <button type="button" onClick={this.backToDefaultDatas} className="btn btn-danger edit-button">回到默認資料</button>
-                                        
-                                    </div>
+                                                
+
+                                            <Space style={{float: "right"}} size="small">
+                                                <Button style={{backgroundColor: "#ffa940"}} onClick={this.changeModifyMode} className="preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</Button>
+                                                <Button style={{backgroundColor: "#ffa940"}} onClick={this.refreshGame} className="preview-button-PC">預覽變化</Button>
+                                                <Button style={{backgroundColor: "#40a9ff"}} onClick={this.renderGame}>生成遊戲</Button>
+                                            </Space>
+
+                                            <Space size="small">
+                                                <Button type="danger" onClick={this.backToDefaultDatas}>回到默認資料</Button>
+                                            </Space>
+
+                                        </Footer>
+                                    </Layout>
                                 </form>
                             </div>  
                         </div>

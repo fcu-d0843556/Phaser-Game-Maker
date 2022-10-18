@@ -1,3 +1,16 @@
+.fixed-game-footer{
+    bottom: 0;
+    left: 0;
+    padding: 8px 50px;
+    background-color: rgba(0, 0, 0, 0.664);
+
+    /* antd */
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    /* antd */
+}
+
 
 .modify-cards-screen{
     left: 100%;
@@ -7,9 +20,8 @@
     overflow-y: auto;
 }
 
-.edit-button{
-    float: right;
-}
+
+
 
 /* 
 #guideMark{
@@ -53,18 +65,22 @@
 
 .preview-button-PC{
     display: block;
+    gap: 8px
 }
 
 .preview-button-mobile{
     display: none;
+    gap: 0
 }
 
 @media (max-height:790px) , (max-width:576px) and (min-height:790px){
     .preview-button-PC{
         display: none;
+        gap: 0
     }
 
     .preview-button-mobile{
         display: block;
+        gap: 8px
     }
 }

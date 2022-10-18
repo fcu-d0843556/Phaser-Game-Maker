@@ -134,7 +134,6 @@ export default class GameMaker extends Component {
             // console.log("message: ",response.data.message );
             if(type === "default"){
               this.setState({gameModifyDatas})
-              PubSub.publishSync("refreshGame")
             }else{
               this.setState({
                 game: startGame(gameId,gameModifyDatas,"modifyGame"),

@@ -21,13 +21,14 @@ export default class ShootingGameScene extends Phaser.Scene{
     preload(){
 
         this.modifyDatas = this.scene.settings.data
-        // console.log("modifyDatas : ", this.modifyDatas)
+        console.log("modifyDatas : ", this.modifyDatas)
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
             this.modifyDatas[key].items.forEach((itemObj)=>{
                 if( itemObj.img ) {
                     if(this.textures.list[itemObj.name]){
+                        console.log("remove");
                         this.textures.remove(itemObj.name)
                     }
                     this.load.image( itemObj.name, itemObj.img.src )
