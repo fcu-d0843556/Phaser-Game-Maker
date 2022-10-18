@@ -144,19 +144,19 @@ export default class ImageSettings extends Component {
                         position ? 
                             <div className="row">
                             {
-                                position.x ? 
+                                position.x !== undefined ? 
                                     <div className="col">
                                         <label className="form-label">圖片水平位置</label>
-                                        <InputNumber min={0} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
+                                        <InputNumber min={-1000} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
                                     </div>
                                 :   <div></div>
                             }
                             
                             {
-                                position.y ?
+                                position.y !== undefined ?
                                 <div className="col">
                                     <label className="form-label">圖片垂直位置</label>
-                                    <InputNumber min={0} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
+                                    <InputNumber min={-1000} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
                                 </div>
                                 :   <div></div> 
                             }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 //Pages
-import Footer from './Footer/Footer'
+import Footer from './MyFooter/MyFooter'
 import IntroStepBox from './IntroStepBox/IntroStepBox'
 import IntroImgBox from './IntroImgBox/IntroImgBox'
 import IntroStartBox from './IntroStartBox/IntroStartBox'

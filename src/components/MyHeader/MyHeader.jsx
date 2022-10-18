@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component  }  from 'react'
 import PubSub from 'pubsub-js'
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom'
-import { Button } from 'antd'
+
+import { Button, Drawer } from 'antd'
+import { Layout, Menu } from 'antd';
+
 
 //Components
 import MyNavLink from '../MyNavLink/MyNavLink'
@@ -14,11 +17,17 @@ import SelectGame from '../../pages/SelectGame/SelectGame'
 import GameMaker from '../../pages/GameMaker/GameMaker'
 import PlayGame from '../../pages/PlayGame/PlayGame'
 
-class Header extends Component {
+
+const { Header, Content, Footer } = Layout;
+
+class MyHeader extends Component {
 
     state = {
         username: '',
-        isPlayGameMode: false
+        isPlayGameMode: false,
+
+        visible: false
+
     }
     
     componentDidMount(){
@@ -43,12 +52,50 @@ class Header extends Component {
         localStorage.setItem('username', '')
     }
 
+    showDrawer = () => {
+        this.setState({visible: true});
+    };
+
+    onClose = () => {
+        this.setState({visible: false});
+    };
+
     render() {
+        
+        
+
         const {isPlayGameMode} = this.state
         const username = localStorage.getItem('username') || ''
 
         return (
-            <div>
+            <Layout>
+                {/* <Button onClick={this.showDrawer}>123</Button> */}
+                <Drawer title="Basic Drawer" placement="right" onClose={this.onClose} visible={this.state.visible}>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Drawer>
+
+                <Header
+                style={{
+                    position: 'fixed',
+                    zIndex: 1,
+                    width: '100%',
+                }}
+                >
+                <div className="logo" />
+                <Menu
+                    theme="dark"
+                    mode="horizontal"
+                    defaultSelectedKeys={['2']}
+                    items={new Array(8).fill(null).map((_, index) => ({
+                    key: String(index + 1),
+                    label: `nav ${index + 1}`,
+                    }))}
+                />
+                </Header>
+                
+                
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky">
 
                     <div className="container-fluid">
@@ -98,9 +145,9 @@ class Header extends Component {
                         <Redirect to="/home"></Redirect>
                     </Switch>
                 </div>
-            </div>
+            </Layout>
         )
     }
 }
 
-export default withRouter(Header)
+export default withRouter(MyHeader)
