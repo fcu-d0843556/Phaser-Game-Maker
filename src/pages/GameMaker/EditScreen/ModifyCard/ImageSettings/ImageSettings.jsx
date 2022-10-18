@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
 import { InputNumber, Image } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
 import { Button, Space, Upload, message } from 'antd';
 import axios from 'axios';
 
@@ -9,7 +9,8 @@ export default class ImageSettings extends Component {
 
     state = {
         ImageDatas: {},
-        isUploadFile: false
+        isUploadFile: false,
+        isUploading: false
     }
     
     componentDidMount(){
@@ -32,10 +33,13 @@ export default class ImageSettings extends Component {
                     this.setState({ImageDatas})
                     PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }else if(status.uploadFileSrc !== undefined){
-                    // console.log("dd");
-                    ImageDatas.img.src = status.uploadFileSrc
+                    console.log("dd",ImageDatas.img.src,status.uploadFileSrc);
+                    // console.log(ImageDatas.img);
+                        
+                    ImageDatas.img.src = status.uploadFileSrc + "?t=" + new Date().getTime()
                     this.setState({ImageDatas})
                     PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
+                    this.setState({isUploading: false})
                 }
             }
         })
@@ -53,7 +57,7 @@ export default class ImageSettings extends Component {
     }
 
     render() {
-        const {isUploadFile} = this.state
+        const {isUploadFile,isUploading} = this.state
         const {position,size,src} = this.props.img
         // console.log("src",src);
         const {name} = this.props
@@ -81,20 +85,27 @@ export default class ImageSettings extends Component {
             }
 
             if (!isPic) {
-                message.error(`${file.name} is not a png file`);
+                message.error(`請上傳 png 或是 jpg 的圖片檔`);
             }
 
-            return isPic || Upload.LIST_IGNORE;
+            const isBigFile = file.size / 1024 / 1024 < 3;
+            if (!isBigFile) {
+                message.error('請上傳小於 3MB 的圖片檔');
+            }
+
+            return (isPic && isBigFile) || Upload.LIST_IGNORE;
         }
 
         const uploadFile = (file) => {
+            // console.log("uploadFIle");
             const {username} = this.props
-            // console.log("g",username);
+            // console.log("file:",file);
 
             if(file.file.status === "removed"){
                 this.setState({isUploadFile: false})
             }
             if(file.file.percent !== 100){
+                this.setState({isUploading: true})
                 axios({
                     method: 'post',
                     url: '/uploadFile',
@@ -165,7 +176,10 @@ export default class ImageSettings extends Component {
                     <div className="card-body">
                         <h5 className="card-title">圖片預覽</h5>
                         {
-                            <Image src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
+                            isUploading ? 
+                                <SyncOutlined spin style={{ fontSize: '32px', color: '#52c41a'}} />
+                            :
+                                <Image src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
                         }
                         
                     </div>
