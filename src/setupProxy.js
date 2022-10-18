@@ -82,7 +82,7 @@ module.exports = function(app) {
       console.log(username);
       res.json({
         success: true,
-        location: `./upload/${username}/${fileName + extname}`,
+        location: `/upload/${username}/${fileName + extname}`,
         selectedCardName: fileName
       })
     }
