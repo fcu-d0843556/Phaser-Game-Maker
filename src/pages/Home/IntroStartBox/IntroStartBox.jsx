@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
+import { Button } from 'antd'
+import { DownloadOutlined } from '@ant-design/icons';
+
+import './IntroStartBox.css'
+
 class IntroStartBox extends Component {
 
   clickEvent = () => {
@@ -17,7 +22,9 @@ class IntroStartBox extends Component {
         <header className="intro-container">
             <h1 className="intro-container-text">HELLO!</h1>
             <p>In this website, you can make your own games!</p>
-            <p onClick={this.clickEvent} className="startbutton">Let's Start !</p>
+            <Button onClick={this.clickEvent} className="startbutton" type="primary" size="large">
+              Let's Start !
+            </Button>
         </header>
     )
   }
