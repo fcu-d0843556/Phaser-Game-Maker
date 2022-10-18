@@ -17,8 +17,9 @@ import SelectGame from '../../pages/SelectGame/SelectGame'
 import GameMaker from '../../pages/GameMaker/GameMaker'
 import PlayGame from '../../pages/PlayGame/PlayGame'
 
+import './MyHeader.css'
 
-const { Header, Content, Footer } = Layout;
+const { Header } = Layout;
 
 class MyHeader extends Component {
 
@@ -31,6 +32,8 @@ class MyHeader extends Component {
     }
     
     componentDidMount(){
+        console.log(this.props.location);
+        this.setState({nowRoute: 'home'})
         // localStorage.setItem('username', '')
         PubSub.subscribe("playGameMode", (msg,isPlayGameMode)=>{
             console.log(msg);
@@ -60,81 +63,85 @@ class MyHeader extends Component {
         this.setState({visible: false});
     };
 
-    render() {
-        
-        
+    getMenuItem(label, key, icon, children, type) {
+        return {
+            key,
+            icon,
+            children,
+            label,
+            type,
+        };
+    }
 
+    menuClick = (event) => {
+        const {pathname} = this.props.location
+        const {key} = event
+        // console.log(event);
+        switch(key){
+            case '/logout':
+                this.logOut()
+                break
+            default:
+                if(key === 'member'){break}
+                if(pathname !== key){
+                    console.log("in");
+                    this.props.history.push(key)
+                }
+                break
+        }
+    }
+
+    render() {
+        const {pathname} = this.props.location
         const {isPlayGameMode} = this.state
         const username = localStorage.getItem('username') || ''
 
+        const loginItems = [
+            this.getMenuItem('首頁', '/home', null),
+            this.getMenuItem('選擇遊戲', '/SelectGame', null),
+            this.getMenuItem(`歡迎, ${username}`, 'member', null),
+            this.getMenuItem('登出', '/logout', null)
+        ];
+        
+        const logoutItems = [
+            this.getMenuItem('首頁', '/home', null),
+            this.getMenuItem('登入', '/login', null)
+        ];
+
+        const gameItems = [
+            this.getMenuItem('首頁', '/home', null),
+        ];
+
         return (
             <Layout>
-                {/* <Button onClick={this.showDrawer}>123</Button> */}
-                <Drawer title="Basic Drawer" placement="right" onClose={this.onClose} visible={this.state.visible}>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                </Drawer>
+                    {/* <Button onClick={this.showDrawer}>123</Button> */}
+                    {/* <Drawer title="Basic Drawer" placement="right" onClose={this.onClose} visible={this.state.visible}>
+                        <p>Some contents...</p>
+                        <p>Some contents...</p>
+                        <p>Some contents...</p>
+                    </Drawer> */}
 
-                <Header
-                style={{
-                    position: 'fixed',
-                    zIndex: 1,
-                    width: '100%',
-                }}
-                >
-                <div className="logo" />
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={new Array(8).fill(null).map((_, index) => ({
-                    key: String(index + 1),
-                    label: `nav ${index + 1}`,
-                    }))}
-                />
-                </Header>
-                
-                
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky">
+                <Header 
+                    className='my-header'
+                    style={{
+                        position: 'fixed',
+                        zIndex: 1,
+                        width: '100%'
+                }}>
 
-                    <div className="container-fluid">
-                        <MyNavLink className="navbar-brand" to="/home">Home</MyNavLink>
-                        <button style={{display: isPlayGameMode ? "none": ""}} className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-
-                        {
-                            (!isPlayGameMode) ? 
-                                <div className="collapse navbar-collapse" id="navbarText">
-                                    {
-                                        username ?  
-                                            <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
-                                                <li className="nav-item">
-                                                    <MyNavLink to="/selectGame">SelectGame</MyNavLink>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <MyNavLink to="/user">您好, {username}</MyNavLink>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <MyNavLink onClick={this.logOut} to="/home">登出</MyNavLink>
-                                                </li>  
-                                            </ul> 
-                                        :
-                                            <ul className="navbar-nav me-auto mb-2 mb-lg-0"> 
-                                                <li className="nav-item">
-                                                    <MyNavLink to="/Login">Login</MyNavLink>
-                                                </li>
-                                            </ul> 
-                                    }
-                                </div>
+                    {
+                        (!isPlayGameMode) ? 
+                            username ?
+                                <Menu onClick={this.menuClick} theme="dark" mode="horizontal" items={loginItems} defaultSelectedKeys={pathname} />
                             :
-                            <div></div>
-                        }
-                    </div>
-                </nav>
+                                <Menu onClick={this.menuClick} theme="dark" mode="horizontal" items={logoutItems} defaultSelectedKeys={pathname} />
+                        :
+                            <Menu onClick={this.menuClick} theme="dark" mode="horizontal" items={gameItems} defaultSelectedKeys={pathname} />
+                    }
+                </Header>
 
-                <div>
+
+                <div className='render-body-margin'>
                     <Switch>
                         <Route component={Login} path="/login"></Route>
                         <Route component={Home} path="/home"></Route>
