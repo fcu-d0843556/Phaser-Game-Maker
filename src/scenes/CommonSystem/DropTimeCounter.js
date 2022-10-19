@@ -1,7 +1,4 @@
-import Phaser from "phaser"
-
-let fruitDropTime = 10
-let nowTime = 0
+// import Phaser from "phaser"
 
 export default class DropTimeCounter {
 

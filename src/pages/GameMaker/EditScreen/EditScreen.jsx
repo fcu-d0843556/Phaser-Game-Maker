@@ -25,7 +25,7 @@ export default class EditScreen extends Component {
         // console.log(event);
         PubSub.publishSync("refreshGame")
     }
-
+ 
     changeModifyMode = () => {
         const {mobileModifyMode} = this.state
         

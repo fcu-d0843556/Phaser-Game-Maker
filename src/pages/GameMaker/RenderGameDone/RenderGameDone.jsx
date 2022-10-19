@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 
-import {Button,Typography} from 'antd'
+import {Typography} from 'antd'
 
 const { Paragraph } = Typography;
 

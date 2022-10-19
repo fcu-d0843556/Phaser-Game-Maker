@@ -3,8 +3,7 @@ import PubSub from 'pubsub-js'
 
 
 import { QuestionCircleTwoTone } from '@ant-design/icons';
-import { Input,InputNumber, Button, Divider, Tooltip } from 'antd';
-const { TextArea } = Input;
+import { Input,InputNumber, Tooltip } from 'antd';
 
 
 export default class GetItemMessage extends Component {

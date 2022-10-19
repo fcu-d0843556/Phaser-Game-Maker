@@ -3,7 +3,7 @@ import PubSub from 'pubsub-js';
 import qs from 'qs'
 import axios from 'axios';
 import {FullscreenOutlined,RetweetOutlined} from '@ant-design/icons';
-import {Button,Layout, Space} from 'antd';
+import {Button,Layout} from 'antd';
 
 //Pages
 // import GameScreen from '../GameMaker/GameScreen/GameScreen'

@@ -1,4 +1,4 @@
-import Phaser, { Math } from "phaser"
+import Phaser from "phaser"
 
 
 import Score from "../CommonSystem/Score"
@@ -12,7 +12,6 @@ import BombSpawner from "./BombSpawner"
 
 
 const BombKey = 'bomb'
-const StarKey = 'star'
 
 
 export default class CatchFruitGameScene extends Phaser.Scene{
@@ -221,7 +220,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
     }
 
     update(){
-        if(this.gameOver == true){
+        if(this.gameOver === true){
             return
         }
 

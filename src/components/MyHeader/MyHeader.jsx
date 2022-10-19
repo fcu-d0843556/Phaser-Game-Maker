@@ -2,12 +2,11 @@ import React, { Component  }  from 'react'
 import PubSub from 'pubsub-js'
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom'
 
-import { Button, Drawer } from 'antd'
 import { Layout, Menu } from 'antd';
 
 
 //Components
-import MyNavLink from '../MyNavLink/MyNavLink'
+// import MyNavLink from '../MyNavLink/MyNavLink'
 
 //Pages
 import Login from '../../pages/Login/Login'

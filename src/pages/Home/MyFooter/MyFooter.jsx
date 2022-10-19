@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 
 import './MyFooter.css'
 
-import { Layout, Menu } from 'antd';
-const { Header, Content, Footer } = Layout;
+import { Layout } from 'antd';
+const { Footer } = Layout;
 
 
 export default class MyFooter extends Component {
