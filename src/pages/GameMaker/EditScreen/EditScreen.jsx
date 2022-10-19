@@ -31,6 +31,7 @@ export default class EditScreen extends Component {
         
         this.setState({mobileModifyMode: (mobileModifyMode === "modify" ? "game" : "modify")})
         PubSub.publishSync("setMobileModifyMode",(mobileModifyMode === "modify" ? "game" : "modify"))
+        this.refreshGame()
     }
 
     //發佈遊戲
