@@ -148,12 +148,12 @@ export default class GameMaker extends Component {
 
   render() {
     const {gameModifyDatas,gameId,isRenderDone,gameUrl,username} = this.state
-    const {width} = this.state
+    const {height,width} = this.state
     //console.log("game: ", height,width);
     return (
         <div className="container-fluid">
           {isRenderDone ? <RenderGameDone gameUrl={gameUrl}/> : <div/>}
-          <GameScreen width={width}></GameScreen>
+          <GameScreen height={height} width={width}></GameScreen>
           <EditScreen username={username} width={width} gameModifyDatas={gameModifyDatas} gameId={gameId}></EditScreen>
         </div>
     )

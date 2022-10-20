@@ -2,30 +2,54 @@
     background-image: url("/public/img/phonestyleDis.svg");
     width: 410px;
     height: 740px;
-    position: absolute;
+    position: absolute; 
 }
 
+
 #phaser-container {
-    /* width           : 40% !important; */
-    /* padding: 25px; */
+    width           : 100% !important;
+    height          : 640px !important;
 	margin-top      : 50px;
-    margin-left     : auto;
-    margin-right    : auto;
 	display			: flex;
 	justify-content	: center;
     z-index         : 10;
 }
 
-@media (max-width:576px) {
-    #phaser-container{
-        width: 100% !important;
-        justify-content	: center;
+@media (max-height:850px){
+    #phaser-container{ 
+        margin  : auto;
+        width   : auto !important;
+        height  : 80% !important;
+        position: absolute;
+        z-index : 0;
+        display : flex;
+    }
+
+    .phone-style{
+        background-image: url("/public/img/phonestyleDis.svg");
+        width: 410px;
+        height: 740px;
+        position: absolute; 
+        display: none;
     }
 }
 
-@media (max-height:790px) , (max-width:576px) and (min-height:790px){
-    #phaser-container{
-        margin-top      : 56px;
+@media (max-width:440px){
+    #phaser-container{ 
+        margin  : auto;
+        width   : 90% !important;
+        height  : 80% !important;
+        position: absolute;
+        z-index : 0;
+        display : flex;
+    }
+
+    .phone-style{
+        background-image: url("/public/img/phonestyleDis.svg");
+        width: 410px;
+        height: 740px;
+        position: absolute; 
+        display: none;
     }
 }
 

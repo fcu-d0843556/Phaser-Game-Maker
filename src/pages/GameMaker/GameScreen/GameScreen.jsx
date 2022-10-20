@@ -19,17 +19,19 @@ export default class GameScreen extends Component {
 
   render() {
     const {mobileModifyMode} = this.state
-    const {width} = this.props
-    // console.log(mobileModifyMode);
+    const {width,height} = this.props
+    console.log(width, height);
     return (
-        <div>
+        <div className="hello">
           {
             width >= 576 ?
-              <div className="phone-style">
-                <div className="phone" id="phaser-container"></div>
-              </div>
+              
+                <div className={height >= 850 ? "phone-style": ""}>
+                  <div className="phone" id="phaser-container"></div>
+                </div>
+              
             : 
-              <div style={{visibility: mobileModifyMode === "game" ? "visible" : "hidden", zIndex: 1}} className="phone-style">
+              <div style={{visibility: mobileModifyMode === "game" ? "visible" : "hidden", zIndex: 1}} className={width >= 440 && height >= 850 ? "phone-style": ""}>
                 <div className="phone" id="phaser-container"></div>
               </div>
           }

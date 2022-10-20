@@ -99,16 +99,13 @@ export default class EditScreen extends Component {
                                     </div>
                                     <Layout>
                                         <Footer className="fixed-game-footer" >
-
-                                                
-
                                             <Space style={{float: "right"}} size="small">
+                                            
                                                 <Button style={{backgroundColor: "#ffa940"}} onClick={this.changeModifyMode} className="preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</Button>
                                                 <Button style={{backgroundColor: "#ffa940"}} onClick={this.refreshGame} className="preview-button-PC">預覽變化</Button>
                                                 <Button style={{backgroundColor: "#40a9ff"}} onClick={this.renderGame}>生成遊戲</Button>
-                                            </Space>
+                                            
 
-                                            <Space size="small">
                                                 <Button type="danger" onClick={this.backToDefaultDatas}>回到默認資料</Button>
                                             </Space>
 
