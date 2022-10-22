@@ -21,14 +21,14 @@ export default class ShootingGameScene extends Phaser.Scene{
     preload(){
 
         this.modifyDatas = this.scene.settings.data
-        console.log("modifyDatas : ", this.modifyDatas)
+        // console.log("modifyDatas : ", this.modifyDatas)
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
             this.modifyDatas[key].items.forEach((itemObj)=>{
                 if( itemObj.img ) {
                     if(this.textures.list[itemObj.name]){
-                        console.log("remove");
+                        // console.log("remove");
                         this.textures.remove(itemObj.name)
                     }
                     this.load.image( itemObj.name, itemObj.img.src )
@@ -74,8 +74,8 @@ export default class ShootingGameScene extends Phaser.Scene{
         
 
         //Balloons custom OK.
-        const {balloon} = this.modifyDatas
-        this.balloon = new ballonSpawner(this,this.scoreText, balloon.items) 
+        const {balloon,balloonSpeed} = this.modifyDatas
+        this.balloon = new ballonSpawner(this,this.scoreText, balloon.items, balloonSpeed.items[0]) 
 
         //Ballon Timer
         this.starCoolDown = new DropTimeCounter(this,"")

@@ -149,7 +149,7 @@ export default class GameMaker extends Component {
   render() {
     const {gameModifyDatas,gameId,isRenderDone,gameUrl,username} = this.state
     const {height,width} = this.state
-    //console.log("game: ", height,width);
+    // console.log("gamedata: ", gameModifyDatas);
     return (
         <div className="container-fluid">
           {isRenderDone ? <RenderGameDone gameUrl={gameUrl}/> : <div/>}
