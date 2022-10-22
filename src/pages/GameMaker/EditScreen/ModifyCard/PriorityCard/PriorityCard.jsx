@@ -19,27 +19,29 @@ export default class PriorityCard extends Component {
     
   
     render() {
-        const {priority} = this.props
-        // console.log(priority);
+        // console.log(this.props);
+        const {modifyTitle, selected, content} = this.props.priority
+        
         const marks = {
             1: {
                 style: {color: '#f50',},
-                label: <strong>非常低</strong>,
+                label: <strong>{content[0]}</strong>,
             },
-            2: '低',
-            3: '一般',
-            4: '高',
+            2: content[1],
+            3: content[2],
+            4: content[3],
             5: {
                 style: {color: '#f50',},
-                label: <strong>非常高</strong>,
+                label: <strong>{content[4]}</strong>,
             },
         };
 
         const changeValue = (value) => {
             
             const {itemDatas} = this.state
-            // console.log(itemDatas);
-            itemDatas.priority = value
+            // console.log("be",itemDatas.priority);
+            itemDatas.priority.selected = value
+            // console.log("af",itemDatas.priority);
             PubSub.publishSync("setFormDatas",{name: this.props.name, values: itemDatas})
         };
         
@@ -48,14 +50,14 @@ export default class PriorityCard extends Component {
             <div>
                 <div className="card-header">
                     <div className="mb-3">
-                        <label className="form-label modify-card-title">氣 球 出 現 機 率</label>
+                        <label className="form-label modify-card-title">{modifyTitle}</label>
                         <br/>
                         <Slider min={1}
                                 max={5}
                                 onAfterChange={changeValue}
                                 marks={marks} 
                                 step={null} 
-                                defaultValue={priority} />
+                                defaultValue={selected} />
                     </div>
                 </div>
             </div>
