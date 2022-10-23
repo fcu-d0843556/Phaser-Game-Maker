@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import {List,Collapse} from 'antd'
 
 //Pages
 import GetItemMessage from './GetItemMessage/GetItemMessage'
@@ -10,6 +11,8 @@ import PriorityCard from './PriorityCard/PriorityCard'
 import GameoverMessage from './GameoverMessage/GameoverMessage'
 
 import './ModifyCard.css'
+
+const { Panel } = Collapse;
 
 export default class ModifyCard extends Component {
 
@@ -42,59 +45,64 @@ export default class ModifyCard extends Component {
     const {showCard} = this.state
     // console.log(this.props);
     return (
-        <div name={name} className="card text-center modify-card" style={{display: showCard ? 'block': 'none'}}>
-            <div className="card-header">
-              {
-                  <div className="mb-3">
-                    <label className="form-label modify-card-title">{modifyTitle}</label>
-                  </div>
-              }
-            </div> 
+        <Collapse accordion >
+            {/* <div name={name} className="card text-center modify-card" > */}
+            
 
             {
               img ? 
-                <div>
-                  <ImageSettings {...this.props}></ImageSettings>
-                </div>
+                
+                  <Panel header="圖片管理" key={name}>
+                    
+                      <ImageSettings {...this.props}></ImageSettings>
+                    
+                  </Panel>
+                
               : 
-                <div></div>
-            }
-            
-            {
-              priority ? 
-                <PriorityCard {...this.props}></PriorityCard>
-              :
-                <div></div>
-            }
-            
-            {
-              score ? 
-                <ScoreCard {...this.props}></ScoreCard>
-              :
                 <div></div>
             }
 
             {
               text ? 
-                <GetItemMessage {...this.props}></GetItemMessage>
+                  <Panel header={text.modifyTitle} key={text.modifyTitle}>
+                    <List.Item><GetItemMessage {...this.props}></GetItemMessage></List.Item>
+                  </Panel>
               :
-                <div></div>
+              <div></div>
+            }
+{/*             
+            {
+              priority ? 
+                <List.Item>
+                  <PriorityCard {...this.props}></PriorityCard>
+                </List.Item>
+              :
+              <div></div>
+            }
+            
+            {
+              score ? 
+              
+                <List.Item><ScoreCard {...this.props}></ScoreCard></List.Item>
+              :
+              <div></div>
             }
 
             {
               question ? 
-                <QuestionCard {...this.props}></QuestionCard>
+                <List.Item><QuestionCard {...this.props}></QuestionCard></List.Item>
               :
-                <div></div>
+              <div></div>
             }
 
             {
               gameoverMessage ?
-                <GameoverMessage {...this.props}></GameoverMessage>
+                <List.Item><GameoverMessage {...this.props}></GameoverMessage></List.Item>
               :
                 <div></div>
-            }
-        </div>
+            } */}
+        {/* </div> */}
+        </Collapse>
     )
   }
 }

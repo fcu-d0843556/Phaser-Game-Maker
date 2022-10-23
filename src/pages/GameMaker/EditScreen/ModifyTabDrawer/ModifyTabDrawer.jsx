@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
-import {Button,Drawer} from 'antd'
+import {Button,Drawer,Col,List} from 'antd'
+
+import ModifyCard from '../ModifyCard/ModifyCard'
 
 export default class ModifyTabDrawer extends Component {
 
@@ -8,12 +10,16 @@ export default class ModifyTabDrawer extends Component {
         visible: false
     }
 
-    changeCard = () => {
-        
+    componentDidMount(){
+        PubSub.subscribe("closeAllDrawer",(msg)=>{
+            this.setState({visible: false});
+        })
     }
 
     showDrawer = () => {
-        this.setState({visible: true});
+        const {visible} = this.state
+        PubSub.publishSync("closeAllDrawer")
+        this.setState({visible: !visible});
     };
 
     closeDrawer = () => {
@@ -22,21 +28,24 @@ export default class ModifyTabDrawer extends Component {
 
     render() {
         const {modifyTitle, width} = this.props
-        console.log("gig");
+        
+        // console.log("gig", this.props);
         return (
             <div>
                 {
                     width >= 1000 ? 
-                        <Drawer width={width - 410} zIndex="1" title="Basic Drawer" placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
-                                <p>Some contents...</p>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
+                        <Drawer width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
+                            <Col span={12}>
+                                <ModifyCard {...this.props}></ModifyCard>
+
+                            </Col>
                         </Drawer> 
                     :
                         <Drawer width={width} zIndex={width >= 845 ?1:0}  title="Basic Drawer" placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
-                            <p>Some contents...</p>
+                            <Col span={24}>
+                                <ModifyCard {...this.props}></ModifyCard>
+
+                            </Col>
                         </Drawer> 
                 }
                     

@@ -22,7 +22,8 @@ const { Panel } = Collapse;
 export default class EditScreen extends Component {
 
     state = {
-        mobileModifyMode: "modify"
+        mobileModifyMode: "modify",
+        nowPanel: ""
     }
 
     refreshGame = (event) => {
@@ -50,17 +51,29 @@ export default class EditScreen extends Component {
         this.refreshGame()
     }
 
+    
+
     render() {
+        const changeCollapsePanel = (nowPanel) => {
+            if(nowPanel.length === 2){
+                this.setState({nowPanel:nowPanel[1]})
+            }else{
+                this.setState({nowPanel:nowPanel[0]})
+            }
+            // console.log("dd",nowPanel);
+        }
+        
         // console.log(this.props);
         const {gameModifyDatas,gameId,username} = this.props
         
         const {width} = this.props
-        const {mobileModifyMode} = this.state;
-        console.log("gg",gameModifyDatas);
+        const {mobileModifyMode,nowPanel} = this.state;
         const data = Object.keys(gameModifyDatas)
 
+        
+
         return (
-            <Row className="ddd ">
+            <Row>
             {/* <div className="row justify-content-end " > */}
                 <Col span={width >=1000 ? 8:0}>
                     {/* <div className="col-4"></div> */}
@@ -79,41 +92,42 @@ export default class EditScreen extends Component {
                             
                                 <div className="modify-cards-screen" >
                                     <form> 
-                                        <List
-                                            itemLayout="horizontal"
-                                            dataSource={data}
-                                            renderItem={function(key) {
-                                                console.log(gameModifyDatas[key].items[0]);
-                                                return (
-                                                    <Collapse defaultActiveKey={['1']} >
-                                                        <Panel header={gameModifyDatas[key].modifyTitle} key={key}>
-                                                            {
-                                                                gameModifyDatas[key].items.map((item)=>{
-                                                                    return (
-                                                                        
-                                                                        <List.Item key={item.name}>
-                                                                            <ModifyTabDrawer width={width} key={item.name} parent={item.parent} keyword={item.name} modifyTitle={item.modifyTitle} ></ModifyTabDrawer>
+                                        
+                                            <List
+                                                itemLayout="horizontal"
+                                                dataSource={data}
+                                                renderItem={function(key) {
+                                                    return (
+                                                        <Collapse onChange={changeCollapsePanel} activeKey={nowPanel}>
+                                                            <Panel header={gameModifyDatas[key].modifyTitle} key={key}>
+                                                                {
+                                                                    gameModifyDatas[key].items.map((item)=>{
+                                                                        return (
                                                                             
-                                                                            <List.Item.Meta
-                                                                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                                                            title={<a>{key.title}</a>}
-                                                                            description="Ant Design, a design language for background applications"
-                                                                            />
-                            
-                                                                        </List.Item>
-                                                                            
-                                                                    )
-                                                                })
-                                                            }
-                                                        </Panel>
-                                                    </Collapse>
-                                                )
+                                                                            <List.Item key={item.name}>
+                                                                                <ModifyTabDrawer width={width} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
+                                                                                
+                                                                                <List.Item.Meta
+                                                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                                                title={<a>{key.title}</a>}
+                                                                                description="Ant Design, a design language for background applications"
+                                                                                />
+                                
+                                                                            </List.Item>
+                                                                                
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </Panel>
+                                                        </Collapse>
+                                                    )
 
 
-                                            } }
-                                        />
+                                                } }
+                                            />
+                                        
 
-                                        <div id="allCards" style={{display: (mobileModifyMode === "modify" || width >= 576) ? "block" : "none", zIndex: 1}}>
+                                        {/* <div id="allCards" style={{display: (mobileModifyMode === "modify" || width >= 576) ? "block" : "none", zIndex: 1}}>
                                             {
                                                 Object.keys(gameModifyDatas).map((key) => {
                                                     // console.log("gameModifyDatas[key]",gameModifyDatas[key]);
@@ -143,7 +157,7 @@ export default class EditScreen extends Component {
                                                     }
                                                 })
                                             }
-                                        </div>
+                                        </div> */}
                                         
                                     </form>
                                 </div>  

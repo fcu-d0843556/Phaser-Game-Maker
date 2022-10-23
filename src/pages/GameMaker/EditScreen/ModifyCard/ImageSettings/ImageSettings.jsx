@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
 import { InputNumber, Image } from 'antd';
 import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
-import { Button, Space, Upload, message } from 'antd';
+import { Button, Space, Upload, message,List, Card,Col,Divider,Form,Input,Row } from 'antd';
 import axios from 'axios';
 
 export default class ImageSettings extends Component {
@@ -14,7 +14,7 @@ export default class ImageSettings extends Component {
     }
     
     componentDidMount(){
-        // console.log(this.props);
+        console.log(this.props);
         this.setState({
             ImageDatas: {...this.props}
         })
@@ -139,42 +139,70 @@ export default class ImageSettings extends Component {
 
         return (
             <div>
-                <div className="card-header">
-                    {
-                        position ? 
-                            <div className="row">
-                            {
-                                position.x !== undefined ? 
-                                    <div className="col">
-                                        <label className="form-label">圖片水平位置</label>
-                                        <InputNumber min={-1000} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
-                                    </div>
-                                :   <div></div>
-                            }
-                            
-                            {
-                                position.y !== undefined ?
-                                <div className="col">
-                                    <label className="form-label">圖片垂直位置</label>
-                                    <InputNumber min={-1000} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
-                                </div>
-                                :   <div></div> 
-                            }
-                            </div>
-                        :
-                        <div></div>
-                    }
-                    
-                
-                    <div className="row">
-                        <div className="col">
-                            <label className="form-label">圖片的大小</label>
-                            <InputNumber min={1} max={1000} defaultValue={size} onChange={changeSizeValue} />
-                        </div>
-                    </div>
+                {
+                    position ? 
+                        <Col span={24}>
+                            <Card 
+                                title="圖片的位置"
+                                headStyle={{fontSize: 24}}
+                            >
+                                {
+                                    position.x !== undefined ? 
+                                    
+                                        <Row>
+                                            <Col span={8}>
+                                                <Input value="圖片水平位置" disabled/>
+                                                {/* <label className="form-label">圖片水平位置</label> */}
+                                            </Col>
+                                            <Col span={16}>
+                                                <InputNumber min={-1000} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
+                                            </Col>
+                                        </Row>
+                                    :   <div></div>
+                                }
+                                
+                                {
+                                    position.y !== undefined ?
+                                            <Row>
+                                                <Col span={8}>
+                                                    <Input value="圖片垂直位置" disabled/>
+                                                    {/* <label className="form-label">圖片水平位置</label> */}
+                                                </Col>
+                                                <Col span={16}>
+                                                    <InputNumber min={-1000} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
+                                                </Col>
+                                            </Row>
+                                    :   <div></div> 
+                                }
+                            </Card>
+                            <Divider />
+                        </Col>
 
-                    <div className="card-body">
-                        <h5 className="card-title">圖片預覽</h5>
+                        
+                    :
+                    <div></div>
+                }
+                
+            
+                <Col span={24}>
+                    <Card 
+                        title="圖片的大小"
+                        headStyle={{fontSize: 24}}
+                    >
+                    {/* <List.Item className="col"> */}
+                        {/* <label className="form-label">圖片的大小</label> */}
+                        <InputNumber min={1} max={1000} defaultValue={size} onChange={changeSizeValue} />
+                    {/* </List.Item> */}
+                    </Card>
+                </Col>
+
+                <Divider />
+
+                <Col span={24}>
+                    <Card 
+                        title="圖片預覽"
+                        headStyle={{fontSize: 24}}
+                    >
                         {
                             isUploading ? 
                                 <SyncOutlined spin style={{ fontSize: '32px', color: '#52c41a'}} />
@@ -182,10 +210,6 @@ export default class ImageSettings extends Component {
                                 <Image src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
                         }
                         
-                    </div>
-
-
-                    <div className="card-body">
                         <Space
                             direction="vertical"
                             style={{
@@ -203,21 +227,16 @@ export default class ImageSettings extends Component {
                             >
                                 <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
                             </Upload>
+
+                            {
+                                isUploadFile ? 
+                                    <Button onClick={this.showDefaultCard(name)} className="btn btn-dark" disabled>使用其他提供的圖片</Button>
+                                :
+                                    <Button onClick={this.showDefaultCard(name)} className="btn btn-dark" >使用其他提供的圖片</Button>
+                            }
                         </Space>
-                    </div>
-
-
-
-                    <div className="card-body">
-                        {
-                            isUploadFile ? 
-                                <Button onClick={this.showDefaultCard(name)} className="btn btn-dark" disabled>使用其他提供的圖片</Button>
-                            :
-                                <Button onClick={this.showDefaultCard(name)} className="btn btn-dark" >使用其他提供的圖片</Button>
-                        }
-                        
-                    </div>
-                </div>
+                    </Card>
+                </Col>
             </div>
         )
     }
