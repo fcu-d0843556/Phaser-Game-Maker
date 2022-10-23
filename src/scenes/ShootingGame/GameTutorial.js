@@ -1,8 +1,9 @@
 export default class GameTutorial{
-    constructor(scene, balloons){
+    constructor(scene, balloons,text){
         this.scene = scene
         this.balloons = balloons
-        console.log(balloons);
+        this.text = text
+        // console.log(text);
 
     }
     //.setScale(this.balloons[type-1].img.size/100)
@@ -16,15 +17,16 @@ export default class GameTutorial{
             balloonArr.push(this.scene.add.image(85,130 + (i * 65),'balloon' + i).setScale(this.balloons[i - 1].img.size/100).setDepth(3));
             scoreTextArr.push(this.scene.add.text(200,120 + (i * 65), this.balloons[i - 1].score.content, {
                 "fontSize": 24,
-                "fill": "#000",
+                "fill": "#000"
             }).setDepth(3))
         }
 
-        let description = this.scene.add.text(50, 80, "\n在時間內打到越多的氣球!", {
-            "fontSize": 24,
-            "fill": "#000",
-        }).setDepth(3)
-
+        const style = {
+            fontSize: 24,
+            fill: "#000",
+            wordWrap: { width: 280, useAdvancedWrap: true }
+        }
+        let description = this.scene.add.text(50, 80, "\n"+ this.text.text.content, style).setDepth(3)
 
         startGameButton.setInteractive().on('pointerdown',function(){
             // console.log('startGame!')
@@ -35,12 +37,13 @@ export default class GameTutorial{
                 balloonArr[i].destroy()
                 scoreTextArr[i].destroy()
             }
-            // balloonArr = null
+            balloonArr = null
+            scoreTextArr = null
             startGameLabel.destroy()
             startGameButton.destroy()
             description.destroy()
-            // startGameLabel = null;
-            // startGameButton = null;
+            startGameLabel = null;
+            startGameButton = null;
         },this)
     }
 

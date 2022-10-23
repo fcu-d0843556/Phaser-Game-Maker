@@ -60,8 +60,8 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.starCoolDown = new DropTimeCounter(this,"")
         this.starCoolDown.start(this.createBalloon.bind(this),500)//5s
 
-        //timeText,gameTimer custom OK.
-        const {timeText,gameTimer} = this.modifyDatas
+        // timeText,gameTimer custom OK.
+        const {gameTimer} = this.modifyDatas
         this.createGameTimer(gameTimer.items[0])
     }
 
@@ -84,15 +84,15 @@ export default class ShootingGameScene extends Phaser.Scene{
 
         
         //Balloons custom OK.
-        const {balloon,balloonSpeed} = this.modifyDatas
+        const {balloon,balloonSpeed, gameTutorialText} = this.modifyDatas
         this.balloon = new ballonSpawner(this,this.scoreText, balloon.items, balloonSpeed.items[0]) 
 
         //gameStart Tutorial
-        this.gameTutorialMessage = new GameTutorial(this, balloon.items)
+        this.gameTutorialMessage = new GameTutorial(this, balloon.items, gameTutorialText.items[0])
         this.gameTutorialMessage.create()
 
         //mouse move
-        this.createMouseTracker()
+        // this.createMouseTracker()
     }
 
     gameover(){
