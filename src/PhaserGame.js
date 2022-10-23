@@ -39,19 +39,19 @@ const modifyGameConfig = {
 	// 	}
 	// }
 };
-
+//phaser-play-screen
 const playGameConfig = {
-    type: Phaser.AUTO,
-    backgroundColor: '#000000',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        parent: 'phaser-play-screen',
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 360,
-        height: 640
-    },
+	type: Phaser.AUTO,
+	parent: 'phaser-play-screen',
+	width:  360, 
+	height: 640, 
+	backgroundColor: '#000111',
 	dom: {
 		createContainer: true,
+	},
+	scale:{
+		mode:Phaser.Scale.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
 	},
 	physics: {
 		default: 'arcade',
@@ -60,7 +60,7 @@ const playGameConfig = {
 
 		},
 	},
-    scene: []
+	scene: []
 };
 
 
