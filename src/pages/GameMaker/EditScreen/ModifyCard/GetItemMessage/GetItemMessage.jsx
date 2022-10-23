@@ -35,26 +35,26 @@ export default class GetItemMessage extends Component {
         }
 
         return (
-            <div>
-                <Col span={24}>
-                    <Card 
-                        title={modifyTitle}
-                        headStyle={{fontSize: 24}}
-                    >
+            <Col span={24}>
+                <Card 
+                    title={modifyTitle}
+                    headStyle={{fontSize: 24}}
+                    extra={
                         <Tooltip title={description} placement="left">
                             <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
                         </Tooltip>
-                        <Divider />
-                        {
-                            (inputType === "number") ? 
-                                <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
-                            :
-                                <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
-                        }
-                    </Card>
+                    }
+                >
                     
-                </Col>
-            </div>
+                    {
+                        (inputType === "number") ? 
+                            <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
+                        :
+                            <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
+                    }
+                </Card>
+                
+            </Col>
         )
     }
 }

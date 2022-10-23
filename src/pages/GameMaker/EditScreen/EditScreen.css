@@ -15,8 +15,6 @@
 .modify-cards-screen{
     left: 100%;
     height: calc(100vh - 4rem); 
-    /* padding-left: 0.25rem; */
-    /* margin-left: -0.25rem; */
     overflow-y: auto;
 }
 
@@ -24,25 +22,16 @@
 /* Small devices (landscape phones, 576px and up) */
 /* Only have right yellow cards */
 @media (max-width:768px){
-
-    /* .modify-with-default-screen{ */
-        /* width: 100%; */
-    /* } */
-
     .right-select-bar{
         width: 100%;
     }
 }
 
-/* Medium devices (tablets, 768px and up) */
-/* default and modify cards 100%*/
-/* @media (max-width:768px){ */
 
-    /* .modify-with-default-screen{
-        width: 100%;
-    } */
-/* } */
 
+
+
+/* preview-button-PC and preview-button-mobile decide showing the smartphone */
 .preview-button-PC{
     display: block;
     gap: 8px
@@ -53,7 +42,7 @@
     gap: 0
 }
 
-@media (max-height:850px) , (max-width:768px) and (min-height:850px){
+@media (max-height:850px) , (max-width:845px) and (min-height:850px){
     .preview-button-PC{
         display: none;
         gap: 0

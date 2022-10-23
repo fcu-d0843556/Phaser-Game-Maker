@@ -1,7 +1,9 @@
 import React, { Component }  from 'react'
 import PubSub from 'pubsub-js'
 
-import { Input, Radio, Space } from 'antd';
+import { QuestionCircleTwoTone } from '@ant-design/icons';
+import { Input, Radio, Space,Tooltip } from 'antd';
+import { Col,Divider,Card } from 'antd';
 
 
 export default class QuestionCard extends Component {
@@ -40,35 +42,44 @@ export default class QuestionCard extends Component {
     }
   
     render() {
-        const {modifyTitle,content,question} = this.props.question
+        const {modifyTitle,content,question,description} = this.props.question
         
+        // const changeTextValue = (event) => {
+        //     const {textDatas} = this.state
+        //     // console.log(textDatas,  event.target.value);
+        //     textDatas.gameoverMessage.message[Number(event.currentTarget.id)] = event.target.value
+        //     PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
+        // }
         return (
-            <div>
+            <Col span={24}>
+                <Card 
+                    title="輸入題目："
+                    headStyle={{fontSize: 24}}
+                    extra={
+                        <Tooltip title={description} placement="left">
+                            <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
+                        </Tooltip>
+                    }
+                >
+                    <Input placeholder="題目的問題：" onChange={this.changeValue("question")} value={question}/>
+                    <br/><br/>
 
-                <div className="card-header">
-                    <div className="mb-3">
-                        <label className="form-label modify-card-title">{modifyTitle}</label>
-                        
-                        <Input placeholder="輸入題目：" onChange={this.changeValue("question")} value={question}/>;
-                        <br/><br/>
-
-                        <Radio.Group >
-                            <Space direction="vertical">
-                                {
-                                    content.map((selection,index)=>{
-                                        return (
-                                            <Radio value={(index+1)} key={(index+1)} onChange={this.changeValue("answer", index)}> 
-                                                <input onChange={this.changeValue("content", index)} value={selection.text}/>
-                                            </Radio>
-                                        )
-                                    })
-                                }
-                            </Space>
-                        </Radio.Group>
-                    </div>
-                </div>
-                
-            </div>
+                    <Radio.Group>
+                        <Space direction="vertical">
+                            {
+                                content.map((selection,index)=>{
+                                    return (
+                                        <Radio value={(index+1)} key={(index+1)} onChange={this.changeValue("answer", index)}> 
+                                            {/* <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} /> */}
+                                            <input onChange={this.changeValue("content", index)} value={selection.text}/>
+                                        </Radio>
+                                    )
+                                })
+                            }
+                        </Space>
+                    </Radio.Group>
+                </Card>
+            </Col>
         )
     }
 }

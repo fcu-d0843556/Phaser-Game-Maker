@@ -43,12 +43,9 @@ export default class ModifyCard extends Component {
 
     const {modifyTitle,img,text,name,question,score,priority,gameoverMessage} = this.props
     const {showCard} = this.state
-    console.log(priority);
+
     return (
         <Collapse accordion >
-            {/* <div name={name} className="card text-center modify-card" > */}
-            
-
             {
               img ? 
                 
@@ -80,31 +77,32 @@ export default class ModifyCard extends Component {
               <div></div>
             }
 
-{/*             
-            
-            
             {
               score ? 
-              
-                <List.Item><ScoreCard {...this.props}></ScoreCard></List.Item>
+                <Panel header={score.modifyTitle} key={score.modifyTitle}>
+                  <ScoreCard {...this.props}></ScoreCard> 
+                </Panel>
               :
               <div></div>
+            } 
+
+            {
+              gameoverMessage ?
+                <Panel header={gameoverMessage.modifyTitle} key={gameoverMessage.modifyTitle}>
+                  <GameoverMessage {...this.props}></GameoverMessage>
+                </Panel>
+              :
+                <div></div>
             }
 
             {
               question ? 
-                <List.Item><QuestionCard {...this.props}></QuestionCard></List.Item>
+                <Panel header={question.modifyTitle} key={question.modifyTitle}>
+                  <QuestionCard {...this.props}></QuestionCard>
+                </Panel>
               :
               <div></div>
             }
-
-            {
-              gameoverMessage ?
-                <List.Item><GameoverMessage {...this.props}></GameoverMessage></List.Item>
-              :
-                <div></div>
-            } */}
-        {/* </div> */}
         </Collapse>
     )
   }

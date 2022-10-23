@@ -37,7 +37,6 @@ export default class ModifyTabDrawer extends Component {
                         <Drawer width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
                             <Col span={12}>
                                 <ModifyCard {...this.props}></ModifyCard>
-
                             </Col>
                         </Drawer> 
                     :

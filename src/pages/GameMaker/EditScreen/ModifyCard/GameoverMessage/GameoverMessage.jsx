@@ -3,7 +3,8 @@ import PubSub from 'pubsub-js'
 
 
 import { QuestionCircleTwoTone } from '@ant-design/icons';
-import { Input,InputNumber, Tooltip, Space,Row,Col } from 'antd';
+import { Input,InputNumber, Tooltip , Row} from 'antd';
+import { Col,Divider,Card } from 'antd';
 
 const ids = [0,1,2]
 export default class GameoverMessage extends Component {
@@ -20,7 +21,7 @@ export default class GameoverMessage extends Component {
 
     render() {
         
-        const {description,score,message} = this.props.gameoverMessage
+        const {description,score,message,modifyTitle} = this.props.gameoverMessage
         
 
 
@@ -39,16 +40,17 @@ export default class GameoverMessage extends Component {
         }
 
         return (
-            <div>
-                <div className="card-header">
-                    <Row>
-                        <Col offset={23}>
-                            <Tooltip title={description} placement="left">
-                                <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
-                            </Tooltip>
-                        </Col>
-                    </Row>
-                    
+            <Col span={24}>
+                <Card 
+                    title={modifyTitle}
+                    headStyle={{fontSize: 24}}
+                    extra={
+                        <Tooltip title={description} placement="left">
+                            <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
+                        </Tooltip>
+                    }              
+                >
+
                     {
                         ids.map((id)=>{
                             return (
@@ -72,9 +74,8 @@ export default class GameoverMessage extends Component {
                             )
                         })
                     }
-                </div>
-
-            </div>
+                </Card>
+            </Col>
         )
     }
 }
