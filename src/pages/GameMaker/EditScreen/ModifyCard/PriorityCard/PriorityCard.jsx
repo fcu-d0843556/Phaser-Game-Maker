@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Slider } from 'antd';
+import { Col,Divider,Card } from 'antd';
 
 import PubSub from 'pubsub-js'
 
@@ -48,18 +49,19 @@ export default class PriorityCard extends Component {
         // ,modifyTitle,inputType
         return (
             <div>
-                <div className="card-header">
-                    <div className="mb-3">
-                        <label className="form-label modify-card-title">{modifyTitle}</label>
-                        <br/>
+                <Col span={24}>
+                    <Card 
+                        title={modifyTitle}
+                        headStyle={{fontSize: 24}}
+                    >
                         <Slider min={1}
                                 max={5}
                                 onAfterChange={changeValue}
                                 marks={marks} 
                                 step={null} 
                                 defaultValue={selected} />
-                    </div>
-                </div>
+                    </Card>
+                </Col>
             </div>
         )
     }

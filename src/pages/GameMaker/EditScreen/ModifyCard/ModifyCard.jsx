@@ -43,7 +43,7 @@ export default class ModifyCard extends Component {
 
     const {modifyTitle,img,text,name,question,score,priority,gameoverMessage} = this.props
     const {showCard} = this.state
-    // console.log(this.props);
+    console.log(priority);
     return (
         <Collapse accordion >
             {/* <div name={name} className="card text-center modify-card" > */}
@@ -52,7 +52,7 @@ export default class ModifyCard extends Component {
             {
               img ? 
                 
-                  <Panel header="圖片管理" key={name}>
+                  <Panel header="圖片管理" key="圖片管理">
                     
                       <ImageSettings {...this.props}></ImageSettings>
                     
@@ -65,20 +65,23 @@ export default class ModifyCard extends Component {
             {
               text ? 
                   <Panel header={text.modifyTitle} key={text.modifyTitle}>
-                    <List.Item><GetItemMessage {...this.props}></GetItemMessage></List.Item>
+                    <GetItemMessage {...this.props}></GetItemMessage>
                   </Panel>
               :
               <div></div>
             }
-{/*             
-            {
+
+            {       
               priority ? 
-                <List.Item>
+                <Panel header={priority.modifyTitle} key={priority.modifyTitle}>
                   <PriorityCard {...this.props}></PriorityCard>
-                </List.Item>
+                </Panel>
               :
               <div></div>
             }
+
+{/*             
+            
             
             {
               score ? 

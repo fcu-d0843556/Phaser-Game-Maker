@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
 import { InputNumber, Image } from 'antd';
 import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
-import { Button, Space, Upload, message,List, Card,Col,Divider,Form,Input,Row } from 'antd';
+import { Button, Space, Upload, message,List, Card,Col,Divider,Input,Row } from 'antd';
 import axios from 'axios';
 
 export default class ImageSettings extends Component {

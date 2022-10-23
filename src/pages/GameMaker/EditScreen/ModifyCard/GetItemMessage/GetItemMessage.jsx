@@ -4,6 +4,7 @@ import PubSub from 'pubsub-js'
 
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 import { Input,InputNumber, Tooltip } from 'antd';
+import { Col,Divider,Card } from 'antd';
 
 
 export default class GetItemMessage extends Component {
@@ -35,26 +36,24 @@ export default class GetItemMessage extends Component {
 
         return (
             <div>
-                
-                <div className="card-header">
-                    <Tooltip title={description} placement="left">
-                        <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
-                    </Tooltip>
-                    
-                    <div className="mb-3">
-                    
-                        <label className="form-label modify-card-title">{modifyTitle}</label>
-                        <br/>
+                <Col span={24}>
+                    <Card 
+                        title={modifyTitle}
+                        headStyle={{fontSize: 24}}
+                    >
+                        <Tooltip title={description} placement="left">
+                            <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
+                        </Tooltip>
+                        <Divider />
                         {
                             (inputType === "number") ? 
                                 <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
                             :
                                 <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
                         }
-                        
-                    </div>
-                </div>
-
+                    </Card>
+                    
+                </Col>
             </div>
         )
     }
