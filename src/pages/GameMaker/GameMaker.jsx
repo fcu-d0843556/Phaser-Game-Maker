@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import axios from 'axios'
-import {Button} from 'antd'
+import {Button,Row,Col} from 'antd'
  
 
 //Pages
@@ -151,9 +151,12 @@ export default class GameMaker extends Component {
     const {height,width} = this.state
     // console.log("gamedata: ", gameModifyDatas);
     return (
+        
         <div className="container-fluid">
           {isRenderDone ? <RenderGameDone gameUrl={gameUrl}/> : <div/>}
+
           <GameScreen height={height} width={width}></GameScreen>
+
           <EditScreen username={username} width={width} gameModifyDatas={gameModifyDatas} gameId={gameId}></EditScreen>
         </div>
     )

@@ -33,7 +33,7 @@ export default class GameoverMessage extends Component {
         
         const changeTextValue = (event) => {
             const {textDatas} = this.state
-            console.log(textDatas,  event.target.value);
+            // console.log(textDatas,  event.target.value);
             textDatas.gameoverMessage.message[Number(event.currentTarget.id)] = event.target.value
             PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         }

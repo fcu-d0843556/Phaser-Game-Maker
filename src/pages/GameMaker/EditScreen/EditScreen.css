@@ -23,11 +23,11 @@
 
 /* Small devices (landscape phones, 576px and up) */
 /* Only have right yellow cards */
-@media (max-width:576px){
+@media (max-width:768px){
 
-    .modify-with-default-screen{
-        width: 100%;
-    }
+    /* .modify-with-default-screen{ */
+        /* width: 100%; */
+    /* } */
 
     .right-select-bar{
         width: 100%;
@@ -36,12 +36,12 @@
 
 /* Medium devices (tablets, 768px and up) */
 /* default and modify cards 100%*/
-@media (max-width:768px){
+/* @media (max-width:768px){ */
 
-    .modify-with-default-screen{
+    /* .modify-with-default-screen{
         width: 100%;
-    }
-}
+    } */
+/* } */
 
 .preview-button-PC{
     display: block;
@@ -53,7 +53,7 @@
     gap: 0
 }
 
-@media (max-height:850px) , (max-width:576px) and (min-height:850px){
+@media (max-height:850px) , (max-width:768px) and (min-height:850px){
     .preview-button-PC{
         display: none;
         gap: 0

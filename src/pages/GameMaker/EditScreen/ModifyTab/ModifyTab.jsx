@@ -14,6 +14,7 @@ export default class ModifyTab extends Component {
 
     render() {
         const {modifyTitle} = this.props
+        console.log("gig");
         return (
             <Button onClick={this.changeCard} type="primary">{modifyTitle}</Button>    
         )

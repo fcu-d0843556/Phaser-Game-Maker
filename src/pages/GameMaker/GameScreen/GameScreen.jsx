@@ -22,9 +22,9 @@ export default class GameScreen extends Component {
     const {width,height} = this.props
     // console.log(width, height);
     return (
-        <div className="hello">
+        <div>
           {
-            width >= 576 ?
+            width >= 845 ?
               
                 <div className={height >= 850 ? "phone-style": ""}>
                   <div className="phone" id="phaser-container"></div>
