@@ -24,7 +24,7 @@ export default class EditScreen extends Component {
     }
 
     refreshGame = (event) => {
-        // console.log(event);
+        PubSub.publishSync("closeAllDrawer")
         PubSub.publishSync("refreshGame")
     }
  
@@ -92,9 +92,8 @@ export default class EditScreen extends Component {
                                                                 <ModifyTabDrawer width={width} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
                                                                 <List.Item.Meta
-                                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                                                title={<a>{key.title}</a>}
-                                                                description="Ant Design, a design language for background applications"
+                                                                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                                    description="Ant Design, a design language for background applications"
                                                                 />
                 
                                                             </List.Item>
