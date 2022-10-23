@@ -40,7 +40,7 @@ export default class ModifyTabDrawer extends Component {
                             </Col>
                         </Drawer> 
                     :
-                        <Drawer width={width} zIndex={width >= 845 ?1:0}  title="Basic Drawer" placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
+                        <Drawer width={width} zIndex={width >= 845 ?1:0}  title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
                             <Col span={24}>
                                 <ModifyCard {...this.props}></ModifyCard>
 
