@@ -7,6 +7,7 @@ import ImageSettings from './ImageSettings/ImageSettings'
 import QuestionCard from './QuestionCard/QuestionCard'
 import ScoreCard from './ScoreCard/ScoreCard'
 import PriorityCard from './PriorityCard/PriorityCard'
+import GameoverMessage from './GameoverMessage/GameoverMessage'
 
 import './ModifyCard.css'
 
@@ -37,7 +38,7 @@ export default class ModifyCard extends Component {
 
   render() {
 
-    const {modifyTitle,img,text,name,question,score,priority} = this.props
+    const {modifyTitle,img,text,name,question,score,priority,gameoverMessage} = this.props
     const {showCard} = this.state
     // console.log(this.props);
     return (
@@ -83,6 +84,13 @@ export default class ModifyCard extends Component {
             {
               question ? 
                 <QuestionCard {...this.props}></QuestionCard>
+              :
+                <div></div>
+            }
+
+            {
+              gameoverMessage ?
+                <GameoverMessage {...this.props}></GameoverMessage>
               :
                 <div></div>
             }

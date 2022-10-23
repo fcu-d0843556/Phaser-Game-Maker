@@ -96,11 +96,12 @@ export default class ShootingGameScene extends Phaser.Scene{
     }
 
     gameover(){
+        const {gameoverMessage} = this.modifyDatas
         this.physics.pause()
         this.starCoolDown.stop()
         this.gameOver = true
-        let gameoverMessage = new GameoverMessage(this,this.scoreText.getScore())
-        gameoverMessage.create()
+        this.gameoverMessage = new GameoverMessage(this,this.scoreText.getScore(),gameoverMessage.items[0])
+        this.gameoverMessage.create()
     }
 
     createGameTimer(gameTimer){

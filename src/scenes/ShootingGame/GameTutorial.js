@@ -30,7 +30,6 @@ export default class GameTutorial{
 
         startGameButton.setInteractive().on('pointerdown',function(){
             // console.log('startGame!')
-            console.log(this.scene);
             this.scene.isGameStart = true;
             this.scene.startGame();
             for(let i=0;i< 5;i++){

@@ -21,26 +21,6 @@
 }
 
 
-
-
-/* 
-#guideMark{
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    cursor: pointer;
-}
-
-#guideMark:hover svg{
-    width: 75px;
-    height: 75px;
-}
-
-#guideMark svg{
-    width: 70px;
-    height: 70px;
-} */
-
 /* Small devices (landscape phones, 576px and up) */
 /* Only have right yellow cards */
 @media (max-width:576px){
@@ -73,7 +53,7 @@
     gap: 0
 }
 
-@media (max-height:790px) , (max-width:576px) and (min-height:790px){
+@media (max-height:850px) , (max-width:576px) and (min-height:850px){
     .preview-button-PC{
         display: none;
         gap: 0

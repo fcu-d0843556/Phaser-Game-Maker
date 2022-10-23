@@ -31,12 +31,12 @@ class MyHeader extends Component {
     }
     
     componentDidMount(){
-        console.log(this.props.location);
+        // console.log(this.props.location);
         this.setState({nowRoute: 'home'})
         // localStorage.setItem('username', '')
         PubSub.subscribe("playGameMode", (msg,isPlayGameMode)=>{
-            console.log(msg);
-            console.log(isPlayGameMode);
+            // console.log(msg);
+            // console.log(isPlayGameMode);
             this.setState({
                 isPlayGameMode: isPlayGameMode
             })
