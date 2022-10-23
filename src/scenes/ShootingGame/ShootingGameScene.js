@@ -62,7 +62,7 @@ export default class ShootingGameScene extends Phaser.Scene{
 
         //timeText,gameTimer custom OK.
         const {timeText,gameTimer} = this.modifyDatas
-        this.createGameTimer(timeText.items[0] ,gameTimer.items[0])
+        this.createGameTimer(gameTimer.items[0])
     }
 
     create(){
@@ -103,28 +103,28 @@ export default class ShootingGameScene extends Phaser.Scene{
         gameoverMessage.create()
     }
 
-    createGameTimer(timeTextDatas,gameTimer){
+    createGameTimer(gameTimer){
         //Timer
-        const gameTimerLabel = this.add.text(16, 54, "時間", {
+        const gameTimerLabel = this.add.text(16, 34, "", {
             "fontSize": 32,
             "fill": "#fff",
             "stroke": "#000",
             "strokeThickness": 2
         })
         // const gameTimerLabel = this.add.text(timeTextDatas.text.x, timeTextDatas.text.y, timeTextDatas.text.content, timeTextDatas.text.style)
-        this.gameTimer = new GameTimer(this, gameTimerLabel, timeTextDatas.text.content)
+        this.gameTimer = new GameTimer(this, gameTimerLabel, "\n時間")
         this.gameTimer.start(this.gameover.bind(this),gameTimer.text.content * 1000)//5s
     }
 
     createScoreBoard(){
         //Score
-        const scoreTextLabel = this.add.text(16,16, "", {
+        const scoreTextLabel = this.add.text(16,-10, "", {
             "fontSize": 32,
             "fill": "#fff",
             "stroke": "#000",
             "strokeThickness": 2
         })
-        this.scoreText = new Score(this,scoreTextLabel,"分數",0)
+        this.scoreText = new Score(this,scoreTextLabel,"\n分數",0)
         
     }
 

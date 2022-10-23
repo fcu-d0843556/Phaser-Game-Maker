@@ -33,7 +33,7 @@ export default class GameTimer {
         this.timerEvent = this.scene.time.addEvent({
             delay: duration,
             callback: () => {       // 時間到了之後執行的事件
-                this.label.text = 'time\'s up !'
+                this.label.text = '\ntime\'s up !'
                 this.stop()
 
                 if(callback){

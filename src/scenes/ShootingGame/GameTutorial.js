@@ -2,10 +2,10 @@ export default class GameTutorial{
     constructor(scene, balloons){
         this.scene = scene
         this.balloons = balloons
-        // console.log(balloons);
+        console.log(balloons);
 
     }
-    
+    //.setScale(this.balloons[type-1].img.size/100)
     create(){
         let startGameLabel = this.scene.add.image(180,325,'startGameLabel').setScale(0.52,0.52).setDepth(2);
         let startGameButton = this.scene.add.image(180,550,'startGameButton').setScale(0.4,0.4).setDepth(2);
@@ -13,7 +13,7 @@ export default class GameTutorial{
         let balloonArr = []
         let scoreTextArr = []
         for(let i=1;i< 6;i++){
-            balloonArr.push(this.scene.add.image(85,130 + (i * 65),'balloon' + i).setScale(0.4,0.4).setDepth(3));
+            balloonArr.push(this.scene.add.image(85,130 + (i * 65),'balloon' + i).setScale(this.balloons[i - 1].img.size/100).setDepth(3));
             scoreTextArr.push(this.scene.add.text(200,120 + (i * 65), this.balloons[i - 1].score.content, {
                 "fontSize": 24,
                 "fill": "#000",
