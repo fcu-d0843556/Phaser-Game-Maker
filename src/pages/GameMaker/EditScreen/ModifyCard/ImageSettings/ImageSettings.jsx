@@ -21,9 +21,19 @@ export default class ImageSettings extends Component {
             ImageDatas: {...this.props}
         })
 
-        //usingDefaultDatas
         PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
+            //saveProgress 
+            //Todo: 把imagedata的src替換成status就行
             const {ImageDatas} = this.state
+            console.log("img,status", ImageDatas, status);
+            // console.log("using", );
+
+        })
+        
+        //usingUploadFile
+        PubSub.subscribe("usingUploadFile",(msg,status)=>{
+            const {ImageDatas} = this.state
+            console.log("status", status);
             // console.log(ImageDatas,status.selectedCardName);
             // console.log("status.selectedCardName",status.selectedCardName,ImageDatas.name);
             if(status.selectedCardName === ImageDatas.name){
@@ -63,7 +73,13 @@ export default class ImageSettings extends Component {
         }).then(
             response => {
                 // console.log("find! : ", response.data.items);
-                PubSub.publish("saveDefaultCardDatas",response.data.items )
+                const {ImageDatas} = this.state
+                console.log("imagedata", ImageDatas);
+                PubSub.publish("saveDefaultCardDatas", {
+                    parent: ImageDatas.parent,
+                    name: ImageDatas.name,
+                    items: response.data.items
+                })
             },
             error => {
                 console.log(error);
@@ -145,7 +161,7 @@ export default class ImageSettings extends Component {
                         // console.log("res", response.data.location);
                         
                         this.setState({isUploadFile: true})
-                        PubSub.publishSync("usingDefaultDatas",{
+                        PubSub.publishSync("usingUploadFile",{
                             selectedCardName,
                             uploadFileSrc: location
                         })
