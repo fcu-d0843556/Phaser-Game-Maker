@@ -47,51 +47,22 @@ export default class ImageSettings extends Component {
         })
     }
 
-    showDefaultCardDrawer = (name) => {
-        return () => {
-            const {parent} = this.state.ImageDatas
-            console.log("get : " , name, parent);
-            PubSub.publishSync('showDefaultCardDrawer', name)
-            // this.setState({isDefaultDrawerOpened: true})
-            const ids = {
-                name: name,
-                parent: parent
-            }
+    
 
-            this.loadDefaultDatas(ids)
-            // PubSub.publishSync('showDefaultCard',{
-            //     name: name,
-            //     parent: parent
-            // })
-        }
-    }
-
-    loadDefaultDatas = (ids) => {
+    loadDefaultDatas = (parent) => {
         const {gameId} = this.props
         // const {selectedCardName} = this.state
-        console.log("selectedCardName",gameId, ids);
+        // console.log("selectedCardName",gameId);
         axios({
             method: "get",
             url: "/api1/getDefaultImgDatas",
             params: {
                 gameId: gameId,
-                name: ids.parent
+                name: parent
             }
         }).then(
             response => {
-                // console.log(ids);
                 console.log("find! : ", response.data.items);
-
-                // const title = response.data.items.find((item)=>{
-                //     return ids.name === item.name
-                // })
-                // const modifyTitle = title.modifyTitle.replaceAll(" ","")
-                // console.log("find! : ", title, modifyTitle);
-                // this.setState({
-                //     defaultItems: response.data.items,
-                //     modifyTitle: modifyTitle,
-
-                // })
             },
             error => {
                 console.log(error);
@@ -102,9 +73,13 @@ export default class ImageSettings extends Component {
     render() {
         const {isUploadFile,isUploading} = this.state
         const {position,size,src} = this.props.img
-        // console.log("src",src);
         const {name} = this.props
 
+        const showDefaultCardDrawer = (name) => {
+            return (event) => {
+                PubSub.publishSync('showDefaultCardDrawer',name)
+            }
+        }
 
         const changeSizeValue = (value) => {
             const {ImageDatas} = this.state
@@ -269,9 +244,9 @@ export default class ImageSettings extends Component {
                             
                             {
                                 isUploadFile ? 
-                                    <Button onClick={this.showDefaultCardDrawer(name)} className="btn btn-dark" disabled>使用其他提供的圖片</Button>
+                                    <Button onClick={showDefaultCardDrawer(name)} disabled>使用其他提供的圖片{name}</Button>
                                 :
-                                    <Button onClick={this.showDefaultCardDrawer(name)} className="btn btn-dark" >使用其他提供的圖片</Button>
+                                    <Button onClick={showDefaultCardDrawer(name)}>使用其他提供的圖片{name}</Button>
                             }
                         </Space>
                     </Card>

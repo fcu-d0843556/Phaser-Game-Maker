@@ -25,7 +25,8 @@ export default class DefaultFileBox extends Component {
     }
 
     componentDidMount(){
-
+       
+        
         PubSub.subscribe('showDefaultCard', (msg,ids)=>{
             const {gameId} = this.props
             const {selectedCardName} = this.state

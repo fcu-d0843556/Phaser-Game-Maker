@@ -86,10 +86,12 @@ export default class EditScreen extends Component {
                                             <Panel header={gameModifyDatas[key].modifyTitle} key={key}>
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
+                                                        // console.log("item", item.name);
                                                         return (
                                                             
                                                             <List.Item key={item.name}>
-                                                                <ModifyTabDrawer width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
+
+                                                                <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
                                                                 <List.Item.Meta
                                                                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}

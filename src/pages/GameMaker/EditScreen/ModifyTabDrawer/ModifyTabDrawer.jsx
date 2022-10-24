@@ -8,15 +8,26 @@ import DefaultFileBox from '../DefaultFileBox/DefaultFileBox'
 export default class ModifyTabDrawer extends Component {
 
     state = {
+        darwerName: "",
         visible: false,
         isDefaultDrawerOpened: false
     }
 
     componentDidMount(){
+        this.setState({darwerName: this.props.darwerName})
         PubSub.subscribe("closeAllDrawer",(msg)=>{this.setState({visible: false});})
-        PubSub.subscribe("showDefaultCardDrawer",(msg, name)=>{
-            console.log("showDefault", name);
-            this.setState({isDefaultDrawerOpened: true});
+        PubSub.subscribe("closeAllDefaultCardDrawer",(msg)=>{this.setState({isDefaultDrawerOpened: false});})
+
+        PubSub.subscribe("showDefaultCardDrawer",(msg,name)=>{
+            const {darwerName} = this.state
+            // console.log(darwerName,name);
+            if(darwerName === name){
+                // console.log("in");
+                const {isDefaultDrawerOpened} = this.state
+                this.setState({isDefaultDrawerOpened: !isDefaultDrawerOpened});
+            }else{
+                this.setState({isDefaultDrawerOpened: false})
+            }
         })
 
     }
@@ -24,6 +35,7 @@ export default class ModifyTabDrawer extends Component {
     showDrawer = () => {
         const {visible} = this.state
         PubSub.publishSync("closeAllDrawer")
+        PubSub.publishSync("closeAllDefaultCardDrawer")
         this.setState({visible: !visible});
     };
 
