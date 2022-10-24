@@ -31,7 +31,6 @@ export default class ImageSettings extends Component {
                 // console.log("status",status);
 
                 if(status.isSelected){
-                    // console.log("ok");
                     ImageDatas.img = status.selectedItem.img
                     this.setState({ImageDatas})
                     PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
