@@ -21,6 +21,7 @@ export default class ImageSettings extends Component {
             ImageDatas: {...this.props}
         })
 
+        //usingDefaultDatas
         PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
             const {ImageDatas} = this.state
             // console.log(ImageDatas,status.selectedCardName);
@@ -62,7 +63,8 @@ export default class ImageSettings extends Component {
             }
         }).then(
             response => {
-                console.log("find! : ", response.data.items);
+                // console.log("find! : ", response.data.items);
+                PubSub.publish("saveDefaultCardDatas",response.data.items )
             },
             error => {
                 console.log(error);
@@ -78,6 +80,9 @@ export default class ImageSettings extends Component {
         const showDefaultCardDrawer = (name) => {
             return (event) => {
                 PubSub.publishSync('showDefaultCardDrawer',name)
+                const {parent} = this.state.ImageDatas
+                // console.log(ImageDatas);
+                this.loadDefaultDatas(parent)
             }
         }
 
@@ -163,15 +168,16 @@ export default class ImageSettings extends Component {
                             <Card 
                                 title="圖片的位置"
                                 headStyle={{fontSize: 24}}
+                                bordered={false}
                             >
                                 {
                                     position.x !== undefined ? 
                                     
                                         <Row>
-                                            <Col span={8}>
+                                            <Col span={12}>
                                                 <Input value="圖片水平位置" disabled/>
                                             </Col>
-                                            <Col span={16}>
+                                            <Col span={12}>
                                                 <InputNumber min={-1000} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
                                             </Col>
                                         </Row>
@@ -181,10 +187,10 @@ export default class ImageSettings extends Component {
                                 {
                                     position.y !== undefined ?
                                             <Row>
-                                                <Col span={8}>
+                                                <Col span={12}>
                                                     <Input value="圖片垂直位置" disabled/>
                                                 </Col>
-                                                <Col span={16}>
+                                                <Col span={12}>
                                                     <InputNumber min={-1000} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
                                                 </Col>
                                             </Row>
@@ -204,6 +210,7 @@ export default class ImageSettings extends Component {
                     <Card 
                         title="圖片的大小"
                         headStyle={{fontSize: 24}}
+                        bordered={false}
                     >
                         <InputNumber min={1} max={1000} defaultValue={size} onChange={changeSizeValue} />
                     </Card>
@@ -215,6 +222,7 @@ export default class ImageSettings extends Component {
                     <Card 
                         title="圖片預覽"
                         headStyle={{fontSize: 24}}
+                        bordered={false}
                     >
                         {
                             isUploading ? 
@@ -244,9 +252,9 @@ export default class ImageSettings extends Component {
                             
                             {
                                 isUploadFile ? 
-                                    <Button onClick={showDefaultCardDrawer(name)} disabled>使用其他提供的圖片{name}</Button>
+                                    <Button onClick={showDefaultCardDrawer(name)} disabled>使用其他提供的圖片</Button>
                                 :
-                                    <Button onClick={showDefaultCardDrawer(name)}>使用其他提供的圖片{name}</Button>
+                                    <Button onClick={showDefaultCardDrawer(name)}>使用其他提供的圖片</Button>
                             }
                         </Space>
                     </Card>

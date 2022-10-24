@@ -17,12 +17,9 @@ export default class ModifyTabDrawer extends Component {
         this.setState({darwerName: this.props.darwerName})
         PubSub.subscribe("closeAllDrawer",(msg)=>{this.setState({visible: false});})
         PubSub.subscribe("closeAllDefaultCardDrawer",(msg)=>{this.setState({isDefaultDrawerOpened: false});})
-
         PubSub.subscribe("showDefaultCardDrawer",(msg,name)=>{
             const {darwerName} = this.state
-            // console.log(darwerName,name);
             if(darwerName === name){
-                // console.log("in");
                 const {isDefaultDrawerOpened} = this.state
                 this.setState({isDefaultDrawerOpened: !isDefaultDrawerOpened});
             }else{
@@ -69,14 +66,6 @@ export default class ModifyTabDrawer extends Component {
                         </Drawer> 
                 }
 
-                {
-                    // isDefaultDrawerOpened ? <div>
-
-                    // </div> : 
-                    // <div>
-                    //     <DefaultFileBox gameId={gameId}></DefaultFileBox>
-                    // </div>
-                }
                 {
                     width >= 1000 ? 
                         <Drawer width={width - 410} zIndex="1" title="hh" placement="right" onClose={this.closeDefaultCardDrawer} visible={this.state.isDefaultDrawerOpened}>

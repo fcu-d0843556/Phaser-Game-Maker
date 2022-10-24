@@ -39,6 +39,7 @@ export default class GetItemMessage extends Component {
                 <Card 
                     title={modifyTitle}
                     headStyle={{fontSize: 24}}
+                    bordered={false}
                     extra={
                         <Tooltip title={description} placement="left">
                             <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />

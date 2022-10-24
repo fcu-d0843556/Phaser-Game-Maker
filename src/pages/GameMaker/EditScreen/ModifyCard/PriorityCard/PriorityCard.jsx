@@ -53,6 +53,7 @@ export default class PriorityCard extends Component {
                     <Card 
                         title={modifyTitle}
                         headStyle={{fontSize: 24}}
+                        bordered={false}
                     >
                         <Slider min={1}
                                 max={5}
