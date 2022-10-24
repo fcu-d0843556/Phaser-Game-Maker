@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
 import { InputNumber, Image } from 'antd';
 import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
-import { Button, Space, Upload, message,List, Card,Col,Divider,Input,Row } from 'antd';
+import { Button, Space, Upload, message,Input,Row } from 'antd';
+import { Card,Col,Divider} from 'antd';
+
 import axios from 'axios';
 
 export default class ImageSettings extends Component {
@@ -14,7 +16,7 @@ export default class ImageSettings extends Component {
     }
     
     componentDidMount(){
-        console.log(this.props);
+        // console.log(this.props);
         this.setState({
             ImageDatas: {...this.props}
         })
@@ -33,7 +35,7 @@ export default class ImageSettings extends Component {
                     this.setState({ImageDatas})
                     PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
                 }else if(status.uploadFileSrc !== undefined){
-                    console.log("dd",ImageDatas.img.src,status.uploadFileSrc);
+                    // console.log("dd",ImageDatas.img.src,status.uploadFileSrc);
                     // console.log(ImageDatas.img);
                         
                     ImageDatas.img.src = status.uploadFileSrc + "?t=" + new Date().getTime()
@@ -45,15 +47,56 @@ export default class ImageSettings extends Component {
         })
     }
 
-    showDefaultCard = (name) => {
+    showDefaultCardDrawer = (name) => {
         return () => {
             const {parent} = this.state.ImageDatas
-            // console.log("get : " , name, parent);
-            PubSub.publishSync('showDefaultCard',{
+            console.log("get : " , name, parent);
+            PubSub.publishSync('showDefaultCardDrawer', name)
+            // this.setState({isDefaultDrawerOpened: true})
+            const ids = {
                 name: name,
                 parent: parent
-            })
+            }
+
+            this.loadDefaultDatas(ids)
+            // PubSub.publishSync('showDefaultCard',{
+            //     name: name,
+            //     parent: parent
+            // })
         }
+    }
+
+    loadDefaultDatas = (ids) => {
+        const {gameId} = this.props
+        // const {selectedCardName} = this.state
+        console.log("selectedCardName",gameId, ids);
+        axios({
+            method: "get",
+            url: "/api1/getDefaultImgDatas",
+            params: {
+                gameId: gameId,
+                name: ids.parent
+            }
+        }).then(
+            response => {
+                // console.log(ids);
+                console.log("find! : ", response.data.items);
+
+                // const title = response.data.items.find((item)=>{
+                //     return ids.name === item.name
+                // })
+                // const modifyTitle = title.modifyTitle.replaceAll(" ","")
+                // console.log("find! : ", title, modifyTitle);
+                // this.setState({
+                //     defaultItems: response.data.items,
+                //     modifyTitle: modifyTitle,
+
+                // })
+            },
+            error => {
+                console.log(error);
+            }
+        )
     }
 
     render() {
@@ -152,7 +195,6 @@ export default class ImageSettings extends Component {
                                         <Row>
                                             <Col span={8}>
                                                 <Input value="圖片水平位置" disabled/>
-                                                {/* <label className="form-label">圖片水平位置</label> */}
                                             </Col>
                                             <Col span={16}>
                                                 <InputNumber min={-1000} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
@@ -166,7 +208,6 @@ export default class ImageSettings extends Component {
                                             <Row>
                                                 <Col span={8}>
                                                     <Input value="圖片垂直位置" disabled/>
-                                                    {/* <label className="form-label">圖片水平位置</label> */}
                                                 </Col>
                                                 <Col span={16}>
                                                     <InputNumber min={-1000} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
@@ -189,10 +230,7 @@ export default class ImageSettings extends Component {
                         title="圖片的大小"
                         headStyle={{fontSize: 24}}
                     >
-                    {/* <List.Item className="col"> */}
-                        {/* <label className="form-label">圖片的大小</label> */}
                         <InputNumber min={1} max={1000} defaultValue={size} onChange={changeSizeValue} />
-                    {/* </List.Item> */}
                     </Card>
                 </Col>
 
@@ -228,11 +266,12 @@ export default class ImageSettings extends Component {
                                 <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
                             </Upload>
 
+                            
                             {
                                 isUploadFile ? 
-                                    <Button onClick={this.showDefaultCard(name)} className="btn btn-dark" disabled>使用其他提供的圖片</Button>
+                                    <Button onClick={this.showDefaultCardDrawer(name)} className="btn btn-dark" disabled>使用其他提供的圖片</Button>
                                 :
-                                    <Button onClick={this.showDefaultCard(name)} className="btn btn-dark" >使用其他提供的圖片</Button>
+                                    <Button onClick={this.showDefaultCardDrawer(name)} className="btn btn-dark" >使用其他提供的圖片</Button>
                             }
                         </Space>
                     </Card>

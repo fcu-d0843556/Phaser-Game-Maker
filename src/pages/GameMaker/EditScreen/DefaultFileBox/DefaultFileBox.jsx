@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import { Card,Col,Divider} from 'antd';
+import { List } from 'antd';
 
 import './DefaultFileBox.css';
 import axios from 'axios';
@@ -27,7 +29,7 @@ export default class DefaultFileBox extends Component {
         PubSub.subscribe('showDefaultCard', (msg,ids)=>{
             const {gameId} = this.props
             const {selectedCardName} = this.state
-            // console.log("selectedCardName",selectedCardName);
+            console.log("selectedCardName",selectedCardName);
             if(ids.name === selectedCardName){
                 // console.log("close");
                 this.setState({
@@ -114,38 +116,70 @@ export default class DefaultFileBox extends Component {
     }
 
     render() {
-        const {isDefaultCardOpen,defaultItems,selectedItemId,modifyTitle} = this.state
-        // console.log(modifyTitle);
+        const data = [
+            {
+              title: 'Title 1',
+            },
+            {
+              title: 'Title 2',
+            },
+            {
+              title: 'Title 3',
+            },
+            {
+              title: 'Title 4',
+            },
+          ];
+
+        const {isDefaultCardOpen,defaultItems,selectedItemId} = this.state
+        // const {modifyTitle} = this.props
+        // console.log(this.props);
 
         return (
-            <div className="overflow card col-6 detail-card default-card-screen" style={{backgroundColor: "lightpink", visibility: isDefaultCardOpen ? 'visible' : 'hidden'}}>
-                {
-                    <div>      
-                        <div className="card-header">                                              
-                            <button type="button" onClick={this.closeCard} style={{float: "right"}} className="btn-close" aria-label="Close"></button>
-                            <h4 style={{textAlign:"center"}}>{modifyTitle} - 預設圖片</h4>
-                        </div>  
+            // <div className="detail-card default-card-screen" style={{backgroundColor: "lightpink"}}>
+            <div style={{backgroundColor: "lightpink"}}>
 
-                        <div className="default-items">
-                            <div className="row row-cols-1 row-cols-md-2 g-4 " >
-                                {
-                                    defaultItems.map((item)=>{
-                                        return (
-                                            <div className="col" key={item.defaultData.description}>
-                                                <div className={ selectedItemId === item.defaultData.description ? "selected-default-card card" : "card"} onClick={this.selectCard(item.defaultData.description)}>
-                                                    <img src={item.img.src} className=" item-img-size" alt="..."/>
-                                                    <div className="card-body">
-                                                        <h5 className="card-title">{item.defaultData.description}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                } 
-                            </div>
-                        </div>
-                    </div>  
-                }
+                <Col span={24}>
+                    <Card 
+                        title= { "- 預設圖片"}
+                        headStyle={{fontSize: 24}}
+                    >
+                    
+                    <List
+                        grid={{ gutter: 16, 
+                            xs: 1,
+                            sm: 2,
+                            md: 2,
+                            lg: 1,
+                            xl: 2,
+                            xxl: 3, 
+                        }}
+                        dataSource={data}
+                        renderItem={item => (
+                        <List.Item>
+                            <Card title={item.title}>Card content</Card>
+                            
+                            {
+                                // defaultItems.map((item)=>{
+                                //     return (
+
+                                //             <Card title={item.title} key={item.defaultData.description}>
+                                //                 <img src={item.img.src} className=" item-img-size" alt="..."/>
+                                //                 <h5 className="card-title">{item.defaultData.description}</h5>
+                                //             </Card>
+                                //     )
+                                // })
+                            }
+                            
+                        </List.Item>
+                        )}
+                    />
+
+                    </Card>
+                </Col>
+
+                        
+                
             </div>
         )
     }

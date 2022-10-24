@@ -113,13 +113,6 @@ class MyHeader extends Component {
 
         return (
             <Layout style={{height: "100%", width: "100%"}}>
-                    {/* <Button onClick={this.showDrawer}>123</Button> */}
-                    {/* <Drawer title="Basic Drawer" placement="right" onClose={this.onClose} visible={this.state.visible}>
-                        <p>Some contents...</p>
-                        <p>Some contents...</p>
-                        <p>Some contents...</p>
-                    </Drawer> */}
-
                 <Header 
                     className='my-header'
                     style={{
