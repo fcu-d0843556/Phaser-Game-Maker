@@ -11,6 +11,7 @@ export default class ImageSettings extends Component {
 
     state = {
         ImageDatas: {},
+        saveImageSrc: "",
         isUploadFile: false,
         isUploading: false
     }
@@ -18,16 +19,16 @@ export default class ImageSettings extends Component {
     componentDidMount(){
         // console.log(this.props);
         this.setState({
-            ImageDatas: {...this.props}
+            ImageDatas: {...this.props},
+            saveImageSrc: this.props.img.src
         })
 
         PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
-            //saveProgress 
-            //Todo: 把imagedata的src替換成status就行
-            const {ImageDatas} = this.state
-            console.log("img,status", ImageDatas, status);
-            // console.log("using", );
-
+            const {ImageDatas,saveImageSrc} = this.state
+            if(ImageDatas.name === status.selectedName){
+                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
+                PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
+            }
         })
         
         //usingUploadFile
