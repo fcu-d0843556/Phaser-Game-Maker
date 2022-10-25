@@ -19,7 +19,6 @@ export default class DefaultFileBox extends Component {
 
         //在載入遠端文件完成時，存入傳入的ImageSettings名字和parent
         nowDrawerName: "",
-        nowDrawerParent: "",
 
         //所有的載入遠端文件
         defaultCardDatas: [],
@@ -34,7 +33,6 @@ export default class DefaultFileBox extends Component {
         PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
             this.setState({
                 defaultCardDatas: datas.items,
-                nowDrawerParent: datas.parent,
                 nowDrawerName: datas.name,
                 isLoading: false
             })
@@ -47,7 +45,7 @@ export default class DefaultFileBox extends Component {
 
         const selectDefaultCard = (id) => {
             return () => {
-                const {selectedId,defaultCardDatas,nowDrawerName,nowDrawerParent} = this.state
+                const {selectedId,defaultCardDatas,nowDrawerName} = this.state
                 let targetItem = defaultCardDatas.find((item)=>{
                     return item.defaultData.description === id
                 })
@@ -59,7 +57,6 @@ export default class DefaultFileBox extends Component {
 
                 PubSub.publish("usingDefaultDatas", {
                     selectedName: nowDrawerName,
-                    selectedParent: nowDrawerParent,
                     selectedItem: selectedId === id ? undefined : targetItem
                 })
             }

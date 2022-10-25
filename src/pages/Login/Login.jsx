@@ -60,11 +60,11 @@ export default class Login extends Component {
         >
           <Form.Item
             className="textbar"
-            label="Username" name="username"
+            label="用戶名" name="username"
             rules={[
               {
                 required: true,
-                message: 'Please input your username!',
+                message: '請輸入用戶名！',
               },
             ]}
           >
@@ -73,11 +73,11 @@ export default class Login extends Component {
 
           <Form.Item
             className="textbar"
-            label="Password" name="password"
+            label="密碼" name="password"
             rules={[
               {
                 required: true,
-                message: 'Please input your password!',
+                message: '請輸入密碼！',
               },
             ]}
           >

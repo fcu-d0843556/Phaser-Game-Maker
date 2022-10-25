@@ -49,7 +49,7 @@ export default class register extends Component {
           >
             <Form.Item
               className="textbar"
-              label="Username" name="username"
+              label="用戶名" name="username"
               rules={[
                 {
                   required: true,
@@ -62,7 +62,7 @@ export default class register extends Component {
 
             <Form.Item
               className="textbar"
-              label="Password" name="password"
+              label="密碼" name="password"
               rules={[
                 {
                   required: true,

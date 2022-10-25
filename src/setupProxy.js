@@ -79,11 +79,11 @@ module.exports = function(app) {
     if(Object.keys(req.query).length === 0){
       res.json({success: true})
     }else{
-      console.log(username);
+      // console.log(username);
       res.json({
         success: true,
-        location: `/upload/${username}/${fileName + extname}`,
-        selectedCardName: fileName
+        uploadFileImgSrc: `/upload/${username}/${fileName + extname}`,
+        selectedName: fileName
       })
     }
     

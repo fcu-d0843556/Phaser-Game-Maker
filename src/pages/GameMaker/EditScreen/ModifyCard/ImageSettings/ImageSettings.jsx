@@ -15,9 +15,9 @@ export default class ImageSettings extends Component {
         isUploadFile: false,
         isUploading: false
     }
-    
+
     componentDidMount(){
-        // console.log(this.props);
+
         this.setState({
             ImageDatas: {...this.props},
             saveImageSrc: this.props.img.src
@@ -27,33 +27,8 @@ export default class ImageSettings extends Component {
             const {ImageDatas,saveImageSrc} = this.state
             if(ImageDatas.name === status.selectedName){
                 ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
+                this.setState({ImageDatas})
                 PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-            }
-        })
-        
-        //usingUploadFile
-        PubSub.subscribe("usingUploadFile",(msg,status)=>{
-            const {ImageDatas} = this.state
-            console.log("status", status);
-            // console.log(ImageDatas,status.selectedCardName);
-            // console.log("status.selectedCardName",status.selectedCardName,ImageDatas.name);
-            if(status.selectedCardName === ImageDatas.name){
-                // console.log('dd',ImageDatas);
-                // console.log("status",status);
-
-                if(status.isSelected){
-                    ImageDatas.img = status.selectedItem.img
-                    this.setState({ImageDatas})
-                    PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-                }else if(status.uploadFileSrc !== undefined){
-                    // console.log("dd",ImageDatas.img.src,status.uploadFileSrc);
-                    // console.log(ImageDatas.img);
-                        
-                    ImageDatas.img.src = status.uploadFileSrc + "?t=" + new Date().getTime()
-                    this.setState({ImageDatas})
-                    PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-                    this.setState({isUploading: false})
-                }
             }
         })
     }
@@ -62,8 +37,7 @@ export default class ImageSettings extends Component {
 
     loadDefaultDatas = (parent) => {
         const {gameId} = this.props
-        // const {selectedCardName} = this.state
-        // console.log("selectedCardName",gameId);
+
         axios({
             method: "get",
             url: "/api1/getDefaultImgDatas",
@@ -94,13 +68,24 @@ export default class ImageSettings extends Component {
         const {name} = this.props
 
         const showDefaultCardDrawer = (name) => {
-            return (event) => {
+            return () => {
                 PubSub.publishSync('showDefaultCardDrawer',name)
                 const {parent} = this.state.ImageDatas
-                // console.log(ImageDatas);
                 this.loadDefaultDatas(parent)
             }
         }
+
+        const usingUploadFile = (selectedName,uploadFileImgSrc) => {
+            const {ImageDatas,saveImageSrc} = this.state
+
+            ImageDatas.img.src =  uploadFileImgSrc !== ""  ? uploadFileImgSrc + "?t=" + new Date().getTime() : saveImageSrc
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
+            this.setState({
+                ImageDatas,
+                isUploading: false
+            })
+        }
+
 
         const changeSizeValue = (value) => {
             const {ImageDatas} = this.state
@@ -117,7 +102,7 @@ export default class ImageSettings extends Component {
         }
 
         const beforeUpload = (file) => {
-            // console.log("type" , file.type);
+            console.log("beforeUpload");
             let isPic = false;
             if(file.type === "image/png" || file.type === "image/jpeg"){
                 isPic = true
@@ -136,7 +121,7 @@ export default class ImageSettings extends Component {
         }
 
         const uploadFile = (file) => {
-            // console.log("uploadFIle");
+            console.log("uploadFIle");
             const {username} = this.props
             // console.log("file:",file);
 
@@ -156,17 +141,9 @@ export default class ImageSettings extends Component {
                 }).then(
                     response => {
                         PubSub.publishSync('closeDefaultCard')
-
-                        const {selectedCardName,location} = response.data
-                        this.setState({location})
-                        // console.log("res", response.data.location);
-                        
+                        const {selectedName,uploadFileImgSrc} = response.data
                         this.setState({isUploadFile: true})
-                        PubSub.publishSync("usingUploadFile",{
-                            selectedCardName,
-                            uploadFileSrc: location
-                        })
-
+                        usingUploadFile(selectedName,uploadFileImgSrc);
                         message.success(`文件上传成功`)
                     },
                     error => {
