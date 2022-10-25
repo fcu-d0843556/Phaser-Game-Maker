@@ -48,7 +48,7 @@ export default class ModifyCard extends Component {
         <Collapse accordion >
             {
               img ? 
-                
+                  
                   <Panel header="圖片管理" key="圖片管理">
                     
                       <ImageSettings {...this.props}></ImageSettings>

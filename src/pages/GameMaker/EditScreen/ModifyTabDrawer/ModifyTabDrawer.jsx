@@ -9,11 +9,22 @@ export default class ModifyTabDrawer extends Component {
 
     state = {
         darwerName: "",
+
+        width: window.innerWidth,
+
         visible: false,
         isDefaultDrawerOpened: false
     }
 
+    updateDimensions = () => {
+        this.setState({
+            width: window.innerWidth
+        });
+    }
+
     componentDidMount(){
+        window.addEventListener("resize", this.updateDimensions);
+
         this.setState({darwerName: this.props.darwerName})
         PubSub.subscribe("closeAllDrawer",(msg)=>{this.setState({visible: false});})
         PubSub.subscribe("closeAllDefaultCardDrawer",(msg)=>{this.setState({isDefaultDrawerOpened: false});})
@@ -45,21 +56,27 @@ export default class ModifyTabDrawer extends Component {
     };
 
     render() {
-        const {modifyTitle, width, gameId} = this.props
-        const {isDefaultDrawerOpened} = this.state
-        // console.log("gig", this.props);
+        const {modifyTitle, gameId} = this.props
+        const {visible,isDefaultDrawerOpened, width} = this.state
+        // console.log("width", width);
+        
 
         return (
             <div>
                 {
                     width >= 1000 ? 
-                        <Drawer width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
+                        <Drawer push={false} width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={visible}>
                             <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
                                 <ModifyCard {...this.props}></ModifyCard>
+                                <Drawer className='drawerWidth1000Default' push={false} width={width - 410} zIndex="1" title="hh" placement="right" onClose={this.closeDefaultCardDrawer} visible={isDefaultDrawerOpened}>
+                                    <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
+                                        <DefaultFileBox gameId={gameId}></DefaultFileBox>
+                                    </Col>                      
+                                </Drawer>
                             </Col>
                         </Drawer> 
                     :
-                        <Drawer width={width} zIndex={width >= 845 ?1:0}  title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={this.state.visible}>
+                        <Drawer width={width} zIndex={width >= 845 ?1:0}  title={modifyTitle} placement="right" onClose={this.closeDrawer} visible={visible}>
                             <Col span={width >= 845 ?11:24}>
                                 <ModifyCard {...this.props}></ModifyCard>
                             </Col>
@@ -68,13 +85,13 @@ export default class ModifyTabDrawer extends Component {
 
                 {
                     width >= 1000 ? 
-                        <Drawer width={width - 410} zIndex="1" title="hh" placement="right" onClose={this.closeDefaultCardDrawer} visible={this.state.isDefaultDrawerOpened}>
+                        <Drawer push={false} width={width - 410} zIndex="1" title="使用預設圖片" placement="right" onClose={this.closeDefaultCardDrawer} visible={isDefaultDrawerOpened}>
                             <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
                                 <DefaultFileBox gameId={gameId}></DefaultFileBox>
                             </Col>                      
                         </Drawer>
                     :
-                        <Drawer width={width} zIndex={width >= 845 ?1:0}  title="hh" placement="right" onClose={this.closeDefaultCardDrawer} visible={this.state.isDefaultDrawerOpened}>
+                        <Drawer push={false} width={width} zIndex={width >= 845 ?1:0}  title="使用預設圖片" placement="right" onClose={this.closeDefaultCardDrawer} visible={isDefaultDrawerOpened}>
                             <Col span={width >= 845 ?11:24}>
                                 <DefaultFileBox gameId={gameId}></DefaultFileBox>
                             </Col>

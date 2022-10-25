@@ -17,8 +17,9 @@ export default class DefaultFileBox extends Component {
 
     state = {
 
-        //在載入遠端文件完成時，存入傳入的ImageSettings名字和parent
+        //在載入遠端文件完成時，存入傳入的ImageSettings名字和title
         nowDrawerName: "",
+        modifyTitle: "",
 
         //所有的載入遠端文件
         defaultCardDatas: [],
@@ -31,16 +32,18 @@ export default class DefaultFileBox extends Component {
 
     componentDidMount(){
         PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
+            console.log(datas);
             this.setState({
                 defaultCardDatas: datas.items,
                 nowDrawerName: datas.name,
-                isLoading: false
+                isLoading: false,
+                modifyTitle: datas.modifyTitle
             })
         })
     }
     
     render() {
-        const {defaultCardDatas,isLoading, selectedId} = this.state
+        const {defaultCardDatas,isLoading, selectedId, modifyTitle} = this.state
         // console.log("de",defaultCardDatas);
 
         const selectDefaultCard = (id) => {
@@ -67,7 +70,7 @@ export default class DefaultFileBox extends Component {
 
                 <Col span={24}>
                     <Card 
-                        title= { "- 預設圖片"}
+                        title= {modifyTitle}
                         headStyle={{fontSize: 24}}
                     >
                     

@@ -50,10 +50,12 @@ export default class ImageSettings extends Component {
                 // console.log("find! : ", response.data.items);
                 const {ImageDatas} = this.state
                 console.log("imagedata", ImageDatas);
+                
                 PubSub.publish("saveDefaultCardDatas", {
                     parent: ImageDatas.parent,
                     name: ImageDatas.name,
-                    items: response.data.items
+                    items: response.data.items,
+                    modifyTitle: ImageDatas.modifyTitle
                 })
             },
             error => {
@@ -64,6 +66,7 @@ export default class ImageSettings extends Component {
 
     render() {
         const {isUploadFile,isUploading} = this.state
+        console.log(this.props);
         const {position,size,src} = this.props.img
         const {name} = this.props
 

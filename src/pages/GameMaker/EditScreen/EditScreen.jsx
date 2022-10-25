@@ -69,7 +69,7 @@ export default class EditScreen extends Component {
         const {mobileModifyMode,nowPanel} = this.state;
         const data = Object.keys(gameModifyDatas)
 
-        
+        // console.log("dd",width);
 
         return (
             <Row>
