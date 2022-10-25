@@ -60,7 +60,7 @@ export default class PriorityCard extends Component {
                                 onAfterChange={changeValue}
                                 marks={marks} 
                                 step={null} 
-                                defaultValue={selected} />
+                                value={selected} />
                     </Card>
                 </Col>
             </div>

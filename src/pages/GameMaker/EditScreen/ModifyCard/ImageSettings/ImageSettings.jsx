@@ -100,6 +100,17 @@ export default class ImageSettings extends Component {
             }
         }
 
+        const setPositionValueToCenter = () => {
+            // console.log("dd");
+            const {ImageDatas} = this.state
+            ImageDatas.img.position.x = 180
+            ImageDatas.img.position.y = 310
+            this.setState({ImageDatas})
+            
+            PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
+            message.success('置中數值設置成功');
+        }
+
         const beforeUpload = (file) => {
             let isPic = false;
             if(file.type === "image/png" || file.type === "image/jpeg"){
@@ -168,7 +179,7 @@ export default class ImageSettings extends Component {
                                                 <Input value="圖片水平位置" disabled/>
                                             </Col>
                                             <Col span={12}>
-                                                <InputNumber min={-1000} max={1000} defaultValue={position.x} onChange={changePositionValue("x")} />
+                                                <InputNumber min={-1000} max={1000} value={position.x} onChange={changePositionValue("x")} />
                                             </Col>
                                         </Row>
                                     :   <div></div>
@@ -181,11 +192,12 @@ export default class ImageSettings extends Component {
                                                     <Input value="圖片垂直位置" disabled/>
                                                 </Col>
                                                 <Col span={12}>
-                                                    <InputNumber min={-1000} max={1000} defaultValue={position.y} onChange={changePositionValue("y")} />
+                                                    <InputNumber min={-1000} max={1000} value={position.y} onChange={changePositionValue("y")} />
                                                 </Col>
                                             </Row>
                                     :   <div></div> 
                                 }
+                                <Button onClick={setPositionValueToCenter}>設置圖片置中</Button>
                             </Card>
                             <Divider />
                         </Col>
@@ -202,7 +214,7 @@ export default class ImageSettings extends Component {
                         headStyle={{fontSize: 24}}
                         bordered={false}
                     >
-                        <InputNumber min={1} max={1000} defaultValue={size} onChange={changeSizeValue} />
+                        <InputNumber min={1} max={1000} value={size} onChange={changeSizeValue} />
                     </Card>
                 </Col>
 

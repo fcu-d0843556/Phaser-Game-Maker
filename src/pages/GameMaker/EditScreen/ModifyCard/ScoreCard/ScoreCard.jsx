@@ -33,7 +33,7 @@ export default class ScoreCard extends Component {
                     title={modifyTitle}
                     headStyle={{fontSize: 24}}
                 >
-                    <InputNumber min={-100000} max={100000} defaultValue={content} onChange={changeValue} />
+                    <InputNumber min={-100000} max={100000} value={content} onChange={changeValue} />
                 </Card>
             </Col>
         )

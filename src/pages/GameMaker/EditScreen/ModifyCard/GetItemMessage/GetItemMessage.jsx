@@ -49,7 +49,7 @@ export default class GetItemMessage extends Component {
                     
                     {
                         (inputType === "number") ? 
-                            <InputNumber min={1} max={100000} defaultValue={content} onChange={changeNumberValue} />
+                            <InputNumber min={1} max={100000} value={content} onChange={changeNumberValue} />
                         :
                             <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
                     }

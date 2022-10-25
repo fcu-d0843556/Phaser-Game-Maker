@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import {Button, Layout, Space} from 'antd';
 import { Avatar, List } from 'antd';
-import { Collapse, Row,Col, Popconfirm } from 'antd';
+import { Collapse, Row,Col, Popconfirm, Form } from 'antd';
 
 import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -78,7 +78,7 @@ export default class EditScreen extends Component {
 
                 <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 2}}>
                     <div className="modify-cards-screen" >
-                        <form> 
+                        <Form> 
                             <List
                                 style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}}
                                 itemLayout="horizontal"
@@ -111,7 +111,7 @@ export default class EditScreen extends Component {
                                     )
                                 } }
                             />
-                        </form>
+                        </Form>
                     </div>  
                 </Col>
 

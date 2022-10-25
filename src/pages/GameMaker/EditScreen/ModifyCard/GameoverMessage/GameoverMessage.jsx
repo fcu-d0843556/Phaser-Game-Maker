@@ -62,7 +62,7 @@ export default class GameoverMessage extends Component {
                                         </Col>
 
                                         <Col span={12} onChange={changeNumberValue}>
-                                            <InputNumber id={id} min={-100000} max={100000} controls={false} defaultValue={score[id]} />
+                                            <InputNumber id={id} min={-100000} max={100000} controls={false} value={score[id]} />
 
                                         </Col>
                                         <Col span={24}>
