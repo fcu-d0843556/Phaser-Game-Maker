@@ -32,7 +32,7 @@ export default class DefaultFileBox extends Component {
 
     componentDidMount(){
         PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
-            console.log(datas);
+            // console.log(datas);
             this.setState({
                 defaultCardDatas: datas.items,
                 nowDrawerName: datas.name,
@@ -52,7 +52,7 @@ export default class DefaultFileBox extends Component {
                 let targetItem = defaultCardDatas.find((item)=>{
                     return item.defaultData.description === id
                 })
-                console.log("find: ",selectedId , id);
+                // console.log("find: ",selectedId , id);
                 this.setState({
                     selectedId: selectedId === id ? "" : id,
                     selectedItem: selectedId === id ? undefined : targetItem

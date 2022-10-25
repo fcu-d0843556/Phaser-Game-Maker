@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import {Button, Layout, Space} from 'antd';
 import { Avatar, List } from 'antd';
-import { Collapse, Row,Col } from 'antd';
+import { Collapse, Row,Col, Popconfirm } from 'antd';
 
 import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -27,6 +27,7 @@ export default class EditScreen extends Component {
 
     refreshGame = (event) => {
         PubSub.publishSync("closeAllDrawer")
+        PubSub.publishSync("closeAllDefaultCardDrawer")
         PubSub.publishSync("refreshGame")
     }
  
@@ -45,7 +46,7 @@ export default class EditScreen extends Component {
 
     //回到默認狀態
     backToDefaultDatas = () => {
-        console.log("back");
+        // console.log("back");
         PubSub.publishSync("getGameData", "default")
         this.refreshGame()
     }
@@ -116,11 +117,15 @@ export default class EditScreen extends Component {
 
                 <Layout style={{zIndex: 10}}>
                     <Footer className="fixed-game-footer" >
-                    <Button icon={<DeleteFilled style={{fontSize: 16, verticalAlign: "text-top"}}/>} type="danger" onClick={this.backToDefaultDatas}>回到默認資料</Button>
-                        <Space style={{float: "right"}} size="small">
+
+                        <Popconfirm placement="top" title="您確定要回到默認遊戲資料嗎？" onConfirm={this.backToDefaultDatas} okText="好" cancelText="取消">
+                            <Button icon={<DeleteFilled style={{fontSize: 16, verticalAlign: "text-top"}}/>} type="danger">回到默認資料</Button>
+                        </Popconfirm>
+
+                        <Space style={{float: "right"}} size="small" wrap>
                             <Button icon={mobileModifyMode === "modify"  ? <PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> : <EditOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> } style={{backgroundColor: "#ffa940"}} onClick={this.changeModifyMode} className="preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</Button>
                             <Button icon={<PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />} style={{backgroundColor: "#ffa940"}} onClick={this.refreshGame} className="preview-button-PC">預覽變化</Button>
-                            <Button icon={<CloudUploadOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}   style={{backgroundColor: "#40a9ff"}} onClick={this.renderGame}>生成遊戲</Button>
+                            <Button icon={<CloudUploadOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}   style={{backgroundColor: "#40a9ff"}} onClick={this.renderGame}>存儲 & 生成遊戲</Button>
                         </Space>
                     </Footer>
                 </Layout>

@@ -47,10 +47,7 @@ export default class ImageSettings extends Component {
             }
         }).then(
             response => {
-                // console.log("find! : ", response.data.items);
                 const {ImageDatas} = this.state
-                console.log("imagedata", ImageDatas);
-                
                 PubSub.publish("saveDefaultCardDatas", {
                     parent: ImageDatas.parent,
                     name: ImageDatas.name,
@@ -66,7 +63,6 @@ export default class ImageSettings extends Component {
 
     render() {
         const {isUploadFile,isUploading} = this.state
-        console.log(this.props);
         const {position,size,src} = this.props.img
         const {name} = this.props
 
@@ -105,7 +101,6 @@ export default class ImageSettings extends Component {
         }
 
         const beforeUpload = (file) => {
-            console.log("beforeUpload");
             let isPic = false;
             if(file.type === "image/png" || file.type === "image/jpeg"){
                 isPic = true
@@ -124,7 +119,6 @@ export default class ImageSettings extends Component {
         }
 
         const uploadFile = (file) => {
-            console.log("uploadFIle");
             const {username} = this.props
             // console.log("file:",file);
 
