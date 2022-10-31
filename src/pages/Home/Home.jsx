@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 
 //Pages
-import Footer from './MyFooter/MyFooter'
+import MyFooter from './MyFooter/MyFooter'
 import IntroStepBox from './IntroStepBox/IntroStepBox'
 import IntroImgBox from './IntroImgBox/IntroImgBox'
 import IntroStartBox from './IntroStartBox/IntroStartBox'
@@ -18,7 +18,7 @@ export default class Home extends Component {
             <IntroStartBox></IntroStartBox>
             <IntroImgBox></IntroImgBox>
             <IntroStepBox></IntroStepBox>
-            <Footer></Footer>
+            <MyFooter></MyFooter>
         </div>
     )
   }
