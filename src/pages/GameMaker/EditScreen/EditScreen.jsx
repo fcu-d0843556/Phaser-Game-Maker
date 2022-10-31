@@ -85,7 +85,7 @@ export default class EditScreen extends Component {
                                 dataSource={data}
                                 renderItem={function(key) {
                                     return (
-                                        <Collapse onChange={changeCollapsePanel} activeKey={nowPanel}>
+                                        <Collapse style={{background: key === nowPanel ? "#f07654" :"#f9a852"}} onChange={changeCollapsePanel} activeKey={nowPanel}>
                                             <Panel header={gameModifyDatas[key].modifyTitle} key={key}>
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
