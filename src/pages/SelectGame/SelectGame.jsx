@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-
-import MyNavLink from '../../components/MyNavLink/MyNavLink'
-import { Carousel,Pagination,Layout    } from 'antd';
+import { Carousel,Pagination,Layout } from 'antd';
 
 import './SelectGame.css'
 

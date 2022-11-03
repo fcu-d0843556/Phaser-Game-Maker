@@ -3,7 +3,7 @@ import { Row,Col,Layout} from 'antd'
 import { Tabs } from 'antd';
 
 //Pages
-import LineLogin from './LineLogin/LineLogin'
+// import LineLogin from './LineLogin/LineLogin'
 import RegisterForm from './RegisterForm/RegisterForm';
 import LoginForm from './LoginForm/LoginForm';
 

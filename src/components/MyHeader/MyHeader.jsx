@@ -3,7 +3,7 @@ import PubSub from 'pubsub-js'
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons';
 
-import { Layout, Menu , Image, Avatar,Row, Col,Popover, Button, List,Typography} from 'antd';
+import { Layout , Image, Avatar,Row, Col,Popover, Button, List} from 'antd';
 
 
 //Components
@@ -57,7 +57,7 @@ class MyHeader extends Component {
                 default:
                     if(id === 'member'){break}
                     if(pathname !== id){
-                        console.log("in",id);
+                        // console.log("in",id);
                         this.props.history.push(id)
                     }
                     break

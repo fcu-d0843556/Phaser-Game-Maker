@@ -1,25 +1,21 @@
 import React, { Component } from 'react'
+import { Layout } from 'antd';
 
 
 //Pages
 import MyFooter from './MyFooter/MyFooter'
-import IntroStepBox from './IntroStepBox/IntroStepBox'
-import IntroImgBox from './IntroImgBox/IntroImgBox'
+import IntroFeatureBox from './IntroFeatureBox/IntroFeatureBox'
 import IntroStartBox from './IntroStartBox/IntroStartBox'
-
-//css
-import './Home.css'
 
 export default class Home extends Component {
 
   render() {
     return (
-        <div>
+        <Layout>
             <IntroStartBox></IntroStartBox>
-            <IntroImgBox></IntroImgBox>
-            <IntroStepBox></IntroStepBox>
+            <IntroFeatureBox></IntroFeatureBox>
             <MyFooter></MyFooter>
-        </div>
+        </Layout>
     )
   }
 }

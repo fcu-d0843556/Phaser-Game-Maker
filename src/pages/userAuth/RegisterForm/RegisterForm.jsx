@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import PubSub from 'pubsub-js'
 import {withRouter} from 'react-router-dom'
 
-import { Form, Input,Row,Col} from 'antd'
-import { Button, Card, Divider,Tabs } from 'antd';
+import { Form, Input} from 'antd'
+import { Button, Card, Divider } from 'antd';
 import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 
 import axios from 'axios'

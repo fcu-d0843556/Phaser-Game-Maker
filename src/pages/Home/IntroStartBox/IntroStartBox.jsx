@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { Button,Layout } from 'antd'
 
-import { Button } from 'antd'
-import { DownloadOutlined } from '@ant-design/icons';
+import './IntroStartBox.less'
 
-import './IntroStartBox.css'
+const { Header } = Layout;
 
 class IntroStartBox extends Component {
 
@@ -19,13 +19,14 @@ class IntroStartBox extends Component {
 
   render() {
     return (
-        <header className="intro-container">
+        <Header className="intro-container">
             <h1 className="intro-container-text">HELLO!</h1>
             <p>In this website, you can make your own games!</p>
+
             <Button onClick={this.clickEvent} className="startbutton" type="primary" size="large">
               Let's Start !
             </Button>
-        </header>
+        </Header>
     )
   }
 }

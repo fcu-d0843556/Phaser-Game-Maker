@@ -16,7 +16,7 @@ export default class MyFooter extends Component {
               textAlign: 'center',
           }}
 
-          className="footer"
+          className="phaser-game-maker-footer"
           >
               Phaser Game Maker ©2022
         </Footer>
