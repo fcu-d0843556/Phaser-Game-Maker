@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import { Form, Input,Row,Col,Layout} from 'antd'
-import { Button, Card, InputNumber,Tooltip, Space, message,Alert,Divider } from 'antd';
+import { Button, Card, InputNumber,Tooltip, Space, message,Alert,Divider,Tabs } from 'antd';
 import { QuestionCircleTwoTone,UserOutlined,LockOutlined } from '@ant-design/icons';
 
 import axios from 'axios'
@@ -19,6 +19,7 @@ import './Login.css'
 const { Content } = Layout;
 
 export default class Login extends Component {
+  
   render() {
 
     const onFinish = (values) => {
@@ -49,8 +50,22 @@ export default class Login extends Component {
       console.log('Failed:', errorInfo);
     };
 
+    const tabItems = [
+        {
+            label: `體重肥胖`,
+            key: 'Obese',
+            children: '内容 1'
+        },
+        {
+            label: `體重過重`,
+            key: 'Overweight',
+            children: '内容 2'
+        }
+    ]
+
     return (
         <Row>
+          
               {/* 讓BMIIntro這個組件可以顯示在左半邊（BMIIntro是顯示4個結果的頁面） */}
               <Col span={12}>
                   <Content
@@ -60,8 +75,8 @@ export default class Login extends Component {
                       backgroundColor:"#3AAFA9"
                       }}
                   >
-                    <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}></Row>
-                      {/* <BMIIntro></BMIIntro> */}
+                      <Row type="flex" justify="center" align="top" style={{minHeight: '100vh'}}></Row>
+
                   </Content>
               </Col>
 
@@ -73,8 +88,16 @@ export default class Login extends Component {
                       height: "100%",
                       }}
                   >
+                      
                       <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>
+
                           <Col span={16}>
+                              <Tabs
+                                  style={{marginTop: "100px"}}
+                                  type="card"
+                                  items={tabItems}
+                              />
+
                               <Card
                                   title="BMI 計算器"
                                   headStyle={{borderBottom: "1px solid #545454"}}
