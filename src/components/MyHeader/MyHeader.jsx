@@ -10,9 +10,8 @@ import { Layout, Menu , Image, Avatar,Row, Col,Popover, Button, List,Typography}
 // import MyNavLink from '../MyNavLink/MyNavLink'
 
 //Pages
-import Login from '../../pages/Login/Login'
+import userAuth from '../../pages/userAuth/userAuth'
 import Home from '../../pages/Home/Home'
-import Register from '../../pages/Register/Register'
 import SelectGame from '../../pages/SelectGame/SelectGame'
 import GameMaker from '../../pages/GameMaker/GameMaker'
 import PlayGame from '../../pages/PlayGame/PlayGame'
@@ -77,8 +76,8 @@ class MyHeader extends Component {
             }
         }
 
-        const loginAction = () => {
-            this.props.history.push("login")  
+        const userAuthAction = () => {
+            this.props.history.push("userAuth")  
         }
 
         const userData = [
@@ -129,7 +128,7 @@ class MyHeader extends Component {
                                         username === "" 
                                             ? 
                                                 <Avatar 
-                                                    onClick={loginAction}
+                                                    onClick={userAuthAction}
                                                     size={40} 
                                                     style={{
                                                         color: 'gray',
@@ -173,9 +172,8 @@ class MyHeader extends Component {
 
                 <div className='render-body-margin'>
                     <Switch>
-                        <Route component={Login} path="/login"></Route>
+                        <Route component={userAuth} path="/userAuth"></Route>
                         <Route component={Home} path="/home"></Route>
-                        <Route component={Register} path="/register"></Route>
                         <Route component={SelectGame} path="/selectGame"></Route>
                         <Route component={GameMaker} path="/gameMaker"></Route>
                         <Route component={PlayGame} path="/playGame"></Route>

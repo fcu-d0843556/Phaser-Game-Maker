@@ -12,7 +12,7 @@ class IntroStartBox extends Component {
     if(localStorage.getItem("username") !== ""){
       this.props.history.push('/selectGame')
     }else{
-      this.props.history.push('/login')
+      this.props.history.push('/userAuth')
     }
     
   }
