@@ -1,8 +1,9 @@
 import React, { Component  }  from 'react'
 import PubSub from 'pubsub-js'
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom'
+import { UserOutlined } from '@ant-design/icons';
 
-import { Layout, Menu } from 'antd';
+import { Layout, Menu , Image, Avatar,Row, Col,Popover, Button, List,Typography} from 'antd';
 
 
 //Components
@@ -24,19 +25,11 @@ class MyHeader extends Component {
 
     state = {
         username: '',
-        isPlayGameMode: false,
-
-        visible: false
-
     }
     
     componentDidMount(){
-        // console.log(this.props.location);
         this.setState({nowRoute: 'home'})
-        // localStorage.setItem('username', '')
         PubSub.subscribe("playGameMode", (msg,isPlayGameMode)=>{
-            // console.log(msg);
-            // console.log(isPlayGameMode);
             this.setState({
                 isPlayGameMode: isPlayGameMode
             })
@@ -46,7 +39,6 @@ class MyHeader extends Component {
             this.setState({username})
             localStorage.setItem('username', username)
         })
-
     }
 
     logOut = () => {
@@ -54,62 +46,67 @@ class MyHeader extends Component {
         localStorage.setItem('username', '')
     }
 
-    showDrawer = () => {
-        this.setState({visible: true});
-    };
-
-    onClose = () => {
-        this.setState({visible: false});
-    };
-
-    getMenuItem(label, key, icon, children, type) {
-        return {
-            key,
-            icon,
-            children,
-            label,
-            type,
-        };
-    }
-
-    menuClick = (event) => {
-        const {pathname} = this.props.location
-        const {key} = event
-        // console.log(event);
-        switch(key){
-            case '/logout':
-                this.logOut()
-                break
-            default:
-                if(key === 'member'){break}
-                if(pathname !== key){
-                    console.log("in");
-                    this.props.history.push(key)
-                }
-                break
+    menuClick = (id) => {
+        return () => {
+            const {pathname} = this.props.location
+            console.log(id);
+            switch(id){
+                case '/logout':
+                    this.logOut()
+                    break
+                default:
+                    if(id === 'member'){break}
+                    if(pathname !== id){
+                        console.log("in",id);
+                        this.props.history.push(id)
+                    }
+                    break
+            }
         }
+        
     }
 
     render() {
-        const {pathname} = this.props.location
         const {isPlayGameMode} = this.state
         const username = localStorage.getItem('username') || ''
 
-        const loginItems = [
-            this.getMenuItem('首頁', '/home', null),
-            this.getMenuItem('選擇遊戲', '/SelectGame', null),
-            this.getMenuItem(`歡迎, ${username}`, 'member', null),
-            this.getMenuItem('登出', '/logout', null)
-        ];
-        
-        const logoutItems = [
-            this.getMenuItem('首頁', '/home', null),
-            this.getMenuItem('登入', '/login', null)
-        ];
+        const backToHome = () => {
+            const {pathname} = this.props.location
+            if(pathname !== '/home'){
+                this.props.history.push("home")  
+            }
+        }
 
-        const gameItems = [
-            this.getMenuItem('首頁', '/home', null),
+        const loginAction = () => {
+            this.props.history.push("login")  
+        }
+
+        const userData = [
+            { 
+                title: '個人檔案', 
+                key: '/user'
+            },
+            { 
+                title: '登出',  
+                key: '/logout'
+            }
         ];
+          
+        const userItems = (
+            <List
+                dataSource={userData}
+                renderItem={(item) => (
+                    <List.Item
+                        style={{padding: "8px 0px"}}
+                    >
+                        <Button onClick={this.menuClick(item.key)} type="text" danger block>
+                            {item.title}
+                        </Button>
+                        
+                    </List.Item>
+                )}
+            />
+        )
 
         return (
             <Layout style={{height: "100%", width: "100%"}}>
@@ -120,16 +117,57 @@ class MyHeader extends Component {
                         zIndex: 1,
                         width: '100%'
                 }}>
-
-                    {
-                        (!isPlayGameMode) ? 
-                            username ?
-                                <Menu onClick={this.menuClick} theme="dark" mode="horizontal" items={loginItems} defaultSelectedKeys={pathname} />
-                            :
-                                <Menu onClick={this.menuClick} theme="dark" mode="horizontal" items={logoutItems} defaultSelectedKeys={pathname} />
-                        :
-                            <Menu onClick={this.menuClick} theme="dark" mode="horizontal" items={gameItems} defaultSelectedKeys={pathname} />
-                    }
+                    <Row>
+                        
+                        <Col span={8}>
+                            <Image className="logo" onClick={backToHome} preview={false} src= "/logo1.png" />
+                        </Col>
+                        {
+                            (!isPlayGameMode) ? 
+                                <Col offset={15} span={1}>
+                                    {
+                                        username === "" 
+                                            ? 
+                                                <Avatar 
+                                                    onClick={loginAction}
+                                                    size={40} 
+                                                    style={{
+                                                        color: 'gray',
+                                                        cursor: "pointer"
+                                                    }}
+                                                    icon={
+                                                        <UserOutlined
+                                                            style={{    
+                                                                verticalAlign: "text-bottom",
+                                                                fontSize: "24px"
+                                                            }}
+                                                        />
+                                                    }
+                                                />
+                                        :
+                                            <Popover placement="bottomRight" content={userItems} title={`您好，${username}`} trigger="click">
+                                                <Avatar 
+                                                    size={40} 
+                                                    style={{
+                                                        color: '#f56a00',
+                                                        backgroundColor: '#fde3cf',
+                                                        cursor: "pointer"
+                                                    }}
+                                                    icon={
+                                                        <UserOutlined
+                                                            style={{    
+                                                                verticalAlign: "text-bottom",
+                                                                fontSize: "24px"
+                                                            }}
+                                                        />
+                                                    }
+                                                />                
+                                            </Popover>
+                                    }
+                                </Col>
+                            :   <Col offset={15} span={1}/>
+                        }
+                    </Row>
                 </Header>
 
 
