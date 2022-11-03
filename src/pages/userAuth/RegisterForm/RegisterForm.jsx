@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import {withRouter} from 'react-router-dom'
 
 import { Form, Input,Row,Col} from 'antd'
 import { Button, Card, Divider,Tabs } from 'antd';
@@ -7,9 +8,7 @@ import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 
 import axios from 'axios'
 
-import MyNavLink from '../../../components/MyNavLink/MyNavLink';
-
-export default class RegisterForm extends Component {
+class RegisterForm extends Component {
   render() {
 
 
@@ -26,10 +25,7 @@ export default class RegisterForm extends Component {
         }
       ).then(
         response => {
-          if (response.data.isSuccessed) this.props.history.replace(`/home`,{
-            username
-          })
-          else alert(response.data.message)
+          response.data.isSuccessed ? this.props.history.replace(`/home`,{ username }) : alert(response.data.message)
         },
         error => {console.log(error);}
       )
@@ -118,3 +114,5 @@ export default class RegisterForm extends Component {
     )
   }
 }
+
+export default withRouter(RegisterForm)

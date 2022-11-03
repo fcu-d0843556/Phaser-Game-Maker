@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import {withRouter} from 'react-router-dom'
 
 import { Form, Input,Row,Col} from 'antd'
 import { Button, Card, Divider,Tabs } from 'antd';
@@ -8,13 +9,13 @@ import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 import axios from 'axios'
 
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   render() {
 
 
     const onFinish = (values) => {
         const {username,password} = values
-        // console.log(values);
+
         axios({
           method: "post",
           url: "/api1/login",
@@ -29,8 +30,9 @@ export default class LoginForm extends Component {
               this.props.history.replace(`/home`,{
                 username
               })
-            } 
-            else alert(response.data.message)
+            } else {
+              alert(response.data.message)
+            }
           },
           error => {console.log(error);}
         )
@@ -101,3 +103,5 @@ export default class LoginForm extends Component {
     )
   }
 }
+
+export default withRouter(LoginForm)
