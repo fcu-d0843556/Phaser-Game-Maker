@@ -49,7 +49,7 @@ export default class Login extends Component {
     ]
 
     return (
-        <Row>
+        <Row style={{height: "100%"}}>
           
               {/* 讓BMIIntro這個組件可以顯示在左半邊（BMIIntro是顯示4個結果的頁面） */}
               <Col 
