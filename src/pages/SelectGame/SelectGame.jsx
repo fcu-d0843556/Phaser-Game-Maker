@@ -26,11 +26,15 @@ export default class ChooseGame extends Component {
     }
 
     componentDidMount(){
-        window.addEventListener("resize", this.updateDimensions);
+        this.resizeSizeEvent = window.addEventListener("resize", this.updateDimensions);
         this.setState({nowPage: 3})
         this.cardSelection.current.goTo(2,true)
     }
     
+    componentWillUnmount(){
+        window.removeEventListener("resize", this.updateDimensions)
+    }
+
     goToGame = (name) => {
         return (event) => {
             this.props.history.push('/gameMaker', {

@@ -20,8 +20,29 @@ const { Content } = Layout;
 
 export default class Login extends Component {
   
-  render() {
+  state = {
+    height: window.innerHeight,
+    width: window.innerWidth
+  }
 
+  updateDimensions = () => {
+    this.setState({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+  }
+
+  componentDidMount() {
+      this.resizeSizeEvent = window.addEventListener("resize", this.updateDimensions);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateDimensions)
+  }
+
+  render() {
+    const {width,height} = this.state
+    console.log(width);
     const onFinish = (values) => {
       const {username,password} = values
       // console.log(values);
@@ -52,13 +73,13 @@ export default class Login extends Component {
 
     const tabItems = [
         {
-            label: `體重肥胖`,
-            key: 'Obese',
+            label: `登入`,
+            key: 'login',
             children: '内容 1'
         },
         {
-            label: `體重過重`,
-            key: 'Overweight',
+            label: `註冊`,
+            key: 'register',
             children: '内容 2'
         }
     ]
@@ -67,31 +88,30 @@ export default class Login extends Component {
         <Row>
           
               {/* 讓BMIIntro這個組件可以顯示在左半邊（BMIIntro是顯示4個結果的頁面） */}
-              <Col span={12}>
+              <Col span={width >= 768 ? 12 : 0}>
                   <Content
                       style={{
-                      padding: '0 50px',
-                      height: "100%",
-                      backgroundColor:"#3AAFA9"
+                          backgroundColor:"#3AAFA9"
                       }}
                   >
-                      <Row type="flex" justify="center" align="top" style={{minHeight: '100vh'}}></Row>
+                      <Row type="flex" justify="center" align="top" style={{height: height}}></Row>
 
                   </Content>
               </Col>
 
-              {/* 讓BMIForm這個組件可以顯示在右半邊（BMIForm是使用者輸入BMI資料的頁面） */}
-              <Col span={12}>
+{/* 768 */}
+              {/* 右半邊 */}
+              <Col span={width >= 768 ? 12 : 24}>
                   <Content
                       style={{
-                      padding: '0 50px',
-                      height: "100%",
+                          padding: '0 50px',
+                          height: "100%",
                       }}
                   >
                       
-                      <Row type="flex" justify="center" align="middle" style={{minHeight: '100vh'}}>
+                      <Row type="flex" justify="center" align="middle">
 
-                          <Col span={16}>
+                          <Col span={20}>
                               <Tabs
                                   style={{marginTop: "100px"}}
                                   type="card"
