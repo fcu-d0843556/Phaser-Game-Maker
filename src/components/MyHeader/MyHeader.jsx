@@ -120,7 +120,7 @@ class MyHeader extends Component {
                     <Row>
                         
                         <Col span={8}>
-                            <Image className="logo" onClick={backToHome} preview={false} src= "/logo1.png" />
+                            <Image className="logo" onClick={backToHome} preview={false} src= "/logo.png" />
                         </Col>
                         {
                             (!isPlayGameMode) ? 
