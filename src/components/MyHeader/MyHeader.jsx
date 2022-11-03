@@ -43,6 +43,7 @@ class MyHeader extends Component {
     logOut = () => {
         this.setState({username: ''})
         localStorage.setItem('username', '')
+        this.props.history.replace("/home")
     }
 
     menuClick = (id) => {
