@@ -115,7 +115,8 @@ class MyHeader extends Component {
                     style={{
                         position: 'fixed',
                         zIndex: 1,
-                        width: '100%'
+                        width: '100%',
+                        background: "#07011D"
                 }}>
                     <Row>
                         

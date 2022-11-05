@@ -6,6 +6,8 @@ import { Layout } from 'antd';
 import MyFooter from './MyFooter/MyFooter'
 import IntroFeatureBox from './IntroFeatureBox/IntroFeatureBox'
 import IntroStartBox from './IntroStartBox/IntroStartBox'
+import IntroSampleBox from './IntroSampleBox/IntroSampleBox';
+import IntroStepBox from './IntroStepBox/IntroStepBox'
 
 export default class Home extends Component {
 
@@ -14,6 +16,8 @@ export default class Home extends Component {
         <Layout>
             <IntroStartBox></IntroStartBox>
             <IntroFeatureBox></IntroFeatureBox>
+            <IntroSampleBox></IntroSampleBox>
+            <IntroStepBox></IntroStepBox>
             <MyFooter></MyFooter>
         </Layout>
     )

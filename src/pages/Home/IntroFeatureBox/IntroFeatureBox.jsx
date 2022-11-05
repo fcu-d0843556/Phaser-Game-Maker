@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
-import { Layout, List,Card } from 'antd'
+import { Image, Layout, List,Card, Space, Typography } from 'antd'
+import { RocketTwoTone, CopyTwoTone, MobileTwoTone, DesktopOutlined } from '@ant-design/icons';
 
+// import img from './img/phonestyle.svg'
 import './IntroFeatureBox.less'
 
 const { Content } = Layout;
+const { Title } = Typography;
 
 export default class IntroFeatureBox extends Component {
     render() {
         const data = [
             {
-                title: (<h1>Choose!</h1>),
+                title: (
+                    <Space className='feature-icon-background'>
+                        <Image src="/icon/rocketIcon.svg" preview={false} />
+                    </Space>
+                ),
                 content: ( 
                     <div>
                         <p>Use our already complete game</p>
@@ -18,7 +25,11 @@ export default class IntroFeatureBox extends Component {
                 )
             },
             {
-                title: (<h1>Modify!</h1>),
+                title: (
+                    <Space className='feature-icon-background'>
+                        <Image src="/icon/rocketIcon.svg" preview={false} />
+                    </Space>
+                ),
                 content: ( 
                     <div>
                         <p>Change game's data to your own style !</p>
@@ -27,7 +38,11 @@ export default class IntroFeatureBox extends Component {
                 )
             },
             {
-                title: (<h1>Enjoy!</h1>),
+                title: (
+                    <Space className='feature-icon-background'>
+                        <Image src="/icon/responsiveIcon.svg" preview={false} />
+                    </Space>
+                ),
                 content: ( 
                     <div>
                         <p>Give your friend this game !</p>
@@ -39,7 +54,7 @@ export default class IntroFeatureBox extends Component {
 
         return (
             <Content className='feature-box' >
-                <h1>特 色</h1>
+                <h1 style={{marginBottom: "50px"}}>特 色</h1>
                 <List
                     grid={{
                     xs: 1,
@@ -52,7 +67,8 @@ export default class IntroFeatureBox extends Component {
                     dataSource={data}
                     renderItem={item => (
                     <List.Item>
-                        <Card title={item.title}>{item.content}</Card>
+                        <Card style={{background: "#F7E9DF",}} 
+                        bordered={false}  title={item.title}>{item.content}</Card>
                     </List.Item>
                     )}
                 />
