@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { Button,Layout } from 'antd'
+import { Typography } from 'antd'
 
 import './IntroStartBox.less'
 
 const { Header } = Layout;
+const { Title, Paragraph, Text } = Typography;
 
 class IntroStartBox extends Component {
 
@@ -20,11 +22,13 @@ class IntroStartBox extends Component {
   render() {
     return (
         <Header className="intro-container">
-            <h1 className="intro-container-text">HELLO!</h1>
-            <p>In this website, you can make your own games!</p>
+            <Title  className="intro-container-text">歡迎來到 Phaser Game Maker！</Title>
+            <Paragraph>
+                <Text>在這個網站中，您可以製作出簡單又有趣的客製化遊戲！</Text>
+            </Paragraph>
 
             <Button onClick={this.clickEvent} className="startbutton" type="primary" size="large">
-              Let's Start !
+              開 始 製 作 !
             </Button>
         </Header>
     )

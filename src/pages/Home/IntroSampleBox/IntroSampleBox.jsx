@@ -67,7 +67,13 @@ export default class IntroSampleBox extends Component {
 
         return (
             <Content className='sample-box' >
-                <Title style={{marginBottom: "66px"}}>別 人 的 作 品</Title>
+                <Title >作 品 預 覽</Title>
+                <Paragraph>
+                    <Text>我們的使用者利用Phaser Game Maker製作出來的獨特遊戲</Text>
+                </Paragraph>
+                <Paragraph style={{marginBottom: "66px"}}>
+                    <Text>您也可以透過這個遊戲編輯器來做出充滿心意的遊戲！</Text>
+                </Paragraph>
                 <List
                     
                     grid={{

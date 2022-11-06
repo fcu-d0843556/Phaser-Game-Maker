@@ -33,7 +33,6 @@ export default class Home extends Component {
 
   render() {
     const {width} = this.state
-    // console.log(width);
     return (
         <Layout>
             <IntroStartBox></IntroStartBox>
