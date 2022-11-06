@@ -13,7 +13,7 @@ export default class IntroStepBox extends Component {
 
 
         const {width} = this.props
-        console.log(width);
+        // console.log(width);  
         const data = [
             {
                 title: (
