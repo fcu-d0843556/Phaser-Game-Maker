@@ -57,7 +57,7 @@ export default class IntroStepBox extends Component {
 
         return (
             <Content className='step-box' >
-                <Title style={{marginBottom: "66px"}}>製 作 流 程</Title>
+                <Title className='step-title' style={{marginBottom: "66px", width: width >= 500 ? "400px" : "auto"}}>製 作 流 程</Title>
                 
                 <List
                     grid={{

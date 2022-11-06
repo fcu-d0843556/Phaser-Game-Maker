@@ -9,6 +9,8 @@ const { Title, Paragraph, Text } = Typography;
 
 export default class IntroFeatureBox extends Component {
     render() {
+
+        const {width} = this.props
         const data = [
             {
                 title: (
@@ -68,7 +70,7 @@ export default class IntroFeatureBox extends Component {
 
         return (
             <Content className='feature-box' >
-                <Title style={{marginBottom: "50px"}}>特 色</Title>
+                <Title className='feature-title' style={{marginBottom: "64px"}}>特 色</Title>
                 <List
                     grid={{
                         gutter: 32,

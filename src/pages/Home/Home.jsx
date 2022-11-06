@@ -37,7 +37,7 @@ export default class Home extends Component {
         <Layout>
             <IntroStartBox></IntroStartBox>
             <IntroFeatureBox></IntroFeatureBox>
-            <IntroSampleBox></IntroSampleBox>
+            <IntroSampleBox width={width}></IntroSampleBox>
             <IntroStepBox width={width}></IntroStepBox>
             <MyFooter></MyFooter>
         </Layout>

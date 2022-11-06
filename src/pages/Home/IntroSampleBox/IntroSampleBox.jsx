@@ -10,6 +10,8 @@ const { Meta } = Card;
 
 export default class IntroSampleBox extends Component {
     render() {
+        const {width} = this.props
+
         const data = [
             {
                 content: ( 
@@ -66,8 +68,9 @@ export default class IntroSampleBox extends Component {
         ]
 
         return (
-            <Content className='sample-box' >
-                <Title >作 品 預 覽</Title>
+            <Content className='sample-box' style={{padding: width < 425 ? "64px 16px" : "64px 48px"}}>
+                <Title className='sample-title' style={{width: width >= 500 ? "400px" : "auto"}}>作 品 預 覽</Title>
+
                 <Paragraph>
                     <Text>我們的使用者利用Phaser Game Maker製作出來的獨特遊戲</Text>
                 </Paragraph>
@@ -90,7 +93,7 @@ export default class IntroSampleBox extends Component {
                     <List.Item style={{ marginBottom: "32px" }}>
                         <Card 
                             hoverable
-                            style={{background: "#F7E9DF", padding: "10px",borderRadius: "6px"}} 
+                            style={{background: "#F69653", padding: "10px",borderRadius: "6px"}} 
                             headStyle={{borderBottom: "none"}}
                             bordered={false}  
                             title={item.title}
