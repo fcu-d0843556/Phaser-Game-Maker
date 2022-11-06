@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { Image, Layout, List,Card, Space, Typography } from 'antd'
-import { RocketTwoTone, CopyTwoTone, MobileTwoTone, DesktopOutlined } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 
-// import img from './img/phonestyle.svg'
 import './IntroFeatureBox.less'
 
 const { Content } = Layout;
-const { Title } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 export default class IntroFeatureBox extends Component {
     render() {
@@ -14,14 +13,19 @@ export default class IntroFeatureBox extends Component {
             {
                 title: (
                     <Space className='feature-icon-background'>
-                        <Image src="/icon/rocketIcon.svg" preview={false} />
+                        <Image src="/icon/documentIcon.svg" preview={false} />
                     </Space>
                 ),
                 content: ( 
-                    <div>
-                        <p>Use our already complete game</p>
-                        <p>..............</p>
-                    </div>
+                    <Typography>
+                        <Title level={3} style={{margin: "16px auto 24px auto"}}>多種可選擇的遊戲類型</Title>
+                        <Paragraph>
+                            <Text>我們提供了多種不同玩法的遊戲類型</Text>
+                        </Paragraph>
+                        <Paragraph>
+                            <Text>您可以選擇自己感興趣的遊戲主題後，開始進行遊戲製作</Text>
+                        </Paragraph>
+                    </Typography>
                 )
             },
             {
@@ -31,10 +35,15 @@ export default class IntroFeatureBox extends Component {
                     </Space>
                 ),
                 content: ( 
-                    <div>
-                        <p>Change game's data to your own style !</p>
-                        <p>we use very simple way to let you create games </p>
-                    </div>
+                    <Typography>
+                        <Title level={3} style={{margin: "16px auto 24px auto"}}>簡單又快速的製作遊戲</Title>
+                        <Paragraph style={{color: "black"}}>
+                            <Text>您只要經過一些遊戲數值的修改、上傳您的圖片</Text>
+                        </Paragraph>
+                        <Paragraph>
+                            <Text>透過簡單好上手的製作界面就可以創造出屬於您的獨特遊戲</Text>    
+                        </Paragraph>
+                    </Typography>
                 )
             },
             {
@@ -44,31 +53,44 @@ export default class IntroFeatureBox extends Component {
                     </Space>
                 ),
                 content: ( 
-                    <div>
-                        <p>Give your friend this game !</p>
-                        <p>Enjoy !</p>
-                    </div>
+                    <Typography>
+                        <Title level={3} style={{margin: "16px auto 24px auto"}}>多裝置製作、遊玩遊戲</Title>
+                        <Paragraph>
+                            <Text>我們的遊戲網站支援手機、電腦等裝置</Text>
+                        </Paragraph>
+                        <Paragraph>
+                            <Text>您可以在所有裝置上製作遊戲，也能遊玩製作出來的遊戲</Text>
+                        </Paragraph>
+                    </Typography>
                 )
             }
         ]
 
         return (
             <Content className='feature-box' >
-                <h1 style={{marginBottom: "50px"}}>特 色</h1>
+                <Title style={{marginBottom: "50px"}}>特 色</Title>
                 <List
                     grid={{
-                    xs: 1,
-                    sm: 1,
-                    md: 3,
-                    lg: 3,
-                    xl: 3,
-                    xxl: 3,
+                        gutter: 32,
+                        xs: 1,
+                        sm: 1,
+                        md: 3,
+                        lg: 3,
+                        xl: 3,
+                        xxl: 3,
                     }}
                     dataSource={data}
                     renderItem={item => (
-                    <List.Item>
-                        <Card style={{background: "#F7E9DF",}} 
-                        bordered={false}  title={item.title}>{item.content}</Card>
+                    <List.Item style={{ marginBottom: "32px" }}>
+                        <Card 
+                            style={{background: "#F7E9DF"}} 
+                            headStyle={{borderBottom: "none"}}
+                            bordered={false}  
+                            title={item.title}
+                            bodyStyle={{padding: "0 24px"}}
+                        >
+                            {item.content}
+                        </Card>
                     </List.Item>
                     )}
                 />
