@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import './index.less'
 
 //Components
 import MyHeader from './components/MyHeader/MyHeader'
