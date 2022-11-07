@@ -17,7 +17,9 @@ export default class Login extends Component {
   
   state = {
     height: window.innerHeight,
-    width: window.innerWidth
+    width: window.innerWidth,
+
+    nowTab: 'login'
   }
 
   updateDimensions = () => {
@@ -36,9 +38,13 @@ export default class Login extends Component {
   }
 
   render() {
-    const {width,height} = this.state
+    const {width,height,nowTab} = this.state
     // console.log(width,height);
-    
+    const changeTab = (key) => {
+      // console.log(key);
+      this.setState({nowTab: key})
+    }
+
     const tabItems = [
         {
             label: `登入`,
@@ -72,8 +78,8 @@ export default class Login extends Component {
                               // bodyStyle={{padding: "0 24px"}}
                               // extra={width >= 768 ? item.extra : ""}
                           >
-                              <Title style={{margin: "24px"}}>馬上註冊！</Title>
-                              <Title style={{margin: "24px"}} level={2}>讓我們一起製作有趣好玩的遊戲！</Title>
+                              <Title style={{margin: "24px"}}>{ nowTab === 'login' ? "歡迎回來！": "馬上註冊！"}</Title>
+                              <Title style={{margin: "24px 0px 24px 24px"}} level={2}>讓我們一起製作有趣好玩的遊戲！</Title>
                               <Space>
                                   <Image src="/icon/loginIcon.svg" preview={false} />
                               </Space>
@@ -97,6 +103,7 @@ export default class Login extends Component {
                       <Row type="flex" justify="center" align="middle" style={{marginBottom: "30px"}}>
                           <Col span={20}>
                             <Tabs
+                                onChange={changeTab}
                                 style={{marginTop: "30px"}}
                                 items={tabItems}
                             />
