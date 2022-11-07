@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row,Col,Layout} from 'antd'
+import { Row,Col,Layout,Card,Space,Image} from 'antd'
 import { Tabs } from 'antd';
 
 //Pages
@@ -54,10 +54,23 @@ export default class Login extends Component {
               {/* 讓BMIIntro這個組件可以顯示在左半邊（BMIIntro是顯示4個結果的頁面） */}
               <Col 
                 span={width >= 768 ? 12 : 0}
-                style={{backgroundColor:"#f9a852"}}
+                style={{background:"linear-gradient(180deg, rgba(251,184,158,1) 0%, rgba(249,168,82,1) 100%)"}}
               >
                   <Content>
-                      <Row type="flex" justify="center" align="top" style={{height: height - 64}}></Row>
+                      <Row type="flex" justify="center" align="top" style={{height: height - 64}}>
+                          <Card 
+                              style={{background: "rgba(0,0,0,0)"}} 
+                              // headStyle={{borderBottom: "none", padding:"0px"}}
+                              bordered={false}  
+                              // title={item.title}
+                              // bodyStyle={{padding: "0 24px"}}
+                              // extra={width >= 768 ? item.extra : ""}
+                          >
+                              <Space>
+                                  <Image src="/icon/loginIcon.svg" preview={false} />
+                              </Space>
+                          </Card>
+                      </Row>
 
                   </Content>
               </Col>
