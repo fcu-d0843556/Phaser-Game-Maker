@@ -19,7 +19,16 @@
     height: 100%;
 }
 
-.white-footer{
-    background-color: white !important;
+.select-footer{
+    background-color: #090225 !important;
 }
 
+.ant-pagination-item-link{
+    background-color: #BBDEFB !important;
+    border-color: #37474F;
+}
+
+.ant-pagination-item{
+    background-color: #BBDEFB !important;
+    border-color: #37474F ;
+}

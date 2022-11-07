@@ -83,7 +83,7 @@ export default class ChooseGame extends Component {
             color: '#fff',
             lineHeight: '100px',
             textAlign: 'center',
-            background: '#364d79',
+            background: 'linear-gradient(180deg, #fbb89e 0%, #f9a852 100%)',
         };
         const {nowPage} = this.state
 
@@ -102,8 +102,8 @@ export default class ChooseGame extends Component {
                         })
                     }                                
                 </Carousel>
-                <Footer className="fixed-game-footer white-footer" >
-                    <Pagination style={{textAlign: "center"}} responsive={true} showSizeChanger={false} current={nowPage} onChange={this.pageChange} total={gameDatas.length * 10} />                 
+                <Footer className="fixed-game-footer select-footer" >
+                    <Pagination style={{textAlign: "center"}} responsive={true} showSizeChanger={false} current={nowPage} onChange={this.pageChange} total={gameDatas.length * 10}/>                
                 </Footer>
             </Layout>
         )
