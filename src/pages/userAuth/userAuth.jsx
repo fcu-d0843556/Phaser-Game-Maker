@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import { Row,Col,Layout,Card,Space,Image} from 'antd'
 import { Tabs } from 'antd';
+import { Typography } from 'antd'
 
 //Pages
 // import LineLogin from './LineLogin/LineLogin'
 import RegisterForm from './RegisterForm/RegisterForm';
 import LoginForm from './LoginForm/LoginForm';
 
+import './userAuth.less'
 const { Content } = Layout;
+const { Title, Paragraph, Text } = Typography;
+
 
 export default class Login extends Component {
   
@@ -49,15 +53,17 @@ export default class Login extends Component {
     ]
 
     return (
-        <Row style={{height: "100%"}}>
+        <Row className='user-auth-form-screen' >
           
               {/* 讓BMIIntro這個組件可以顯示在左半邊（BMIIntro是顯示4個結果的頁面） */}
               <Col 
                 span={width >= 768 ? 12 : 0}
-                style={{background:"linear-gradient(180deg, rgba(251,184,158,1) 0%, rgba(249,168,82,1) 100%)"}}
+                className="left-user-auth-form-col"
               >
                   <Content>
-                      <Row type="flex" justify="center" align="top" style={{height: height - 64}}>
+                      {/* <Row type="flex" justify="center" align="top" style={{height: height - 160}}> */}
+                      <Row type="flex" justify="center" align="top" >
+
                           <Card 
                               style={{background: "rgba(0,0,0,0)"}} 
                               // headStyle={{borderBottom: "none", padding:"0px"}}
@@ -66,6 +72,8 @@ export default class Login extends Component {
                               // bodyStyle={{padding: "0 24px"}}
                               // extra={width >= 768 ? item.extra : ""}
                           >
+                              <Title>馬上註冊！</Title>
+                              <Title level={2}>讓我們一起製作有趣好玩的遊戲！</Title>
                               <Space>
                                   <Image src="/icon/loginIcon.svg" preview={false} />
                               </Space>
@@ -78,7 +86,7 @@ export default class Login extends Component {
               {/* 右半邊 */}
               <Col 
                 span={width >= 768 ? 12 : 24}
-                style={{backgroundColor:"#ececec"}}
+                className="right-user-auth-form-col"
               >
                   <Content
                       style={{
