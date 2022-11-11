@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom'
+import PubSub from 'pubsub-js'
 
-import { Form, Input} from 'antd'
-import { Button, Card, Divider } from 'antd';
+import { Button, Card, Divider,message, Form, Input } from 'antd';
+
 import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 
 import axios from 'axios'
@@ -24,7 +25,13 @@ class RegisterForm extends Component {
         }
       ).then(
         response => {
-          response.data.isSuccessed ? this.props.history.replace(`/home`,{ username }) : alert(response.data.message)
+          if(response.data.isSuccessed){
+            PubSub.publishSync("setUsername",username)
+            message.success(`歡迎您！${username}`)
+            this.props.history.replace(`/home`,{ username })
+          }else{
+            alert(response.data.message)
+          }
         },
         error => {console.log(error);}
       )

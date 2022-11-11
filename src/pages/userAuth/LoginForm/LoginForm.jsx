@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import {withRouter} from 'react-router-dom'
 
-import { Form, Input} from 'antd'
-import { Button, Card, Divider } from 'antd';
+import { Form, Input,message, Button, Card, Divider} from 'antd'
 import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 
 import axios from 'axios'
@@ -27,6 +26,8 @@ class LoginForm extends Component {
           response => {
             if(response.data.isSuccessed){
               PubSub.publishSync("setUsername",username)
+              message.success(`歡迎您！${username}`)
+
               this.props.history.replace(`/home`,{
                 username
               })
