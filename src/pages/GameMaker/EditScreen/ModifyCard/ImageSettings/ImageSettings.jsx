@@ -152,7 +152,7 @@ export default class ImageSettings extends Component {
                         const {selectedName,uploadFileImgSrc} = response.data
                         this.setState({isUploadFile: true})
                         usingUploadFile(selectedName,uploadFileImgSrc);
-                        message.success(`文件上传成功`)
+                        message.success(`文件上傳成功！`)
                     },
                     error => {
                         console.log(error)

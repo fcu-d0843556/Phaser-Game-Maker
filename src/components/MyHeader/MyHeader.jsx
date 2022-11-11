@@ -57,7 +57,6 @@ class MyHeader extends Component {
                 default:
                     if(id === 'member'){break}
                     if(pathname !== id){
-                        // console.log("in",id);
                         this.props.history.push(id)
                     }
                     break
@@ -73,12 +72,12 @@ class MyHeader extends Component {
         const backToHome = () => {
             const {pathname} = this.props.location
             if(pathname !== '/home'){
-                this.props.history.push("home")  
+                this.props.history.push("/home")  
             }
         }
 
         const userAuthAction = () => {
-            this.props.history.push("userAuth")  
+            this.props.history.push("/userAuth")  
         }
 
         const userData = [
@@ -174,11 +173,11 @@ class MyHeader extends Component {
 
                 <div className='render-body-margin'>
                     <Switch>
-                        <Route component={userAuth} path="/userAuth"></Route>
-                        <Route component={Home} path="/home"></Route>
-                        <Route component={SelectGame} path="/selectGame"></Route>
-                        <Route component={GameMaker} path="/gameMaker"></Route>
-                        <Route component={PlayGame} path="/playGame"></Route>
+                        <Route exact={false} component={userAuth} path="/userAuth"></Route>
+                        <Route exact={false} component={Home} path="/home"></Route>
+                        <Route exact={false} component={SelectGame} path="/selectGame"></Route>
+                        <Route exact={false} component={GameMaker} path="/gameMaker"></Route>
+                        <Route exact={false} component={PlayGame} path="/playGame"></Route>
                         <Redirect to="/home"></Redirect>
                     </Switch>
                 </div>
