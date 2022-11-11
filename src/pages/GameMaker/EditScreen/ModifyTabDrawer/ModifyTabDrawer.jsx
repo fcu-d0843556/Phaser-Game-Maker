@@ -116,7 +116,7 @@ export default class ModifyTabDrawer extends Component {
                         </Drawer> 
                 }
 
-                <Button onClick={this.showDrawer} className='drawer-list-button' >{modifyTitle}</Button>   
+                <Button onClick={this.showDrawer} className='drawer-list-button'>{modifyTitle}</Button>   
             </div> 
         )
     }

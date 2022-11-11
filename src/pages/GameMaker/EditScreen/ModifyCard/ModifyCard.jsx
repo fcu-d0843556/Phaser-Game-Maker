@@ -17,39 +17,24 @@ const { Panel } = Collapse;
 export default class ModifyCard extends Component {
 
   state = {
-    showCard: undefined
-  }
-  
-  componentDidMount(){
-    const {name,parent} = this.props
-    this.setState({
-      showCard: this.props.showCard
-    })
-
-    PubSub.subscribe('changeCard', (msg,keyFilter)=>{
-      if(keyFilter.keyword === name) {
-        this.setState({
-          showCard: true
-        })
-      }else if(keyFilter.parent === parent){
-        this.setState({
-          showCard: false
-        })
-      }
-    })
+    activeTab: ""
   }
 
   render() {
 
     const {modifyTitle,img,text,name,question,score,priority,gameoverMessage} = this.props
-    const {showCard} = this.state
+    const {activeTab} = this.state
+
+    const changeTab = (key) => {
+      this.setState({activeTab: key})
+    }
 
     return (
-        <Collapse className='' style={{background: "#538CF6"}} accordion >
+        <Collapse onChange={changeTab} className='' style={{background: "#538CF6"}} accordion >
             {
               img ? 
                   
-                  <Panel header="圖片管理" key="圖片管理">
+                  <Panel style={{background: activeTab === "圖片管理" ? "#F69653" : "#538CF6"}} header="圖片管理" key="圖片管理">
                     
                       <ImageSettings {...this.props}></ImageSettings>
                     
@@ -61,7 +46,7 @@ export default class ModifyCard extends Component {
 
             {
               text ? 
-                  <Panel header={text.modifyTitle} key={text.modifyTitle}>
+                  <Panel style={{background: activeTab === text.modifyTitle ? "#F69653" : "#538CF6"}} header={text.modifyTitle} key={text.modifyTitle}>
                     <GetItemMessage {...this.props}></GetItemMessage>
                   </Panel>
               :
@@ -70,7 +55,7 @@ export default class ModifyCard extends Component {
 
             {       
               priority ? 
-                <Panel header={priority.modifyTitle} key={priority.modifyTitle}>
+                <Panel style={{background: activeTab === priority.modifyTitle ? "#F69653" : "#538CF6"}} header={priority.modifyTitle} key={priority.modifyTitle}>
                   <PriorityCard {...this.props}></PriorityCard>
                 </Panel>
               :
@@ -79,7 +64,7 @@ export default class ModifyCard extends Component {
 
             {
               score ? 
-                <Panel header={score.modifyTitle} key={score.modifyTitle}>
+                <Panel style={{background: activeTab === score.modifyTitle ? "#F69653" : "#538CF6"}} header={score.modifyTitle} key={score.modifyTitle}>
                   <ScoreCard {...this.props}></ScoreCard> 
                 </Panel>
               :
@@ -88,7 +73,7 @@ export default class ModifyCard extends Component {
 
             {
               gameoverMessage ?
-                <Panel header={gameoverMessage.modifyTitle} key={gameoverMessage.modifyTitle}>
+                <Panel style={{background: activeTab === gameoverMessage.modifyTitle ? "#F69653" : "#538CF6"}} header={gameoverMessage.modifyTitle} key={gameoverMessage.modifyTitle}>
                   <GameoverMessage {...this.props}></GameoverMessage>
                 </Panel>
               :
@@ -97,7 +82,7 @@ export default class ModifyCard extends Component {
 
             {
               question ? 
-                <Panel header={question.modifyTitle} key={question.modifyTitle}>
+                <Panel style={{background: activeTab === question.modifyTitle ? "#F69653" : "#538CF6"}} header={question.modifyTitle} key={question.modifyTitle}>
                   <QuestionCard {...this.props}></QuestionCard>
                 </Panel>
               :
