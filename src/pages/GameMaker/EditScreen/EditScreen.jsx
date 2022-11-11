@@ -80,24 +80,25 @@ export default class EditScreen extends Component {
                     <div className="modify-cards-screen" >
                         <Form> 
                             <List
+                                bordered={false}
                                 style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}}
                                 itemLayout="horizontal"
                                 dataSource={data}
                                 renderItem={function(key) {
                                     return (
-                                        <Collapse style={{background: key === nowPanel ? "#f07654" :"#f9a852"}} onChange={changeCollapsePanel} activeKey={nowPanel}>
-                                            <Panel header={gameModifyDatas[key].modifyTitle} key={key}>
+                                        <Collapse className={  key === nowPanel  ? "editscreen-list-collapse editscreen-list-selected" : "editscreen-list-collapse editscreen-list-unselected"}  onChange={changeCollapsePanel} activeKey={nowPanel}>
+                                            <Panel className='collapse-title-style' header={gameModifyDatas[key].modifyTitle} key={key} >
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
                                                         // console.log("item", item.name);
                                                         return (
                                                             
-                                                            <List.Item key={item.name}>
+                                                            <List.Item key={item.name} >
 
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
                                                                 <List.Item.Meta
-                                                                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                                                    // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                                     description="Ant Design, a design language for background applications"
                                                                 />
                 
@@ -124,7 +125,7 @@ export default class EditScreen extends Component {
 
                         <Space style={{float: "right"}} size="small" wrap>
                             <Button icon={mobileModifyMode === "modify"  ? <PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> : <EditOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> } style={{backgroundColor: "#ffa940"}} onClick={this.changeModifyMode} className="preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</Button>
-                            <Button icon={<PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />} style={{backgroundColor: "#ffa940"}} onClick={this.refreshGame} className="preview-button-PC">預覽變化</Button>
+                            <Button icon={<PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />} style={{backgroundColor: "#F69653"}} onClick={this.refreshGame} className="preview-button-PC">預覽變化</Button>
                             <Button icon={<CloudUploadOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}   style={{backgroundColor: "#40a9ff"}} onClick={this.renderGame}>存儲 & 生成遊戲</Button>
                         </Space>
                     </Footer>

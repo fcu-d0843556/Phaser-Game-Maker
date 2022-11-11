@@ -53,3 +53,25 @@
         gap: 8px
     }
 }
+
+.editscreen-list-collapse{
+    border: none;
+    border-radius: 0px;
+}
+
+/* list被選中 */
+.editscreen-list-selected{
+background: #F69653;
+}
+
+
+/* list未選中 -> 默認 */
+.editscreen-list-unselected{
+    background: #538CF6;
+}
+
+.ant-collapse-header-text{
+    /* color: white; */
+}
+
+/* #F7E9DF */

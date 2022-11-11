@@ -12,6 +12,8 @@ import RenderGameDone from './RenderGameDone/RenderGameDone'
 //Phaser Game
 import startGame from '../../PhaserGame'
 
+import './GameMaker.less'
+
 export default class GameMaker extends Component {
 
   state = {

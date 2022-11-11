@@ -19,7 +19,9 @@ module.exports = {
       lessLoaderOptions: {
         lessOptions: {
           javascriptEnabled: true,
-          modifyVars: { '@primary-color': '#61339e' },
+          modifyVars: { '@primary-color': '#F69653' },
+          // #61339e purple
+          // npm i less less-loader -> restart theme
         }
       }
     }),
