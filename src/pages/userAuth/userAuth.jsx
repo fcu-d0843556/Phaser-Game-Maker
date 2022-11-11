@@ -39,12 +39,11 @@ export default class Login extends Component {
 
   render() {
     const {width,height,nowTab} = this.state
-    // console.log(width,height);
     const changeTab = (key) => {
-      // console.log(key);
       this.setState({nowTab: key})
     }
 
+    // 登入註冊兩個Tab
     const tabItems = [
         {
             label: `登入`,
@@ -65,6 +64,7 @@ export default class Login extends Component {
                 span={width >= 768 ? 12 : 0}
                 className="left-user-auth-form-col"
               >
+                {/* 左半邊顯示製作圖標和文字敘述 */}
                   <Content style={{height: "100%"}}>
                       <Row type="flex" justify="center" align="top">
                           <Card 
@@ -82,7 +82,7 @@ export default class Login extends Component {
                   </Content>
               </Col>
 
-              {/* 右半邊 */}
+              {/* 右半邊顯示登入、註冊form */}
               <Col 
                 span={width >= 768 ? 12 : 24}
                 className="right-user-auth-form-col"

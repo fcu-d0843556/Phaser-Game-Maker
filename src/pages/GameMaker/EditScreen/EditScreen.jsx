@@ -46,7 +46,6 @@ export default class EditScreen extends Component {
 
     //回到默認狀態
     backToDefaultDatas = () => {
-        // console.log("back");
         PubSub.publishSync("getGameData", "default")
         this.refreshGame()
     }
@@ -60,17 +59,13 @@ export default class EditScreen extends Component {
             }else{
                 this.setState({nowPanel:nowPanel[0]})
             }
-            // console.log("dd",nowPanel);
         }
 
-        // console.log(this.props);
         const {gameModifyDatas,gameId,username} = this.props
         
         const {width} = this.props
         const {mobileModifyMode,nowPanel} = this.state;
         const data = Object.keys(gameModifyDatas)
-
-        // console.log("dd",width);
 
         return (
             <Row>
@@ -118,7 +113,8 @@ export default class EditScreen extends Component {
                         </Form>
                     </div>  
                 </Col>
-
+                
+                {/* 下方的編輯按鈕 */}
                 <Layout style={{zIndex: 10}}>
                     <Footer className="fixed-game-footer" >
 
