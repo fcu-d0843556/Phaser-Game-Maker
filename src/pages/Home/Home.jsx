@@ -10,7 +10,7 @@ import IntroStartBox from './IntroStartBox/IntroStartBox'
 import IntroSampleBox from './IntroSampleBox/IntroSampleBox';
 import IntroStepBox from './IntroStepBox/IntroStepBox'
 
-import './Home.less'
+import './Home.css'
 
 export default class Home extends Component {
 
