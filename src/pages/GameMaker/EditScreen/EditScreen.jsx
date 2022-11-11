@@ -74,6 +74,7 @@ export default class EditScreen extends Component {
 
         return (
             <Row>
+                {/* 響應式設計的相關code */}
                 <Col span={width >=1000 ? 8:0}></Col>
 
                 <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 2}}>
@@ -86,17 +87,19 @@ export default class EditScreen extends Component {
                                 dataSource={data}
                                 renderItem={function(key) {
                                     return (
+                                        // 主要drawer的生成
                                         <Collapse className={  key === nowPanel  ? "editscreen-list-collapse editscreen-list-selected" : "editscreen-list-collapse editscreen-list-unselected"}  onChange={changeCollapsePanel} activeKey={nowPanel}>
                                             <Panel className='collapse-title-style' header={gameModifyDatas[key].modifyTitle} key={key} >
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
-                                                        // console.log("item", item.name);
                                                         return (
                                                             
+                                                            // 主要drawer裡，子按鈕的生成
                                                             <List.Item key={item.name} >
 
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
+                                                                {/* 敘述按鈕內容 */}
                                                                 <List.Item.Meta
                                                                     // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                                                                     description="Ant Design, a design language for background applications"
