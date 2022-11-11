@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Layout } from 'antd';
+import { Layout ,BackTop} from 'antd';
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
 
 
 //Pages
@@ -8,6 +9,8 @@ import IntroFeatureBox from './IntroFeatureBox/IntroFeatureBox'
 import IntroStartBox from './IntroStartBox/IntroStartBox'
 import IntroSampleBox from './IntroSampleBox/IntroSampleBox';
 import IntroStepBox from './IntroStepBox/IntroStepBox'
+
+import './Home.less'
 
 export default class Home extends Component {
 
@@ -32,13 +35,22 @@ export default class Home extends Component {
   }
 
   render() {
+
     const {width} = this.state
+
     return (
         <Layout>
             <IntroStartBox></IntroStartBox>
             <IntroFeatureBox></IntroFeatureBox>
             <IntroSampleBox width={width}></IntroSampleBox>
             <IntroStepBox width={width}></IntroStepBox>
+
+            <BackTop style={{bottom: 100}} duration={300}>
+              <div className='back-top-button'>
+                <VerticalAlignTopOutlined />
+              </div>
+            </BackTop>
+
             <MyFooter></MyFooter>
         </Layout>
     )
