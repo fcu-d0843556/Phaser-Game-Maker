@@ -5,6 +5,8 @@ import {Button,Drawer,Col,List} from 'antd'
 import ModifyCard from '../ModifyCard/ModifyCard'
 import DefaultFileBox from '../DefaultFileBox/DefaultFileBox'
 
+import './ModifyTabDrawer.less'
+
 export default class ModifyTabDrawer extends Component {
 
     state = {
@@ -70,7 +72,7 @@ export default class ModifyTabDrawer extends Component {
                 {
                     // 電腦等裝置size大的drawer
                     width >= 1000 ? 
-                        <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} open={visible}>
+                        <Drawer drawerStyle={{background:"#F69653", borderRadius: 0}} push={false} width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} open={visible}>
                             <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
 
                                 {/* 內部細項設定 */}
@@ -114,7 +116,7 @@ export default class ModifyTabDrawer extends Component {
                         </Drawer> 
                 }
 
-                <Button onClick={this.showDrawer} type="primary">{modifyTitle}</Button>   
+                <Button onClick={this.showDrawer} className='drawer-list-button' >{modifyTitle}</Button>   
             </div> 
         )
     }

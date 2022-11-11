@@ -85,13 +85,13 @@ export default class EditScreen extends Component {
                                     return (
                                         // 主要drawer的生成
                                         <Collapse className={  key === nowPanel  ? "editscreen-list-collapse editscreen-list-selected" : "editscreen-list-collapse editscreen-list-unselected"}  onChange={changeCollapsePanel} activeKey={nowPanel}>
-                                            <Panel className='collapse-title-style' header={gameModifyDatas[key].modifyTitle} key={key} >
+                                            <Panel style={{borderRadius: 0}} header={gameModifyDatas[key].modifyTitle} key={key} >
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
                                                         return (
                                                             
                                                             // 主要drawer裡，子按鈕的生成
-                                                            <List.Item key={item.name} >
+                                                            <List.Item style={{borderRadius: 0}} key={item.name} >
 
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
@@ -124,7 +124,7 @@ export default class EditScreen extends Component {
                         </Popconfirm>
 
                         <Space style={{float: "right"}} size="small" wrap>
-                            <Button icon={mobileModifyMode === "modify"  ? <PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> : <EditOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> } style={{backgroundColor: "#ffa940"}} onClick={this.changeModifyMode} className="preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</Button>
+                            <Button icon={mobileModifyMode === "modify"  ? <PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> : <EditOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> } onClick={this.changeModifyMode} className="preview-button-mobile preview-button">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯遊戲" }</Button>
                             <Button icon={<PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}  onClick={this.refreshGame} className="preview-button-PC preview-button">預覽變化</Button>
                             <Button icon={<CloudUploadOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}  onClick={this.renderGame}  className='save-release-button'>存儲 & 生成遊戲</Button>
                         </Space>

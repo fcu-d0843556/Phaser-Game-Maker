@@ -1,7 +1,7 @@
 .fixed-game-footer{
     bottom: 0;
     left: 0;
-    padding: 8px 50px;
+    padding: 8px 22.5px;
     background-color: rgba(0, 0, 0, 0.664);
 
     /* antd */
@@ -78,8 +78,12 @@ background: #F69653;
     background: linear-gradient(0deg, #F69653 0%, #F69653 100%);
     color: black;
 }
-
 .preview-button:hover{
+    background: linear-gradient(0deg, #F69653 0%, #FFAC70 100%);
+    color: #5C5C5C;
+    border-color: white;
+}
+.preview-button:focus{
     background: linear-gradient(0deg, #F69653 0%, #FFAC70 100%);
     color: #5C5C5C;
     border-color: white;
@@ -89,19 +93,28 @@ background: #F69653;
     background: linear-gradient(0deg, #538CF6 0%, #538CF6 100%);
     color: black;
 }
-
 .save-release-button:hover{
     background: linear-gradient(0deg, #538CF6 0%, #70A2FF 100%);
     color: #5C5C5C;
     border-color: white;
 }
+.save-release-button:focus{
+    background: linear-gradient(0deg, #538CF6 0%, #70A2FF 100%);
+    color: #5C5C5C;
+    border-color: white;
+}
+
 
 .default-button{
     background: linear-gradient(0deg, #F55D47 0%, #F55D47 100%);
     color: black;
 }
-
-.default-button:hover{
+.default-button:hover {
+    background: linear-gradient(0deg, #F55D47 0%, #FF7863 100%);
+    color: #5C5C5C;
+    border-color: white;
+}
+.default-button:focus{
     background: linear-gradient(0deg, #F55D47 0%, #FF7863 100%);
     color: #5C5C5C;
     border-color: white;
