@@ -45,7 +45,7 @@ export default class ModifyCard extends Component {
     const {showCard} = this.state
 
     return (
-        <Collapse accordion >
+        <Collapse className='' style={{background: "#538CF6"}} accordion >
             {
               img ? 
                   

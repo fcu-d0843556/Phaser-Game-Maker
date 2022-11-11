@@ -32,7 +32,7 @@ export default class DefaultFileBox extends Component {
 
     componentDidMount(){
         PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
-            // console.log(datas);
+            
             this.setState({
                 defaultCardDatas: datas.items,
                 nowDrawerName: datas.name,

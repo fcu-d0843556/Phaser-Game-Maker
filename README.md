@@ -1,3 +1,10 @@
+our color pattern
+main color: #F69653 (orange)
+complementary color: #538CF6 (blue)
+
+
+
+
 color hunt
 FFB319 orange v
 FFE194 yellow

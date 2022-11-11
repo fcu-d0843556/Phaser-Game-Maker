@@ -13,7 +13,8 @@ export default class ModifyTabDrawer extends Component {
         width: window.innerWidth,
 
         visible: false,
-        isDefaultDrawerOpened: false
+        isDefaultDrawerOpened: false,
+        DefaultFileBoxInit: false
     }
 
     updateDimensions = () => {
@@ -41,10 +42,13 @@ export default class ModifyTabDrawer extends Component {
     }
 
     showDrawer = () => {
-        const {visible} = this.state
+        const {visible,DefaultFileBoxInit} = this.state
         PubSub.publishSync("closeAllDrawer")
         PubSub.publishSync("closeAllDefaultCardDrawer")
-        this.setState({visible: !visible});
+        this.setState({
+            visible: !visible,
+            DefaultFileBoxInit: true
+        });
     };
 
     closeDrawer = () => {
@@ -57,46 +61,59 @@ export default class ModifyTabDrawer extends Component {
 
     render() {
         const {modifyTitle, gameId} = this.props
-        const {visible,isDefaultDrawerOpened, width} = this.state
+        const {visible,isDefaultDrawerOpened, width,DefaultFileBoxInit} = this.state
         // console.log("width", width);
         
 
         return (
             <div>
                 {
+                    // 電腦等裝置size大的drawer
                     width >= 1000 ? 
-                        <Drawer push={false} width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} open={visible}>
+                        <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width - 410} zIndex="1" title={modifyTitle} placement="right" onClose={this.closeDrawer} open={visible}>
                             <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
+
+                                {/* 內部細項設定 */}
                                 <ModifyCard {...this.props}></ModifyCard>
-                                <Drawer className='drawerWidth1000Default' push={false} width={width - 410} zIndex="1" title="hh" placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>
+
+                                {/* 需要使用這個，解決drawer打開後還未初始化的問題 */}
+                                <div style={{display: "none"}}>
+                                    <DefaultFileBox gameId={gameId}></DefaultFileBox>
+                                </div> 
+
+                                {/* 開啟預設圖片的drawer */}
+                                <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width - 410} zIndex="1" title="使用預設圖片" placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>
                                     <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
+                                        {/* 顯示預設檔案的drawer */}
                                         <DefaultFileBox gameId={gameId}></DefaultFileBox>
                                     </Col>                      
                                 </Drawer>
+                                
                             </Col>
                         </Drawer> 
                     :
-                        <Drawer width={width} zIndex={width >= 845 ?1:0}  title={modifyTitle} placement="right" onClose={this.closeDrawer} open={visible}>
+                        // 手機等裝置size小的drawer
+                        <Drawer drawerStyle={{background:"#F69653"}} width={width} zIndex={width >= 845 ?1:0}  title={modifyTitle} placement="right" onClose={this.closeDrawer} open={visible}>
                             <Col span={width >= 845 ?11:24}>
+                                {/* 內部細項設定 */}
                                 <ModifyCard {...this.props}></ModifyCard>
+
+                                {/* 需要使用這個，解決drawer打開後還未初始化的問題 */}
+                                <div style={{display: "none"}}>
+                                    <DefaultFileBox gameId={gameId}></DefaultFileBox>
+                                </div> 
+
+                                {/* 開啟預設圖片的drawer */}
+                                <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width} zIndex={width >= 845 ?1:0}  title="使用預設圖片" placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>
+                                    <Col span={width >= 845 ?11:24}>
+                                        {/* 顯示預設檔案的drawer */}
+                                        <DefaultFileBox gameId={gameId}></DefaultFileBox>
+                                    </Col>
+                                </Drawer> 
                             </Col>
                         </Drawer> 
                 }
 
-                {
-                    width >= 1000 ? 
-                        <Drawer push={false} width={width - 410} zIndex="1" title="使用預設圖片" placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>
-                            <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
-                                <DefaultFileBox gameId={gameId}></DefaultFileBox>
-                            </Col>                      
-                        </Drawer>
-                    :
-                        <Drawer push={false} width={width} zIndex={width >= 845 ?1:0}  title="使用預設圖片" placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>
-                            <Col span={width >= 845 ?11:24}>
-                                <DefaultFileBox gameId={gameId}></DefaultFileBox>
-                            </Col>
-                        </Drawer> 
-                }
                 <Button onClick={this.showDrawer} type="primary">{modifyTitle}</Button>   
             </div> 
         )

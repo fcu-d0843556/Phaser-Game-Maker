@@ -73,8 +73,9 @@ export default class EditScreen extends Component {
                 <Col span={width >=1000 ? 8:0}></Col>
 
                 <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 2}}>
-                    <div className="modify-cards-screen" >
+                    <div className="modify-cards-screen" style={{marginRight: width >= 845 ? 3.5 : 0}}>
                         <Form> 
+                            {/* margin-right: 3.5px */}
                             <List
                                 bordered={false}
                                 style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}}
@@ -119,13 +120,13 @@ export default class EditScreen extends Component {
                     <Footer className="fixed-game-footer" >
 
                         <Popconfirm placement="top" title="您確定要回到默認遊戲資料嗎？" onConfirm={this.backToDefaultDatas} okText="好" cancelText="取消">
-                            <Button icon={<DeleteFilled style={{fontSize: 16, verticalAlign: "text-top"}}/>} type="danger">回到默認資料</Button>
+                            <Button icon={<DeleteFilled style={{fontSize: 16, verticalAlign: "text-top"}}/>} className="default-button">回到默認資料</Button>
                         </Popconfirm>
 
                         <Space style={{float: "right"}} size="small" wrap>
                             <Button icon={mobileModifyMode === "modify"  ? <PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> : <EditOutlined style={{fontSize: 16, verticalAlign: "text-top"}}/> } style={{backgroundColor: "#ffa940"}} onClick={this.changeModifyMode} className="preview-button-mobile">{mobileModifyMode === "modify"  ? "預覽變化" : "編輯" }</Button>
-                            <Button icon={<PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />} style={{backgroundColor: "#F69653"}} onClick={this.refreshGame} className="preview-button-PC">預覽變化</Button>
-                            <Button icon={<CloudUploadOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}   style={{backgroundColor: "#40a9ff"}} onClick={this.renderGame}>存儲 & 生成遊戲</Button>
+                            <Button icon={<PlayCircleOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}  onClick={this.refreshGame} className="preview-button-PC preview-button">預覽變化</Button>
+                            <Button icon={<CloudUploadOutlined style={{fontSize: 16, verticalAlign: "text-top"}} />}  onClick={this.renderGame}  className='save-release-button'>存儲 & 生成遊戲</Button>
                         </Space>
                     </Footer>
                 </Layout>
