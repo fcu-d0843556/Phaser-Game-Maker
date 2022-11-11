@@ -60,7 +60,6 @@ export default class Login extends Component {
 
     return (
         <Row style={{height: "100%"}} className={width >= 768 ? 'user-auth-form-screen' : 'mm'} >
-          
               {/* 讓BMIIntro這個組件可以顯示在左半邊（BMIIntro是顯示4個結果的頁面） */}
               <Col 
                 span={width >= 768 ? 12 : 0}
@@ -68,15 +67,9 @@ export default class Login extends Component {
               >
                   <Content style={{height: "100%"}}>
                       <Row type="flex" justify="center" align="top">
-                      {/* <Row type="flex" justify="center" align="top" > */}
-
                           <Card 
                               style={{background: "rgba(0,0,0,0)"}} 
-                              // headStyle={{borderBottom: "none", padding:"0px"}}
                               bordered={false}  
-                              // title={item.title}
-                              // bodyStyle={{padding: "0 24px"}}
-                              // extra={width >= 768 ? item.extra : ""}
                           >
                               <Title style={{margin: "24px"}}>{ nowTab === 'login' ? "歡迎回來！": "馬上註冊！"}</Title>
                               <Title style={{margin: "24px 0px 24px 24px"}} level={2}>讓我們一起製作有趣好玩的遊戲！</Title>
@@ -99,7 +92,6 @@ export default class Login extends Component {
                           padding: width >= 768 ?  '0 10px' : '0px'
                       }}
                   >
-                      
                       <Row type="flex" justify="center" align="middle" style={{marginBottom: "30px"}}>
                           <Col span={20}>
                             <Tabs

@@ -9,9 +9,6 @@ const { Title, Paragraph, Text } = Typography;
 
 export default class IntroStepBox extends Component {
     render() {
-
-
-
         const {width} = this.props
         // console.log(width);  
         const data = [
