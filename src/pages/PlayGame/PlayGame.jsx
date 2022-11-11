@@ -12,6 +12,7 @@ import {Button,Layout} from 'antd';
 import startGame from '../../PhaserGame'
 
 
+import './PlayGame.less'
 
 const { Footer } = Layout;
 
@@ -82,24 +83,21 @@ export default class RenderGame extends Component {
   render() {
     
     return (
-        <div>
+        <div style={{background: "#F7E9DF"}}>
+          {/* 遊戲生成位置 */}
           <div id="phaser-play-screen"></div>
 
-          <Layout>
-              <Footer className="fixed-game-footer" >
-                
-                <Button onClick={this.fullScreen} type='primary'>
-                  Full Screen
-                  <FullscreenOutlined />
-                </Button>
+          <div className='playgame-floating-button-space' style={{bottom: 15}}>
+            <Button className='playgame-floating-button playgame-full-screen-button' onClick={this.fullScreen}>
+              <FullscreenOutlined className='playgame-floating-button-icon'/>
+            </Button>
+          </div>
 
-                <Button style={{backgroundColor: "#ffa940", float: "right"}} onClick={this.restartGame}>
-                  Replay
-                  <RetweetOutlined />
-                </Button>
-                  
-              </Footer>
-          </Layout>
+          <div className='playgame-floating-button-space' style={{bottom: 65}}>
+            <Button className='playgame-floating-button playgame-restart-button' onClick={this.restartGame}>
+              <RetweetOutlined className='playgame-floating-button-icon' />
+            </Button>
+          </div>
         </div>
 
 

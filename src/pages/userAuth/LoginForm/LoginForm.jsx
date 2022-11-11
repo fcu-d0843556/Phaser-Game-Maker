@@ -7,6 +7,7 @@ import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 
 import axios from 'axios'
 
+import './LoginForm.less'
 
 class LoginForm extends Component {
   render() {
@@ -45,10 +46,9 @@ class LoginForm extends Component {
 
     return (
         
-
         <Card
             title="登 入 會 員"
-            headStyle={{borderBottom: "1px solid #545454"}}
+            headStyle={{borderBottom: "1px solid #545454", background: "linear-gradient(0deg, #F69653 0%, #F69653 100%)"}}
             style={{
                 width: "auto",
                 height: "auto",

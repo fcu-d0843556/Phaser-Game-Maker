@@ -7,6 +7,7 @@ import { Button, Card, Divider,message, Form, Input } from 'antd';
 import { UserOutlined,LockTwoTone } from '@ant-design/icons';
 
 import axios from 'axios'
+import './RegisterForm.less'
 
 class RegisterForm extends Component {
   render() {
@@ -43,10 +44,9 @@ class RegisterForm extends Component {
 
     return (
         
-
         <Card
             title="註 冊 會 員"
-            headStyle={{borderBottom: "1px solid #545454"}}
+            headStyle={{borderBottom: "1px solid #545454", background: "linear-gradient(0deg, #538CF6 0%, #538CF6 100%)"}}
             style={{
                 width: "auto",
                 height: "auto",
@@ -111,7 +111,7 @@ class RegisterForm extends Component {
                 <Divider></Divider>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" block>
+                    <Button type="primary" htmlType="submit" className='register-form-button' block>
                       註冊
                     </Button>
                 </Form.Item>
