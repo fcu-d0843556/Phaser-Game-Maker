@@ -21,6 +21,7 @@ class IntroStartBox extends Component {
 
   render() {
     return (
+      // 歡迎區塊
         <Header className="intro-container">
             <Title  className="intro-container-text">歡迎來到 Phaser Game Maker！</Title>
             <Paragraph>

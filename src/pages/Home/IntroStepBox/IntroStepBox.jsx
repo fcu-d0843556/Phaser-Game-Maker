@@ -10,7 +10,8 @@ const { Title, Paragraph, Text } = Typography;
 export default class IntroStepBox extends Component {
     render() {
         const {width} = this.props
-        // console.log(width);  
+
+        // 3個步驟圖標的顯示
         const data = [
             {
                 title: (
@@ -53,10 +54,12 @@ export default class IntroStepBox extends Component {
         ]
 
         return (
+            // 顯示製作流程區塊
             <Content className='step-box' >
                 <Title className='step-title' style={{marginBottom: "66px", width: width >= 500 ? "400px" : "auto"}}>製 作 流 程</Title>
                 
                 <List
+                    // 根據裝置大小調整畫面的顯示，響應式設計
                     grid={{
                         xs: 1,
                         sm: 1,
@@ -67,6 +70,7 @@ export default class IntroStepBox extends Component {
                     }}
                     dataSource={data}
                     renderItem={item => (
+                        // render出3個步驟圖標
                         <List.Item style={{ marginBottom: "32px" }}>
                             <Card 
                                 style={{background: "#F7E9DF"}} 

@@ -12,6 +12,7 @@ export default class IntroSampleBox extends Component {
     render() {
         const {width} = this.props
 
+        // 4個範例遊戲圖片的顯示和文字敘述內容
         const data = [
             {
                 content: ( 
@@ -68,6 +69,7 @@ export default class IntroSampleBox extends Component {
         ]
 
         return (
+            // 顯示作品預覽區塊的程式
             <Content className='sample-box' style={{padding: width < 425 ? "64px 16px" : "64px 48px"}}>
                 <Title className='sample-title' style={{width: width >= 500 ? "400px" : "auto"}}>作 品 預 覽</Title>
 
@@ -78,7 +80,7 @@ export default class IntroSampleBox extends Component {
                     <Text>您也可以透過這個遊戲編輯器來做出充滿心意的遊戲！</Text>
                 </Paragraph>
                 <List
-                    
+                    // 根據裝置大小調整畫面的顯示，響應式設計
                     grid={{
                         gutter: 48,
                         xs: 1,
@@ -90,6 +92,7 @@ export default class IntroSampleBox extends Component {
                     }}
                     dataSource={data}
                     renderItem={item => (
+                    // render出4個圖片
                     <List.Item style={{ marginBottom: "32px" }}>
                         <Card 
                             hoverable

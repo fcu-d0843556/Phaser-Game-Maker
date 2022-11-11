@@ -10,7 +10,7 @@ const { Title, Paragraph, Text } = Typography;
 export default class IntroFeatureBox extends Component {
     render() {
 
-        const {width} = this.props
+        // 三個圖標顯示的模板和文字內容
         const data = [
             {
                 title: (
@@ -69,9 +69,11 @@ export default class IntroFeatureBox extends Component {
         ]
 
         return (
+            // 特色區塊
             <Content className='feature-box' >
                 <Title className='feature-title' style={{marginBottom: "64px"}}>特 色</Title>
                 <List
+                    //根據裝置大小調整顯示圖標方式 ，響應式設計
                     grid={{
                         gutter: 32,
                         xs: 1,
@@ -83,6 +85,7 @@ export default class IntroFeatureBox extends Component {
                     }}
                     dataSource={data}
                     renderItem={item => (
+                    // render出 3個圖標
                     <List.Item style={{ marginBottom: "32px" }}>
                         <Card 
                             style={{background: "#F7E9DF"}} 

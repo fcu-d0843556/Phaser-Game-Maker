@@ -10,7 +10,7 @@ const { Footer } = Layout;
 export default class MyFooter extends Component {
   render() {
     return (
-        // <div ></div>
+        //render 最後footer的部分 
         <Footer
           style={{
               textAlign: 'center',
