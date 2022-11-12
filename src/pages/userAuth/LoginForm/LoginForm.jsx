@@ -48,7 +48,7 @@ class LoginForm extends Component {
         
         <Card
             title="登 入 會 員"
-            headStyle={{borderBottom: "1px solid #545454", background: "linear-gradient(0deg, #F69653 0%, #F69653 100%)"}}
+            headStyle={{borderBottom: "1px solid #545454", background: "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)"}}
             style={{
                 width: "auto",
                 height: "auto",

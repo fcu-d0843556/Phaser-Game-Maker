@@ -46,7 +46,7 @@ class RegisterForm extends Component {
         
         <Card
             title="註 冊 會 員"
-            headStyle={{borderBottom: "1px solid #545454", background: "linear-gradient(0deg, #538CF6 0%, #538CF6 100%)"}}
+            headStyle={{borderBottom: "1px solid #545454", background: "linear-gradient(0deg, #538CF6 0%, #70A2FF 100%)"}}
             style={{
                 width: "auto",
                 height: "auto",
