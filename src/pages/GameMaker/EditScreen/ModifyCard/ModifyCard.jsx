@@ -30,14 +30,12 @@ export default class ModifyCard extends Component {
     }
 
     return (
-        <Collapse onChange={changeTab} className='' style={{background: "#538CF6"}} accordion >
-            {
+        <Collapse className='modify-card-collapse' onChange={changeTab} accordion >
+            { 
               img ? 
                   
-                  <Panel style={{background: activeTab === "圖片管理" ? "#F69653" : "#538CF6"}} header="圖片管理" key="圖片管理">
-                    
+                  <Panel style={{background: activeTab === "圖片管理" ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6", padding: 0}} header="圖片管理" key="圖片管理">
                       <ImageSettings {...this.props}></ImageSettings>
-                    
                   </Panel>
                 
               : 
@@ -46,7 +44,7 @@ export default class ModifyCard extends Component {
 
             {
               text ? 
-                  <Panel style={{background: activeTab === text.modifyTitle ? "#F69653" : "#538CF6"}} header={text.modifyTitle} key={text.modifyTitle}>
+                  <Panel style={{background: activeTab === text.modifyTitle ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6"}} header={text.modifyTitle} key={text.modifyTitle}>
                     <GetItemMessage {...this.props}></GetItemMessage>
                   </Panel>
               :
@@ -55,7 +53,7 @@ export default class ModifyCard extends Component {
 
             {       
               priority ? 
-                <Panel style={{background: activeTab === priority.modifyTitle ? "#F69653" : "#538CF6"}} header={priority.modifyTitle} key={priority.modifyTitle}>
+                <Panel style={{background: activeTab === priority.modifyTitle ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6"}} header={priority.modifyTitle} key={priority.modifyTitle}>
                   <PriorityCard {...this.props}></PriorityCard>
                 </Panel>
               :
@@ -64,7 +62,7 @@ export default class ModifyCard extends Component {
 
             {
               score ? 
-                <Panel style={{background: activeTab === score.modifyTitle ? "#F69653" : "#538CF6"}} header={score.modifyTitle} key={score.modifyTitle}>
+                <Panel style={{background: activeTab === score.modifyTitle ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6"}} header={score.modifyTitle} key={score.modifyTitle}>
                   <ScoreCard {...this.props}></ScoreCard> 
                 </Panel>
               :
@@ -73,7 +71,7 @@ export default class ModifyCard extends Component {
 
             {
               gameoverMessage ?
-                <Panel style={{background: activeTab === gameoverMessage.modifyTitle ? "#F69653" : "#538CF6"}} header={gameoverMessage.modifyTitle} key={gameoverMessage.modifyTitle}>
+                <Panel style={{background: activeTab === gameoverMessage.modifyTitle ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6"}} header={gameoverMessage.modifyTitle} key={gameoverMessage.modifyTitle}>
                   <GameoverMessage {...this.props}></GameoverMessage>
                 </Panel>
               :
@@ -82,7 +80,7 @@ export default class ModifyCard extends Component {
 
             {
               question ? 
-                <Panel style={{background: activeTab === question.modifyTitle ? "#F69653" : "#538CF6"}} header={question.modifyTitle} key={question.modifyTitle}>
+                <Panel style={{background: activeTab === question.modifyTitle ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6"}} header={question.modifyTitle} key={question.modifyTitle}>
                   <QuestionCard {...this.props}></QuestionCard>
                 </Panel>
               :

@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import {Button, Layout, message, Space} from 'antd';
 import { Avatar, List } from 'antd';
-import { Collapse, Row,Col, Popconfirm, Form } from 'antd';
+import { Collapse, Row,Col, Popconfirm, Form, Tooltip } from 'antd';
 
-import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
 
 //Pages
 import ModifyTabDrawer from './ModifyTabDrawer/ModifyTabDrawer';
@@ -63,7 +63,7 @@ export default class EditScreen extends Component {
         }
 
         const {gameModifyDatas,gameId,username} = this.props
-        
+        // console.log("props", this.props);
         const {width} = this.props
         const {mobileModifyMode,nowPanel} = this.state;
         const data = Object.keys(gameModifyDatas)
@@ -96,10 +96,9 @@ export default class EditScreen extends Component {
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
                                                                 {/* 敘述按鈕內容 */}
-                                                                <List.Item.Meta
-                                                                    // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                                                    description="Ant Design, a design language for background applications"
-                                                                />
+                                                                <Tooltip title={gameModifyDatas[key].modifyDetail} placement="left">
+                                                                    <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
+                                                                </Tooltip>
                 
                                                             </List.Item>
                                                                 
