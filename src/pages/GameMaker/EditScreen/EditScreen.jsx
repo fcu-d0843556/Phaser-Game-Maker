@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
-import {Button, Layout, Space} from 'antd';
+import {Button, Layout, message, Space} from 'antd';
 import { Avatar, List } from 'antd';
 import { Collapse, Row,Col, Popconfirm, Form } from 'antd';
 
@@ -47,6 +47,7 @@ export default class EditScreen extends Component {
     //回到默認狀態
     backToDefaultDatas = () => {
         PubSub.publishSync("getGameData", "default")
+        message.success("回到默認資料成功，請點選預覽變化觀看結果！")
         this.refreshGame()
     }
 
