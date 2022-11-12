@@ -57,17 +57,22 @@ export default class GameoverMessage extends Component {
                             return (
                                 <div key={id}>
                                     <Row>
-                                        <Col span={12}>
-                                            <Input value="當分數大於等於" disabled/>
+                                        <Col span={id===2 ? 24 : 12} >
+                                            <Input value={id===2 ? "當分數低於以上兩種情況時" : "當分數超過"}  disabled/>
                                         </Col>
 
-                                        <Col span={12} onChange={changeNumberValue}>
-                                            <InputNumber id={id} min={-100000} max={100000} controls={false} value={score[id]} />
+                                        {
+                                            id === 2 ?
+                                                <div></div>
+                                            :
+                                                <Col span={12} onChange={changeNumberValue}>
+                                                    <InputNumber id={id} min={0} max={100000} controls={false} value={score[id]} />
+                                                </Col>
 
-                                        </Col>
+                                        }
+                                        
                                         <Col span={24}>
                                             <Input id={id} placeholder={"訊息"} allowClear value={message[id]} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
-
                                         </Col>
                                     </Row>
                                     <br />

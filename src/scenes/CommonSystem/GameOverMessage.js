@@ -41,11 +41,11 @@ export default class GameoverMessage{
             wordWrap: { width: 240, useAdvancedWrap: true }
         }
         let gameoverMessage;
-        if(this.score >= this.messages[0].scoreCondition){
+        if(this.score > this.messages[0].scoreCondition){
             gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[0].message,gameoverMessageStyle).setDepth(2);
-        }else if(this.score >= this.messages[1].scoreCondition){
+        }else if(this.score > this.messages[1].scoreCondition){
             gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[1].message,gameoverMessageStyle).setDepth(2);
-        }else if(this.score >= this.messages[2].scoreCondition){
+        }else{
             gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[2].message,gameoverMessageStyle).setDepth(2);
         }
 
