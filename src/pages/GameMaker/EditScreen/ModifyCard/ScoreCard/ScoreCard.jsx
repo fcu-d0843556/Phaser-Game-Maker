@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { InputNumber } from 'antd';
-import { Col,Divider,Card } from 'antd';
+import { Col,Card } from 'antd';
 
 import PubSub from 'pubsub-js'
 
@@ -26,14 +26,19 @@ export default class ScoreCard extends Component {
         };
         
         const {content,modifyTitle} = this.props.score
-        // ,modifyTitle,inputType
+
         return (
             <Col span={24}>
                 <Card 
-                    title={modifyTitle}
-                    headStyle={{fontSize: 24}}
+
                 >
-                    <InputNumber min={-100000} max={100000} value={content} onChange={changeValue} />
+                    <InputNumber 
+                        min={-100000} max={100000} 
+                        value={content} 
+                        onChange={changeValue}
+                        formatter={(value) => `${value}分`}
+                        parser={(value) => value.replace('分', '')}
+                    />
                 </Card>
             </Col>
         )

@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
-import { InputNumber, Image } from 'antd';
-import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
-import { Button, Space, Upload, message,Input,Row } from 'antd';
-import { Card,Col,Divider} from 'antd';
-
 import axios from 'axios';
+
+import {  InputNumber, Image, Button, Space, Upload, message,Input,Row,Card,Col,Divider,Typography } from 'antd';
+import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
+
+
+import './ImageSettings.less'
+
+const { Paragraph, Title} = Typography;
 
 export default class ImageSettings extends Component {
 
@@ -162,13 +165,52 @@ export default class ImageSettings extends Component {
         }
 
         return (
-            <div>
+            <div className='image-settings'>
+                <Col span={24}>
+                    <Card 
+                        title={<Title className='modify-card-card-tile' level={4}>使 用 圖 片</Title>}
+                        bordered={false}
+                    >
+                        {
+                            isUploading ? 
+                                <SyncOutlined spin style={{ fontSize: '32px', color: '#538CF6'}} />
+                            :
+                                <Image src={src} style={{width: "75%", height: "75%"}} alt="empty_image" />
+
+                        }
+                        
+                        <Space
+                            direction="vertical"
+                            style={{width: '100%'}}
+                            size="large"
+                        >
+                            <Upload
+                                action="/uploadFile"
+                                name={name}
+                                method='post'
+                                beforeUpload={beforeUpload}
+                                onChange={uploadFile}
+                                maxCount={1}
+                            >
+                                <Button className='drawer-list-button' icon={<UploadOutlined style={{fontSize: 16, verticalAlign: "initial"}}/>}>上傳檔案（上傳一件）</Button>
+                            </Upload>
+
+                            
+                            {
+                                isUploadFile ? 
+                                    <Button onClick={showDefaultCardDrawer(name)} className='drawer-list-button' disabled>使用其他提供的圖片</Button>
+                                :
+                                    <Button onClick={showDefaultCardDrawer(name)} className='drawer-list-button' >使用其他提供的圖片</Button>
+                            }
+                        </Space>
+                    </Card>
+                </Col>
+
                 {
                     position ? 
                         <Col span={24}>
                             <Card 
-                                title="圖片的位置"
-                                headStyle={{fontSize: 24}}
+                                title={<Title className='modify-card-card-tile' level={4}>位 置</Title>}
                                 bordered={false}
                             >
                                 {
@@ -197,9 +239,9 @@ export default class ImageSettings extends Component {
                                             </Row>
                                     :   <div></div> 
                                 }
-                                <Button onClick={setPositionValueToCenter}>設置圖片置中</Button>
+                                <Button className='drawer-list-button' onClick={setPositionValueToCenter}>設置圖片置中</Button>
                             </Card>
-                            <Divider />
+                            <Divider className='image-setting-divider' />
                         </Col>
 
                         
@@ -210,57 +252,22 @@ export default class ImageSettings extends Component {
             
                 <Col span={24}>
                     <Card 
-                        title="圖片的大小"
-                        headStyle={{fontSize: 24}}
+                        title={<Title className='modify-card-card-tile' level={4}>大 小</Title>}
                         bordered={false}
                     >
-                        <InputNumber min={1} max={1000} value={size} onChange={changeSizeValue} />
+                        <InputNumber 
+                            min={1} max={1000} 
+                            value={size} 
+                            onChange={changeSizeValue} 
+                            formatter={(value) => `${value}%`}
+                            parser={(value) => value.replace('%', '')}
+                        />
                     </Card>
                 </Col>
 
-                <Divider />
+                <Divider className='image-setting-divider'  />
 
-                <Col span={24}>
-                    <Card 
-                        title="圖片預覽"
-                        headStyle={{fontSize: 24}}
-                        bordered={false}
-                    >
-                        {
-                            isUploading ? 
-                                <SyncOutlined spin style={{ fontSize: '32px', color: '#52c41a'}} />
-                            :
-                                <Image src={src} style={{width: "50%", height: "50%"}} alt="empty_image" />
-                        }
-                        
-                        <Space
-                            direction="vertical"
-                            style={{
-                            width: '100%',
-                            }}
-                            size="large"
-                        >
-                            <Upload
-                                action="/uploadFile"
-                                name={name}
-                                method='post'
-                                beforeUpload={beforeUpload}
-                                onChange={uploadFile}
-                                maxCount={1}
-                            >
-                                <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
-                            </Upload>
-
-                            
-                            {
-                                isUploadFile ? 
-                                    <Button onClick={showDefaultCardDrawer(name)} disabled>使用其他提供的圖片</Button>
-                                :
-                                    <Button onClick={showDefaultCardDrawer(name)}>使用其他提供的圖片</Button>
-                            }
-                        </Space>
-                    </Card>
-                </Col>
+                
             </div>
         )
     }

@@ -5,7 +5,7 @@ import PubSub from 'pubsub-js'
 
 import { CheckCircleTwoTone, SmileTwoTone,MinusCircleTwoTone  } from '@ant-design/icons';
 
-import { Card,Col,Divider} from 'antd';
+import { Card,Col} from 'antd';
 import { List } from 'antd';
 
 import './DefaultFileBox.css';
@@ -66,12 +66,13 @@ export default class DefaultFileBox extends Component {
         }
 
         return (
-            <div style={{backgroundColor: "lightpink"}}>
+            <div>
 
                 <Col span={24}>
                     <Card 
                         title= {modifyTitle}
-                        headStyle={{fontSize: 24}}
+                        headStyle={{fontSize: 24, background: "red"}}
+                        style={{}}
                     >
                     
                     <List
@@ -86,7 +87,7 @@ export default class DefaultFileBox extends Component {
                         dataSource={defaultCardDatas}
                         renderItem={item => (
                             
-                            <List.Item>
+                            <List.Item >
                                 <Card 
                                     id={item.defaultData.description}
                                     onClick={selectDefaultCard(item.defaultData.description)}

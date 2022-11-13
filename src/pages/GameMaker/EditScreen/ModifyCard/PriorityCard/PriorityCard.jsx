@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Slider } from 'antd';
-import { Col,Divider,Card } from 'antd';
+import { Col,Card, Typography,Slider } from 'antd';
 
 import PubSub from 'pubsub-js'
 
+import './PriorityCard.less'
+const { Paragraph, Title} = Typography;
 
 export default class PriorityCard extends Component {
     
@@ -20,19 +21,27 @@ export default class PriorityCard extends Component {
     
   
     render() {
-        // console.log(this.props);
         const {modifyTitle, selected, content} = this.props.priority
         
         const marks = {
             1: {
-                style: {color: '#f50',},
+                style: {color: '#FF170D',},
                 label: <strong>{content[0]}</strong>,
             },
-            2: content[1],
-            3: content[2],
-            4: content[3],
+            2: {
+                style: {color: '#ff5500'},
+                label: content[1]
+            },
+            3: {
+                style: {color: '#E8750C'},
+                label: content[2]
+            },
+            4: {
+                style: {color: '#ff5500'},
+                label: content[3]
+            },
             5: {
-                style: {color: '#f50',},
+                style: {color: '#FF170D',},
                 label: <strong>{content[4]}</strong>,
             },
         };
@@ -51,8 +60,7 @@ export default class PriorityCard extends Component {
             <div>
                 <Col span={24}>
                     <Card 
-                        title={modifyTitle}
-                        headStyle={{fontSize: 24}}
+                        // title={<Title className='modify-card-card-tile' level={4}>{modifyTitle}</Title>}
                         bordered={false}
                     >
                         <Slider min={1}
@@ -60,7 +68,9 @@ export default class PriorityCard extends Component {
                                 onAfterChange={changeValue}
                                 marks={marks} 
                                 step={null} 
-                                value={selected} />
+                                value={selected} 
+                                style={{color: "blue"}}
+                        />
                     </Card>
                 </Col>
             </div>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import {Button, Layout, message, Space} from 'antd';
-import { Avatar, List } from 'antd';
-import { Collapse, Row,Col, Popconfirm, Form, Tooltip } from 'antd';
+import { List, Collapse, Row,Col, Popconfirm, Form, Tooltip,Typography } from 'antd';
 
 import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
 
@@ -16,6 +15,7 @@ import './EditScreen.css'
 
 const { Footer } = Layout;
 const { Panel } = Collapse;
+const { Title} = Typography;
 
 
 export default class EditScreen extends Component {
@@ -85,7 +85,10 @@ export default class EditScreen extends Component {
                                     return (
                                         // 主要drawer的生成
                                         <Collapse className={  key === nowPanel  ? "editscreen-list-collapse editscreen-list-selected" : "editscreen-list-collapse editscreen-list-unselected"}  onChange={changeCollapsePanel} activeKey={nowPanel}>
-                                            <Panel style={{borderRadius: 0}} header={gameModifyDatas[key].modifyTitle} key={key} >
+                                            <Panel style={{borderRadius: 0}} 
+                                                   header={<Title level={4} style={{margin: 0}}>{gameModifyDatas[key].modifyTitle}</Title>} 
+                                                   key={key} 
+                                            >
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
                                                         return (

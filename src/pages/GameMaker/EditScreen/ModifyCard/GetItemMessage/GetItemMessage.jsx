@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 
+import { Input,InputNumber, Typography} from 'antd';
+import { Col,Card } from 'antd';
 
-import { QuestionCircleTwoTone } from '@ant-design/icons';
-import { Input,InputNumber, Tooltip } from 'antd';
-import { Col,Divider,Card } from 'antd';
-
+const { Paragraph, Title} = Typography;
 
 export default class GetItemMessage extends Component {
     
@@ -20,8 +19,7 @@ export default class GetItemMessage extends Component {
     }
 
     render() {
-        const {description,content,modifyTitle,inputType} = this.props.text
-        
+        const {description,content,modifyTitle,inputType,unit} = this.props.text
         const changeNumberValue = (value) => {
             const {textDatas} = this.state
             textDatas.text.content = value
@@ -37,19 +35,20 @@ export default class GetItemMessage extends Component {
         return (
             <Col span={24}>
                 <Card 
-                    title={modifyTitle}
-                    headStyle={{fontSize: 24}}
+                    // title={<Title className='modify-card-card-tile' level={4}>{modifyTitle}</Title>}
                     bordered={false}
-                    extra={
-                        <Tooltip title={description} placement="left">
-                            <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
-                        </Tooltip>
-                    }
                 >
                     
                     {
                         (inputType === "number") ? 
-                            <InputNumber min={1} max={100000} value={content} onChange={changeNumberValue} />
+                            <InputNumber 
+                                min={1} 
+                                max={100000} 
+                                value={content} 
+                                onChange={changeNumberValue} 
+                                formatter={(value) => `${value}${unit}`}
+                                parser={(value) => value.replace(unit, '')}
+                            />
                         :
                             <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
                     }

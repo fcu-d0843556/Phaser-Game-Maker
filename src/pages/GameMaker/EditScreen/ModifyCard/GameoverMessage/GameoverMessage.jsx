@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 
 
-import { QuestionCircleTwoTone } from '@ant-design/icons';
-import { Input,InputNumber, Tooltip , Row} from 'antd';
-import { Col,Divider,Card } from 'antd';
+import { Input,InputNumber,Row, Typography} from 'antd';
+import { Col,Card } from 'antd';
+
+const { Paragraph, Title} = Typography;
 
 const ids = [0,1,2]
 export default class GameoverMessage extends Component {
@@ -42,14 +43,8 @@ export default class GameoverMessage extends Component {
         return (
             <Col span={24}>
                 <Card 
-                    title={modifyTitle}
-                    headStyle={{fontSize: 24}}
-                    bordered={false}
-                    extra={
-                        <Tooltip title={description} placement="left">
-                            <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
-                        </Tooltip>
-                    }              
+                    // title={<Title className='modify-card-card-tile' level={4}>{modifyTitle}</Title>}
+                    bordered={false}       
                 >
 
                     {

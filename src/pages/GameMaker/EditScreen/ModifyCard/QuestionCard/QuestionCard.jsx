@@ -3,7 +3,7 @@ import PubSub from 'pubsub-js'
 
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 import { Input, Radio, Space,Tooltip } from 'antd';
-import { Col,Divider,Card } from 'antd';
+import { Col,Card } from 'antd';
 
 
 export default class QuestionCard extends Component {
@@ -57,7 +57,7 @@ export default class QuestionCard extends Component {
                     headStyle={{fontSize: 24}}
                     extra={
                         <Tooltip title={description} placement="left">
-                            <QuestionCircleTwoTone twoToneColor="#52c41a" style={{float: "right", fontSize: '24px'}} />
+                            <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
                         </Tooltip>
                     }
                 >
