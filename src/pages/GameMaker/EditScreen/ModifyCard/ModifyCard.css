@@ -1,11 +1,11 @@
 /* modifyCard 所有card head的style改變 */
-.ant-card-head{
+.modify-card-collapse .ant-card-head{
     border-radius: 0;
     background: linear-gradient(0deg, rgb(246, 150, 83) 0%, rgb(255, 172, 112) 100%);
 }
 
 /* modifyCard 所有card 內容改變 */
-.ant-card-body{
+.modify-card-collapse .ant-card-body{
     background: #F7E9DF;
 }
 

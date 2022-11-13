@@ -75,7 +75,7 @@ export default class ChooseGame extends Component {
             { id: "003", name: "Shooting", src: "shootingTitle" },
             { id: "004", name: "PokeGetItem", src: "pokeGetItemTitle" },
             { id: "005", name: "Quiz", src: "quizTitle" },
-            { id: "006", name: "Caution", src: "caution" },
+            // { id: "006", name: "Caution", src: "caution" },
         ]
 
         const contentStyle = {

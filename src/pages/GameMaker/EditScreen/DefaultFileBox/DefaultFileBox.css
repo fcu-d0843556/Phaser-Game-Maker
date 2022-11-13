@@ -1,33 +1,32 @@
-/* Small devices (landscape phones, 576px and up) */
-/* Only have right yellow cards */
-
-@media (max-width:576px){
-
-    .detail-card{
-        position: absolute;
-        right: 0px;
-        width: 100%;
-        z-index: 1;
-    }
-
+.default-file-box .ant-card-body{
+    padding: 16px;
+    background: #F7E9DF;
 }
 
-.item-img-size{
-    width: 50%;
+.default-file-box .ant-card-bordered{
+    border-color: rgb(61, 61, 61);
+    border-radius: 0;
+}
+
+.default-file-box .ant-card-bordered .ant-card-cover{
+    margin: 0;
+    background-color: #F7E9DF;
+}
+
+.default-file-box .ant-card-head{
+    border-color: black;
+    border: none;
+    border-radius: 0;
+}
+
+.ant-card-meta-detail{
     margin-left: auto;
     margin-right: auto;
 }
 
-.selected-default-card{
-    border: 5px #0d6efd solid;
-}
-
-.default-card-screen{
-    height: calc(100vh - 4rem);
-    overflow-y: hidden;
-}
-
-.default-items{
-    height: calc(100vh - 4rem);
-    overflow-y: auto;
+.default-card-img{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    padding: 8px 0;
 }
