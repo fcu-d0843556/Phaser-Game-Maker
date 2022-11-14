@@ -71,6 +71,9 @@ class RenderGameDone extends Component {
                             <Paragraph copyable>
                                 {"http://140.134.26.66:5051/" + gameUrl}
                             </Paragraph>
+
+                            <div className="line-it-button" data-lang="zh_Hant" data-type="share-a" data-env="REAL" data-url="http://123456" data-color="default" data-size="small" data-count="true" data-ver="3" style={{display: "black"}}>123</div>
+                                    
                         </pre>
                     </Typography>
 

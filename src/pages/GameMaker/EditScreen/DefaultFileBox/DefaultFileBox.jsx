@@ -41,7 +41,7 @@ export default class DefaultFileBox extends Component {
     
     render() {
         const {defaultCardDatas,isLoading, selectedId, modifyTitle} = this.state
-        console.log("de",selectedId,modifyTitle);
+        // console.log("de",selectedId,modifyTitle);
 
         const selectDefaultCard = (id) => {
             return () => {
