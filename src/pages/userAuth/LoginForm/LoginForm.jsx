@@ -83,11 +83,7 @@ class LoginForm extends Component {
                     },
                   ]}
                 >
-                  <Input
-                    prefix={<LockTwoTone className="site-form-item-icon" />}
-                    type="password"
-                    placeholder="密碼"
-                  />
+                  <Input.Password prefix={<LockTwoTone className="site-form-item-icon" />} placeholder="密碼"/>
                 </Form.Item>
     
 
