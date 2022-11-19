@@ -5,6 +5,7 @@ import ShootingGameScene from './scenes/ShootingGame/ShootingGameScene';
 import PokeGetItemGameScene from './scenes/PokeGetItemGame/PokeGetItemGameScene';
 import CatchFruitGameScene from './scenes/CatchFruitGame/CatchFruitGameScene';
 import CookingGameScene from './scenes/CookingGame/CookingGameScene';
+import PinballGameScene from './scenes/PinballGame/PinballGameScene';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 const modifyGameConfig = {
@@ -31,13 +32,6 @@ const modifyGameConfig = {
 		},
 	},
 	scene: [],
-	// scene: {
-	// 	pack: {
-	// 		files: [
-	// 			{ type: 'image', key: 'foodCan', url: `src/static/upload/${userPath}/btn_login_hover.png` },
-	// 		]
-	// 	}
-	// }
 };
 //phaser-play-screen
 const playGameConfig = {
@@ -88,6 +82,9 @@ export default function startGame(gameId,gameModifyDatas,type){
 			break
 		case "Cooking":
 			game.scene.add(gameId, new CookingGameScene())
+			break
+		case "Pinball":
+			game.scene.add(gameId, new PinballGameScene())
 			break
 		default:
 			console.log("error!");
