@@ -1,7 +1,3 @@
-import Phaser from "phaser"
-
-const formatScore = (score) => 'Score: ' + score
-
 export default class Score{
     constructor(scene,label,text,score){
         this.scene = scene
