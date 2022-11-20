@@ -94,20 +94,19 @@ export default class ShootingGameScene extends Phaser.Scene{
         const {gameoverMessage} = this.modifyDatas
         this.physics.pause()
         this.starCoolDown.stop()
-        this.gameOver = true
         this.gameoverMessage = new GameoverMessage(this,this.scoreText.getScore(),gameoverMessage.items[0])
         this.gameoverMessage.create()
     }
 
     createGameTimer(gameTimer){
         //Timer
-        const gameTimerLabel = this.add.text(16, 34, "", {
-            "fontSize": 32,
-            "fill": "#fff",
-            "stroke": "#000",
-            "strokeThickness": 2
-        })
-        // const gameTimerLabel = this.add.text(timeTextDatas.text.x, timeTextDatas.text.y, timeTextDatas.text.content, timeTextDatas.text.style)
+        const style = {
+            fontSize: 32,
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 2
+        }
+        const gameTimerLabel = this.add.text(16, 34, "時間", style)
         this.gameTimer = new GameTimer(this, gameTimerLabel, "\n時間")
         this.gameTimer.start(this.gameover.bind(this),gameTimer.text.content * 1000)//5s
     }
@@ -121,7 +120,6 @@ export default class ShootingGameScene extends Phaser.Scene{
             "strokeThickness": 2
         })
         this.scoreText = new Score(this,scoreTextLabel,"\n分數",0)
-        
     }
 
     createBalloon(){
