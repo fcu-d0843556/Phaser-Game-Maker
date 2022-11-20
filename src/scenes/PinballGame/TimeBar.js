@@ -33,5 +33,9 @@ export default class TimeBar {
             this.timerEvent = undefined
         }
     }
+
+    isPause(){
+        return this.timerEvent.paused
+    }
     
 }

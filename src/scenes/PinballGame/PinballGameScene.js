@@ -1,7 +1,6 @@
 import Phaser from "phaser"
 import TimeBar from "./TimeBar"
 
-var player
 export default class PinballGameScene extends Phaser.Scene{
     constructor(userID,appSpot){
         super("Pinball")
@@ -77,9 +76,14 @@ export default class PinballGameScene extends Phaser.Scene{
         this.powerButton = this.add.circle(320 ,590,30,{
             isStatic: true
         }).setInteractive().on('pointerdown', function(pointer, localX, localY, event){
-            if(this.balls.length > this.nowBallNum){
+            if(this.balls.length > this.nowBallNum && !this.powerTimer.isPause()){
                 this.powerTimer.pause()
-                this.balls[this.nowBallNum].setVelocity(-5,-20);
+                let power = this.powerTimer.timerEvent.getProgress() * -45
+                console.log(power);
+                if(power > -2){
+                    power = -2
+                }
+                this.balls[this.nowBallNum].setVelocity(0, power);
             }
         }, this);
 
@@ -89,21 +93,34 @@ export default class PinballGameScene extends Phaser.Scene{
         //判斷是否換球的方塊
         var Bodies = Phaser.Physics.Matter.Matter.Bodies;
 
-        var rect = Bodies.rectangle(0, 0, 275, 100, { isSensor: true, label: 'pinballGoal' });
+        var rect = Bodies.rectangle(0, 0, 275, 90, { isSensor: true, label: 'pinballGoal' });
 
         var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
             parts: [ rect ],
             inertia: Infinity
         });
 
-        player = this.matter.add.image(0, 0, 'pin');
+        this.pinballGoal = this.matter.add.image(0, 0, 'pin');
 
-        player.setExistingBody(compoundBody);
-        player.setPosition(130, 448)
-        player.setIgnoreGravity(true)
+        this.pinballGoal.setExistingBody(compoundBody);
+        this.pinballGoal.setPosition(130, 448)
+        this.pinballGoal.setIgnoreGravity(true)
         
 
+        var Bodies = Phaser.Physics.Matter.Matter.Bodies;
 
+        var rect = Bodies.rectangle(0, 0, 60, 3, { isSensor: true, label: 'shootHitBox' });
+
+        var compoundBody = Phaser.Physics.Matter.Matter.Body.create({
+            parts: [ rect ],
+            inertia: Infinity
+        });
+
+        var shootHitBox = this.matter.add.image(0, 0, 'pin');
+
+        shootHitBox.setExistingBody(compoundBody);
+        shootHitBox.setPosition(305, 549)
+        shootHitBox.setIgnoreGravity(true)
 
         //用來偵測碰撞物體的function
         this.matter.world.on('collisionstart', function (event) {
@@ -124,18 +141,21 @@ export default class PinballGameScene extends Phaser.Scene{
                     {
                         inObject = bodyB;
                         detectHitBox = bodyA;
-                        // console.log("\ninObject: ",inObject.label, '\nHitBox: ', detectHitBox.label);
+                        console.log("\ninObject: ",inObject.label, '\nHitBox: ', detectHitBox.label);
                     }else if (bodyB.isSensor){
                         inObject = bodyA;
                         detectHitBox = bodyB;
-                        // console.log("\ninObject: ",inObject.label, '\nHitBox: ', detectHitBox.label);
+                        console.log("\ninObject: ",inObject.label, '\nHitBox: ', detectHitBox.label);
                     }
 
                     if(detectHitBox.label === 'pinballGoal' && inObject.label === 'pinball'){
                         console.log('next',this.nowBallNum);
-                        this.powerTimer.restart()
+                        // this.powerTimer.restart()
                         this.nowBallNum++
                         this.setPinballToReady()
+                    }else if(detectHitBox.label === 'shootHitBox' && inObject.label === 'pinball'){
+                        console.log('restart',this.nowBallNum);
+                        this.powerTimer.restart()
                     }
                 }
             }
@@ -152,28 +172,28 @@ export default class PinballGameScene extends Phaser.Scene{
 
         if (this.cursors.left.isDown)
         {
-            player.setVelocityX(-10);
+            this.pinballGoal.setVelocityX(-10);
         }
         else if (this.cursors.right.isDown)
         {
-            player.setVelocityX(10);
+            this.pinballGoal.setVelocityX(10);
         }
         else
         {
-            player.setVelocityX(0);
+            this.pinballGoal.setVelocityX(0);
         }
 
         if (this.cursors.up.isDown)
         {
-            player.setVelocityY(-10);
+            this.pinballGoal.setVelocityY(-10);
         }
         else if (this.cursors.down.isDown)
         {
-            player.setVelocityY(10);
+            this.pinballGoal.setVelocityY(10);
         }
         else
         {
-            player.setVelocityY(0);
+            this.pinballGoal.setVelocityY(0);
         }
     }
 
@@ -192,6 +212,9 @@ export default class PinballGameScene extends Phaser.Scene{
         this.matter.add.sprite(270,370,'rightWall','',{
             isStatic: true
         }); 
+        this.matter.add.sprite(340,370,'rightWall','',{
+            isStatic: true
+        }); 
 
         for(let x =0;x<6;x++){
             this.matter.add.sprite(5 + x*51,440,'scoreWall','',{
@@ -199,9 +222,22 @@ export default class PinballGameScene extends Phaser.Scene{
             }); 
         }
 
+        
+
+        //三角形擋板
+        var topWall = '130 100, 0 0, 130 0'
+        var topWallPoly = this.add.polygon(314, 16, topWall, 0xffffff, 1);
+        this.matter.add.gameObject(topWallPoly, { 
+            shape: { type: 'fromVerts', verts: topWall, flagInternal: true },
+            isStatic: true
+        }); 
+
+
+
+
         //射擊的柱子
         var shootTable = '0 0, 44 0, 44 23, 33 23, 33 91, 10.5 91, 10.5 46, 10.5 23, 0 23, 0 0'
-        var shootTablePoly = this.add.polygon(320, 576, shootTable, 0xffffff, 1);
+        var shootTablePoly = this.add.polygon(304, 576, shootTable, 0xffffff, 1);
         this.matter.add.gameObject(shootTablePoly, { 
             shape: { type: 'fromVerts', verts: shootTable, flagInternal: true },
             isStatic: true
@@ -219,6 +255,8 @@ export default class PinballGameScene extends Phaser.Scene{
 
     //生成圖釘
     createPins(){
+
+        //畫面的釘子
         for(let y=0;y<3; y++){
             for(let x =0;x<5;x++){
                 this.matter.add.image(30 + x * 50, 150 + y * 100, 'pin').setBody({
@@ -235,11 +273,36 @@ export default class PinballGameScene extends Phaser.Scene{
                 }).setStatic(true);
             }
         }
+
+        //三角形擋板下面釘子
+        for(let x =0;x<4;x++){
+            this.matter.add.image(350 , 85 + x*15, 'pin').setBody({
+                type: 'circle',
+                radius: 6,
+            }).setStatic(true);
+        }
+
+        //射出的擋板釘子
+        for(let x =0;x<2;x++){
+            this.matter.add.image(260 + x * 10, 125 + x*7, 'pin').setBody({
+                type: 'circle',
+                radius: 6,
+            }).setStatic(true);
+        }
+
+        //左上角釘子
+        for(let x =0;x<9;x++){
+            this.matter.add.image(0 + x * 11, 2 + x*7, 'pin').setBody({
+                type: 'circle',
+                radius: 6,
+            }).setStatic(true);
+        }
     }
 
     createPowerBar(){
         this.powerTimer = new TimeBar(this,"")
         this.powerTimer.start()
+        this.powerTimer.pause()
         this.hsv = Phaser.Display.Color.HSVColorWheel();
         this.graphics = this.add.graphics({ x: 10, y: 610 }).setDepth(2);
 
