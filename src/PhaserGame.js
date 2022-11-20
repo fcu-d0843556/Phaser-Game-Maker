@@ -27,13 +27,62 @@ const modifyGameConfig = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-		gravity: { x: 0, y: 0 },
-
+			debug: true,
+			gravity: { x: 0, y: 0 },
 		},
 	},
 	scene: [],
 };
+
+const modifyGameConfigMatter = {
+	type: Phaser.AUTO,
+	// type: Phaser.CANVAS,
+	parent: 'phaser-container',
+	width:  360, //800
+	height: 640, //600
+	// width:  window.innerWidth * window.devicePixelRatio, //800
+	// height: window.innerHeight * window.devicePixelRatio, //600
+	backgroundColor: '#000111',
+	dom: {
+		createContainer: true,
+	},
+	scale:{
+		//autoCenter: Phaser.Scale.CENTER_BOTH,
+		mode:Phaser.Scale.FIT,
+	},
+	physics: {
+		default: 'matter',
+		matter: {
+			debug: true,
+			gravity: { x: 0, y: 0 },
+		},
+	},
+	scene: [],
+};
+
 //phaser-play-screen
+const playGameConfigMatter = {
+	type: Phaser.AUTO,
+	parent: 'phaser-play-screen',
+	width:  360, 
+	height: 640, 
+	backgroundColor: '#000111',
+	dom: {
+		createContainer: true,
+	},
+	scale:{
+		mode:Phaser.Scale.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+	},
+	physics: {
+		default: 'matter',
+		matter: {
+			gravity: { x: 0, y: 0 },
+		},
+	},
+	scene: []
+};
+
 const playGameConfig = {
 	type: Phaser.AUTO,
 	parent: 'phaser-play-screen',
@@ -50,21 +99,41 @@ const playGameConfig = {
 	physics: {
 		default: 'arcade',
 		arcade: {
-		gravity: { x: 0, y: 0 },
-
+			gravity: { x: 0, y: 0 },
 		},
 	},
 	scene: []
 };
 
-
 export default function startGame(gameId,gameModifyDatas,type){
 	// console.log(type);
 	let game;
 	if(type === "playGame"){
-		game = new Phaser.Game(playGameConfig)
+		switch(gameId){
+			case "Quiz":
+			case "Shooting":
+			case "PokeGetItem":
+			case "CatchFruit":
+			case "Cooking":
+				game = new Phaser.Game(playGameConfig)
+				break
+			default:
+				game = new Phaser.Game(playGameConfigMatter)
+				break
+		}
 	}else if(type === "modifyGame"){
-		game = new Phaser.Game(modifyGameConfig)
+		switch(gameId){
+			case "Quiz":
+			case "Shooting":
+			case "PokeGetItem":
+			case "CatchFruit":
+			case "Cooking":
+				game = new Phaser.Game(modifyGameConfig)
+				break
+			default:
+				game = new Phaser.Game(modifyGameConfigMatter)
+				break
+		}
 	}	
 	
 	switch(gameId){

@@ -10,11 +10,21 @@ export default class TimeBar {
         this.timerEvent = this.scene.time.addEvent(
             { 
                 delay: 1000, 
-                loop: true 
+                loop: true,
+                paused: false
             }
         );
 
 
+    }
+
+    restart(){
+        this.stop()
+        this.start()
+    }
+
+    pause(){
+        this.timerEvent.paused = true
     }
 
     stop(){
