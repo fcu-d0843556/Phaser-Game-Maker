@@ -5,7 +5,15 @@ export default class ShowMessage {
     }
 
     start(callback,duration){
-        this.textTimer = this.scene.add.text(20,130,this.text,{fontSize:25,fill:'#fff',backgroundColor:'rgba(0,255,0,0.25)'})
+        const style = {
+            fontSize: 24,
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 2,
+            wordWrap: { width: 350, useAdvancedWrap: true }
+        }
+
+        this.textTimer = this.scene.add.text(20,100,'\n' + this.text, style)
         this.disapperTimerEvent = this.scene.time.addEvent({
             delay: duration,
             callback: ()=>{
@@ -27,3 +35,5 @@ export default class ShowMessage {
     }
 
 }
+
+// this.add.text(xSpot,455, `\n${pinballGoal.items[i].score.content}`, )

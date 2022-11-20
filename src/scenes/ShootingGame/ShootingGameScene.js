@@ -88,8 +88,6 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.gameTutorialMessage = new GameTutorial(this, balloon.items, gameTutorialText.items[0])
         this.gameTutorialMessage.create()
 
-        //mouse move
-        // this.createMouseTracker()
     }
 
     gameover(){
@@ -127,34 +125,7 @@ export default class ShootingGameScene extends Phaser.Scene{
     }
 
     createBalloon(){
-
         this.balloon.spawn()
-    }
-
-    createMouseTracker(){
-        this.target = this.physics.add.sprite(400,500,'target').setScale(0.8,0.8)
-        this.target.setGravityY(0)
-
-        this.input.on('pointermove',function(pointer){
-            // this.mouseSpot.get(pointer)
-            this.target.x = pointer.x
-            this.target.y = pointer.y
-        },this)
-
-
-        // const moveSpotLabel = this.add.text(10,580,'moveSpot: ',{fontSize:12,fill:'#000'}).setDepth(1)
-        // this.mouseSpot = new GetMouseSpot(this,moveSpotLabel)  
-
-
-        
-
-        // const clickSpotLabel = this.add.text(10,600,'clickSpot: ',{fontSize:12,fill:'#000'}).setDepth(1);
-        // this.clickMouseSpot = new GetMouseSpot(this,clickSpotLabel)
-
-        // this.input.on('pointerdown',function(pointer){
-            // this.clickMouseSpot.get(pointer)
-            
-        // },this)
     }
 
     update(){
