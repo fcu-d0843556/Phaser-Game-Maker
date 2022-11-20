@@ -2,6 +2,7 @@ import Phaser from "phaser"
 
 //Common System Scripts
 import Score from "../CommonSystem/Score"
+import GameoverMessage from "../CommonSystem/GameOverMessage"
 
 //pinball Game Scripts
 import GameTutorial from "./GameTutorial"
@@ -19,7 +20,7 @@ export default class PinballGameScene extends Phaser.Scene{
     preload(){
 
         this.modifyDatas = this.scene.settings.data
-        console.log("modifyDatas: ", this.modifyDatas);
+        // console.log("modifyDatas: ", this.modifyDatas);
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
@@ -37,7 +38,10 @@ export default class PinballGameScene extends Phaser.Scene{
 
         this.load.image('startGameLabel','/img/Games/Common/gameover/startGameLabel.png')
         this.load.image('startGameButton', '/img/Games/Common/gameover/startGameButton.png')
-        // this.load.image('background','/img/Games/PinballGame/woodenBG.png');
+        this.load.image('gameoverLabel','/img/Games/Common/gameover/gameoverLabel.png')
+        this.load.image('playAgainButton', '/img/Games/Common/gameover/playAgainButton.png')
+
+
         this.load.svg('pinballReadyTable','/img/Games/PinballGame/pinballReadyTable.svg')
         this.load.svg('bottomWall','/img/Games/PinballGame/bottomWall.svg')
         this.load.svg('scoreWall','/img/Games/PinballGame/scoreWall.svg')
@@ -165,9 +169,19 @@ export default class PinballGameScene extends Phaser.Scene{
         this.createPowerButton()
     }
 
+    gameover(){
+        console.log("gameover!");
+        const {gameoverMessage} = this.modifyDatas
+        this.gameOver = true
+        this.gameoverMessage = new GameoverMessage(this,this.scoreText.getScore(),gameoverMessage.items[0])
+        this.gameoverMessage.create()
+    }
+
     setPinballToReady(){
         if(this.balls.length > this.nowBallNum){
             this.balls[this.nowBallNum].setPosition(305,500)
+        }else{
+            this.gameover()
         }
     }
 
