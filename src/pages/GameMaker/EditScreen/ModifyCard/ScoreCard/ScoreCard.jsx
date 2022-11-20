@@ -25,7 +25,7 @@ export default class ScoreCard extends Component {
             PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         };
         
-        const {content,modifyTitle} = this.props.score
+        const {content,modifyTitle,max,min} = this.props.score
 
         return (
             <Col span={24}>
@@ -33,7 +33,7 @@ export default class ScoreCard extends Component {
 
                 >
                     <InputNumber 
-                        min={-100000} max={100000} 
+                        min={min} max={max} 
                         value={content} 
                         onChange={changeValue}
                         formatter={(value) => `${value}分`}

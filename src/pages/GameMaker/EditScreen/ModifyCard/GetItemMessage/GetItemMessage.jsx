@@ -19,7 +19,7 @@ export default class GetItemMessage extends Component {
     }
 
     render() {
-        const {description,content,modifyTitle,inputType,unit} = this.props.text
+        const {content,modifyTitle,inputType,unit,min, max} = this.props.text
         const changeNumberValue = (value) => {
             const {textDatas} = this.state
             textDatas.text.content = value
@@ -42,8 +42,8 @@ export default class GetItemMessage extends Component {
                     {
                         (inputType === "number") ? 
                             <InputNumber 
-                                min={1} 
-                                max={100000} 
+                                min={min} 
+                                max={max} 
                                 value={content} 
                                 onChange={changeNumberValue} 
                                 formatter={(value) => `${value}${unit}`}

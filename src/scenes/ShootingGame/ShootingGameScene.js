@@ -14,7 +14,6 @@ import ballonSpawner from "./BallonSpawner"
 export default class ShootingGameScene extends Phaser.Scene{
     constructor(){    
         super("Shooting")
-        this.allJsonData = []
         this.scoreText = undefined
         this.isGameStart = false
     }
@@ -69,8 +68,6 @@ export default class ShootingGameScene extends Phaser.Scene{
         
         //background custom OK.
         const {background} = this.modifyDatas
-        // this.add.image(400,320 ,'background').setScale(1)
-
         this.add.image(background.items[0].img.position.x, background.items[0].img.position.y ,'background').setScale(background.items[0].img.size/100)
 
 

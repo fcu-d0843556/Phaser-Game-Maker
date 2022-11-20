@@ -6,14 +6,32 @@ import Score from "../CommonSystem/Score"
 export default class PinballGameScene extends Phaser.Scene{
     constructor(){
         super("Pinball")
-        this.allJsonData = []
         this.balls = []
-        this.nowBallNum = 0
+        
     }
 
 
     preload(){
-        this.load.image('background','/img/Games/PinballGame/woodenBG.png');
+
+        this.modifyDatas = this.scene.settings.data
+        console.log("modifyDatas: ", this.modifyDatas);
+
+        //load image
+        Object.keys(this.modifyDatas).forEach((key)=>{
+            this.modifyDatas[key].items.forEach((itemObj)=>{
+                if( itemObj.img ) {
+                    if(this.textures.list[itemObj.name]){
+                        // console.log("remove");
+                        this.textures.remove(itemObj.name)
+                    }
+                    // console.log("add", itemObj);
+                    this.load.image( itemObj.name, itemObj.img.src )
+                }
+            })
+        })
+
+
+        // this.load.image('background','/img/Games/PinballGame/woodenBG.png');
         this.load.svg('pinballReadyTable','/img/Games/PinballGame/pinballReadyTable.svg')
         this.load.svg('bottomWall','/img/Games/PinballGame/bottomWall.svg')
         this.load.svg('scoreWall','/img/Games/PinballGame/scoreWall.svg')
@@ -25,17 +43,20 @@ export default class PinballGameScene extends Phaser.Scene{
     }
 
     create(){
+        this.nowBallNum = 0
         this.balls = []
         this.matter.world.setGravity(0,0.98).setBounds()
         this.cursors = this.input.keyboard.createCursorKeys();
 
     
 
-        this.add.image(180,320,'background').setScale(0.57,0.50)
+        //background custom OK.
+        const {background} = this.modifyDatas
+        this.add.image(background.items[0].img.position.x, background.items[0].img.position.y ,'background').setScale(background.items[0].img.size/100)
         
         
-
-        for(let x =0;x<10;x++){
+        const {pinball} = this.modifyDatas
+        for(let x =0;x<pinball.items[0].text.content;x++){
             let ball = this.matter.add.image(200 - x * 20, 520, 'pinball').setBody({
                 type: 'circle',
                 radius: 11,
@@ -56,20 +77,34 @@ export default class PinballGameScene extends Phaser.Scene{
   
 
         //判斷是否換球的方塊，並得分
-        this.pinballGoal1 = this.createRectHitBox({x: 46, y: 90, label: 'pinballGoal1'}, {x: 30, y: 448}, 'pinWall', {score: 10})
-        this.pinballGoal2 = this.createRectHitBox({x: 46, y: 90, label: 'pinballGoal2'}, {x: 81, y: 448}, 'pinWall', {score: 20})
-        this.pinballGoal3 = this.createRectHitBox({x: 46, y: 90, label: 'pinballGoal3'}, {x: 133, y: 448}, 'pinWall', {score: 50})
-        this.pinballGoal4 = this.createRectHitBox({x: 46, y: 90, label: 'pinballGoal4'}, {x: 183, y: 448}, 'pinWall', {score: 20})
-        this.pinballGoal5 = this.createRectHitBox({x: 46, y: 90, label: 'pinballGoal5'}, {x: 235, y: 448}, 'pinWall', {score: 10})
-        // this.add.text(15,415, "\n${datas.score}", {
-        //     "fontSize": 16,
-        //     "fill": "#fff",
-        //     "stroke": "#000",
-        //     "strokeThickness": 2
-        // })
+        const {pinballGoal} = this.modifyDatas
+        this.pinballGoal1 = this.createRectHitBox({x: 46, y: 80, label: 'pinballGoal1'}, {x: 30, y: 453}, 'pinWall', {score: pinballGoal.items[0].score.content})
+        this.pinballGoal2 = this.createRectHitBox({x: 46, y: 80, label: 'pinballGoal2'}, {x: 81, y: 453}, 'pinWall', {score: pinballGoal.items[1].score.content})
+        this.pinballGoal3 = this.createRectHitBox({x: 46, y: 80, label: 'pinballGoal3'}, {x: 133, y: 453}, 'pinWall', {score: pinballGoal.items[2].score.content})
+        this.pinballGoal4 = this.createRectHitBox({x: 46, y: 80, label: 'pinballGoal4'}, {x: 183, y: 453}, 'pinWall', {score: pinballGoal.items[3].score.content})
+        this.pinballGoal5 = this.createRectHitBox({x: 46, y: 80, label: 'pinballGoal5'}, {x: 235, y: 453}, 'pinWall', {score: pinballGoal.items[4].score.content})
+        for(let i=0;i< 5;i++){
+            let xSpot = 20 + i * 51
+            if(pinballGoal.items[i].score.content.toString().length === 3){
+                xSpot -= 5
+            }else if(pinballGoal.items[i].score.content.toString().length === 4){
+                xSpot -= 10
+            }else if(pinballGoal.items[i].score.content.toString().length === 1){
+                xSpot += 5
+            }
+            this.add.text(xSpot,455, `\n${pinballGoal.items[i].score.content}`, {
+                "fontSize": 16,
+                "fill": "#fff",
+                "stroke": "#000",
+                "strokeThickness": 2
+            })
+        }
+        
+
 
         //新球碰到這個hitbox後會開啟時間
         this.shootHitBox = this.createRectHitBox({x: 60, y: 3, label: 'shootHitBox'}, {x: 305, y: 549}, 'pinWall')
+
 
 
 
@@ -132,12 +167,12 @@ export default class PinballGameScene extends Phaser.Scene{
         this.matter.add.sprite(140,500,'bottomWall','',{
             isStatic: true
         }); 
-        this.matter.add.sprite(270,370,'rightWall','',{
+        this.matter.add.sprite(270,395,'rightWall','',{
             isStatic: true
-        }); 
-        this.matter.add.sprite(340,370,'rightWall','',{
+        }).setScale(1,1.1); ; 
+        this.matter.add.sprite(350,340,'rightWall','',{
             isStatic: true
-        }); 
+        }).setScale(2,1.3); 
 
         for(let x =0;x<6;x++){
             this.matter.add.sprite(5 + x*51,440,'scoreWall','',{
@@ -195,14 +230,6 @@ export default class PinballGameScene extends Phaser.Scene{
             }
         }
 
-        //三角形擋板下面釘子
-        for(let x =0;x<4;x++){
-            this.matter.add.image(350 , 85 + x*15, 'pinWall').setBody({
-                type: 'circle',
-                radius: 6,
-            }).setStatic(true);
-        }
-
         //射出的擋板釘子
         for(let x =0;x<2;x++){
             this.matter.add.image(260 + x * 10, 125 + x*7, 'pinWall').setBody({
@@ -222,7 +249,8 @@ export default class PinballGameScene extends Phaser.Scene{
 
     //力量條的顯示
     createPowerBar(){
-        this.powerTimer = new TimeBar(this,"")
+        const {gameRule} = this.modifyDatas
+        this.powerTimer = new TimeBar(this,"", gameRule.items[0].priority.selected)
         this.powerTimer.start()
         this.powerTimer.pause()
         this.hsv = Phaser.Display.Color.HSVColorWheel();

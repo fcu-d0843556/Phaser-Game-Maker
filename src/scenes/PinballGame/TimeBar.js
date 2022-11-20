@@ -1,15 +1,32 @@
 
 export default class TimeBar {
-    constructor(scene,label){
+    constructor(scene,label,time){
         this.scene = scene
         this.label = label
+        switch(time){
+            case 1:
+                this.time = 2000
+                break
+            case 2:
+                this.time = 1500
+                break
+            case 3:
+                this.time = 1000
+                break
+            case 4:
+                this.time = 750
+                break
+            case 5:
+                this.time = 500
+                break
+        }
     }
 
     start(){ //1s 預設值
 
         this.timerEvent = this.scene.time.addEvent(
             { 
-                delay: 1000, 
+                delay: this.time,
                 loop: true,
                 paused: false
             }
