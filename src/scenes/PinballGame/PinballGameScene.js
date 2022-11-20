@@ -107,7 +107,8 @@ export default class PinballGameScene extends Phaser.Scene{
         this.shootHitBox = this.createRectHitBox({x: 60, y: 3, label: 'shootHitBox'}, {x: 305, y: 549}, 'pinWall')
 
         //gameStart Tutorial
-        this.gameTutorialMessage = new GameTutorial(this)
+        const {gameTutorialText} = this.modifyDatas
+        this.gameTutorialMessage = new GameTutorial(this,gameTutorialText.items[0])
         this.gameTutorialMessage.create()
 
 
