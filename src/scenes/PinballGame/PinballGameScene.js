@@ -22,6 +22,11 @@ export default class PinballGameScene extends Phaser.Scene{
         this.load.svg('scoreWall','/img/Games/PinballGame/scoreWall.svg')
         this.load.svg('rightWall','/img/Games/PinballGame/rightWall.svg')
         this.load.svg('pin','/img/Games/PinballGame/pin.svg')
+        this.load.svg('pinWall','/img/Games/PinballGame/pinWall.svg')
+        this.load.svg('pinball','/img/Games/PinballGame/pinball.svg')
+        this.load.svg('shootButton','/img/Games/PinballGame/shootButton.svg')
+
+
 
 
 
@@ -44,7 +49,7 @@ export default class PinballGameScene extends Phaser.Scene{
         
 
         for(let x =0;x<10;x++){
-            let ball = this.matter.add.image(200 - x * 20, 520, 'pin').setBody({
+            let ball = this.matter.add.image(200 - x * 20, 520, 'pinball').setBody({
                 type: 'circle',
                 radius: 11,
             },{
@@ -53,17 +58,6 @@ export default class PinballGameScene extends Phaser.Scene{
             this.balls.push(ball)
         }
         this.setPinballToReady()
-        // console.log(this.balls);
-        
-        // this.ball = this.matter.add.image(320, 500, 'pin').setBody({
-        //     type: 'circle',
-        //     radius: 11,
-        // },{
-        //     label: 'pinball'
-        // })
-        // console.log(this.ball);
-
-
 
         this.createPins()
         this.createWalls()
@@ -73,9 +67,8 @@ export default class PinballGameScene extends Phaser.Scene{
 
 
         //射出按鈕
-        this.powerButton = this.add.circle(320 ,590,30,{
-            isStatic: true
-        }).setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+        this.powerButton = this.add.image(305 ,590, 'shootButton').setScale(0.5).setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+            console.log("ok");
             if(this.balls.length > this.nowBallNum && !this.powerTimer.isPause()){
                 this.powerTimer.pause()
                 let power = this.powerTimer.timerEvent.getProgress() * -45
@@ -86,6 +79,20 @@ export default class PinballGameScene extends Phaser.Scene{
                 this.balls[this.nowBallNum].setVelocity(0, power);
             }
         }, this);
+        // this.powerButton.setIgnoreGravity(true)
+        // this.powerButton = this.add.circle(305 ,590,30,{
+        //     isStatic: true
+        // }).setInteractive().on('pointerdown', function(pointer, localX, localY, event){
+        //     if(this.balls.length > this.nowBallNum && !this.powerTimer.isPause()){
+        //         this.powerTimer.pause()
+        //         let power = this.powerTimer.timerEvent.getProgress() * -45
+        //         console.log(power);
+        //         if(power > -2){
+        //             power = -2
+        //         }
+        //         this.balls[this.nowBallNum].setVelocity(0, power);
+        //     }
+        // }, this);
 
         
 
@@ -100,7 +107,7 @@ export default class PinballGameScene extends Phaser.Scene{
             inertia: Infinity
         });
 
-        this.pinballGoal = this.matter.add.image(0, 0, 'pin');
+        this.pinballGoal = this.matter.add.image(0, 0, 'pinWall').setAlpha(0);;
 
         this.pinballGoal.setExistingBody(compoundBody);
         this.pinballGoal.setPosition(130, 448)
@@ -116,7 +123,7 @@ export default class PinballGameScene extends Phaser.Scene{
             inertia: Infinity
         });
 
-        var shootHitBox = this.matter.add.image(0, 0, 'pin');
+        var shootHitBox = this.matter.add.image(0, 0, 'pinWall').setAlpha(0);
 
         shootHitBox.setExistingBody(compoundBody);
         shootHitBox.setPosition(305, 549)
@@ -199,7 +206,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
     setPinballToReady(){
         if(this.balls.length > this.nowBallNum){
-            this.balls[this.nowBallNum].setPosition(320,500)
+            this.balls[this.nowBallNum].setPosition(305,500)
         }
     }
 
@@ -225,8 +232,8 @@ export default class PinballGameScene extends Phaser.Scene{
         
 
         //三角形擋板
-        var topWall = '130 100, 0 0, 130 0'
-        var topWallPoly = this.add.polygon(314, 16, topWall, 0xffffff, 1);
+        var topWall = '135 100, 0 0, 135 0'
+        var topWallPoly = this.add.polygon(314, 16, topWall, 0x361500, 1);
         this.matter.add.gameObject(topWallPoly, { 
             shape: { type: 'fromVerts', verts: topWall, flagInternal: true },
             isStatic: true
@@ -237,7 +244,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
         //射擊的柱子
         var shootTable = '0 0, 44 0, 44 23, 33 23, 33 91, 10.5 91, 10.5 46, 10.5 23, 0 23, 0 0'
-        var shootTablePoly = this.add.polygon(304, 576, shootTable, 0xffffff, 1);
+        var shootTablePoly = this.add.polygon(304, 576, shootTable, 0x361500, 1);
         this.matter.add.gameObject(shootTablePoly, { 
             shape: { type: 'fromVerts', verts: shootTable, flagInternal: true },
             isStatic: true
@@ -245,7 +252,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
         //放球的地方
         var pinballReadyTable = '0 0, 258 67.808, 258 104, 0 104'
-        var pinballReadyTablePoly = this.add.polygon(109, 602, pinballReadyTable, 0xffffff, 1);
+        var pinballReadyTablePoly = this.add.polygon(109, 602, pinballReadyTable, 0x361500, 1);
         this.matter.add.gameObject(pinballReadyTablePoly, { 
             shape: { type: 'fromVerts', verts: pinballReadyTable, flagInternal: true },
             isStatic: true
@@ -276,7 +283,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
         //三角形擋板下面釘子
         for(let x =0;x<4;x++){
-            this.matter.add.image(350 , 85 + x*15, 'pin').setBody({
+            this.matter.add.image(350 , 85 + x*15, 'pinWall').setBody({
                 type: 'circle',
                 radius: 6,
             }).setStatic(true);
@@ -284,7 +291,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
         //射出的擋板釘子
         for(let x =0;x<2;x++){
-            this.matter.add.image(260 + x * 10, 125 + x*7, 'pin').setBody({
+            this.matter.add.image(260 + x * 10, 125 + x*7, 'pinWall').setBody({
                 type: 'circle',
                 radius: 6,
             }).setStatic(true);
@@ -292,7 +299,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
         //左上角釘子
         for(let x =0;x<9;x++){
-            this.matter.add.image(0 + x * 11, 2 + x*7, 'pin').setBody({
+            this.matter.add.image(0 + x * 11, 2 + x*7, 'pinWall').setBody({
                 type: 'circle',
                 radius: 6,
             }).setStatic(true);
