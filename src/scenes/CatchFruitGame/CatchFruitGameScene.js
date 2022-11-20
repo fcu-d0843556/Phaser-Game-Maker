@@ -9,11 +9,7 @@ import GameoverMessage from "../CommonSystem/GameOverMessage"
 
 //CatchFruit Game Scripts
 import StarsSpawner from "./StarsSpawner"
-import BombSpawner from "./BombSpawner"
 import GameTutorial from "./GameTutorial"
-
-
-const BombKey = 'bomb'
 
 
 export default class CatchFruitGameScene extends Phaser.Scene{
@@ -25,6 +21,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
+        console.log(this.modifyDatas);
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
             this.modifyDatas[key].items.forEach((itemObj)=>{
@@ -46,13 +43,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
 
 
         this.load.image('ground', '/img/Games/CatchFruitGame/platform.png');
-        this.load.image('bomb','/img/Games/CatchFruitGame/bomb.png');
-        this.load.image('star','/img/Games/CatchFruitGame/star.png');
         this.load.image('arrowButton','/img/Games/CatchFruitGame/arrowButton.png');
-
-
-        this.load.image('background','/img/Games/Common/background.png')
-
 
         this.load.spritesheet('dude','/img/Games/CatchFruitGame/dude.png',{
             frameWidth: 32, frameHeight:48
@@ -103,7 +94,10 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         this.playerMoveSpeed = 400
         this.cursor = this.input.keyboard.createCursorKeys()
 
-        this.add.image(400,320 ,'background').setScale(1)
+        //background custom OK.
+        const {background} = this.modifyDatas
+        this.add.image(background.items[0].img.position.x, background.items[0].img.position.y ,'background').setScale(background.items[0].img.size/100)
+        
         this.createScoreBoard()
     
 
@@ -113,10 +107,12 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         //創建角色、星星等
         this.platforms = this.createPlatform()
         this.player = this.createPlayer()
-        this.starsSpawner = new StarsSpawner(this,"star",{size: 100})
+
+        //Balloons custom OK.
+        const {star} = this.modifyDatas
+        this.starsSpawner = new StarsSpawner(this,star.items)
         this.starsGroup = this.starsSpawner.group
-        this.bombSpawner = new BombSpawner(this,BombKey)
-        this.bombsGroup = this.bombSpawner.groupA
+
 
         
         /* related to collider between objects */
@@ -166,9 +162,9 @@ export default class CatchFruitGameScene extends Phaser.Scene{
 
     collectStar(player,star){
         star.disableBody(true,true)
-        this.getItemMessage = new ShowMessage(this,"Happy!")
+        this.getItemMessage = new ShowMessage(this, star.getData('text'))
+        this.scoreText.addScore(star.getData('score'))
         this.getItemMessage.start(this.getItemMessage.stop(),500)//5s
-        this.scoreText.addScore(10)
     }
 
     createPlatform(){
