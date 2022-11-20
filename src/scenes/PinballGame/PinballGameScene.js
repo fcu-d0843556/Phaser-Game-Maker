@@ -1,12 +1,17 @@
 import Phaser from "phaser"
-import TimeBar from "./TimeBar"
+
+//Common System Scripts
 import Score from "../CommonSystem/Score"
 
+//pinball Game Scripts
+import GameTutorial from "./GameTutorial"
+import TimeBar from "./TimeBar"
 
 export default class PinballGameScene extends Phaser.Scene{
     constructor(){
         super("Pinball")
         this.balls = []
+        this.isGameStart = false
         
     }
 
@@ -30,7 +35,8 @@ export default class PinballGameScene extends Phaser.Scene{
             })
         })
 
-
+        this.load.image('startGameLabel','/img/Games/Common/gameover/startGameLabel.png')
+        this.load.image('startGameButton', '/img/Games/Common/gameover/startGameButton.png')
         // this.load.image('background','/img/Games/PinballGame/woodenBG.png');
         this.load.svg('pinballReadyTable','/img/Games/PinballGame/pinballReadyTable.svg')
         this.load.svg('bottomWall','/img/Games/PinballGame/bottomWall.svg')
@@ -69,12 +75,7 @@ export default class PinballGameScene extends Phaser.Scene{
 
         this.createPins()
         this.createWalls()
-
         this.createPowerBar()
-       
-
-        this.createPowerButton()
-  
 
         //判斷是否換球的方塊，並得分
         const {pinballGoal} = this.modifyDatas
@@ -105,7 +106,9 @@ export default class PinballGameScene extends Phaser.Scene{
         //新球碰到這個hitbox後會開啟時間
         this.shootHitBox = this.createRectHitBox({x: 60, y: 3, label: 'shootHitBox'}, {x: 305, y: 549}, 'pinWall')
 
-
+        //gameStart Tutorial
+        this.gameTutorialMessage = new GameTutorial(this)
+        this.gameTutorialMessage.create()
 
 
         //用來偵測碰撞物體的function
@@ -147,12 +150,18 @@ export default class PinballGameScene extends Phaser.Scene{
     }
 
     update(time, delta){
-        this.graphics.clear();
-        for (var i = 0; i < 1; i++)
-        {
-            this.graphics.fillStyle(this.hsv[30].color, 1);
-            this.graphics.fillRect(0, 0, 170 * this.powerTimer.timerEvent.getProgress(), 20);
+        if(this.isGameStart){
+            this.graphics.clear();
+            for (var i = 0; i < 1; i++)
+            {
+                this.graphics.fillStyle(this.hsv[30].color, 1);
+                this.graphics.fillRect(0, 0, 170 * this.powerTimer.timerEvent.getProgress(), 20);
+            }
         }
+    }
+
+    startGame = () => {
+        this.createPowerButton()
     }
 
     setPinballToReady(){
