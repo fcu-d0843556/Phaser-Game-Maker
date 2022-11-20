@@ -4,7 +4,7 @@ import PubSub from 'pubsub-js'
 import { Input,InputNumber, Typography} from 'antd';
 import { Col,Card } from 'antd';
 
-const { Paragraph, Title} = Typography;
+const { TextArea } = Input;
 
 export default class GetItemMessage extends Component {
     
@@ -35,7 +35,6 @@ export default class GetItemMessage extends Component {
         return (
             <Col span={24}>
                 <Card 
-                    // title={<Title className='modify-card-card-tile' level={4}>{modifyTitle}</Title>}
                     bordered={false}
                 >
                     
@@ -50,7 +49,7 @@ export default class GetItemMessage extends Component {
                                 parser={(value) => value.replace(unit, '')}
                             />
                         :
-                            <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
+                              <TextArea rows={12} placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
                     }
                 </Card>
                 
