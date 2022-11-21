@@ -113,6 +113,10 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         this.starsSpawner = new StarsSpawner(this,star.items)
         this.starsGroup = this.starsSpawner.group
 
+        //gameStart Tutorial
+        const {gameTutorialText} = this.modifyDatas
+        this.gameTutorialMessage = new GameTutorial(this, star.items , gameTutorialText.items[0])
+        this.gameTutorialMessage.create()
 
         
         /* related to collider between objects */
@@ -127,10 +131,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         
 
 
-        //gameStart Tutorial
-        const {gameTutorialText} = this.modifyDatas
-        this.gameTutorialMessage = new GameTutorial(this, gameTutorialText.items[0])
-        this.gameTutorialMessage.create()
+        
 
     }
 
