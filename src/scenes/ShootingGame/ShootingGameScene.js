@@ -52,6 +52,7 @@ export default class ShootingGameScene extends Phaser.Scene{
 
     startGame = () => {
         //create score board
+        this.createScoreBoard()
         this.scoreText.showScoreText()
         
 
@@ -73,11 +74,6 @@ export default class ShootingGameScene extends Phaser.Scene{
 
         this.cursor = this.input.keyboard.createCursorKeys()
         this.add.image(170,550,'gun').setScale(0.21,0.21).setDepth(1);
-        
-        //create score
-        this.createScoreBoard()
-        
-        
 
         
         //Balloons custom OK.

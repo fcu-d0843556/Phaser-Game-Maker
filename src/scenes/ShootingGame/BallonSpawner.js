@@ -69,7 +69,7 @@ export default class ballonSpawner{
             this.score.addScore(this.balloons[type-1].score.content)
             balloonChild.destroy(true,true)
         },this)
-
+        
         this.number++
     }
 

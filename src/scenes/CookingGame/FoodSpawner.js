@@ -2,15 +2,11 @@ import CookingTimer from "./CookingTimer"
 
 
 export default class foodSpawner{
-    constructor(scene,id,data) {
+    constructor(scene,data) {
         this.scene = scene
-        this.id = id
         this.data = data
-        console.log("data", this.data);
         this.foodcountdown = 1
-        // const cookTimeLabel = this.scene.add.text(200,350,'',{fontSize:32,fill:'#000'})
-
-        // this.timer = new CookingTimer(scene,cookTimeLabel)
+        this.timer = undefined
 
     }
 
@@ -19,36 +15,38 @@ export default class foodSpawner{
     }
 
     spawn(){
-        // this.food = this.scene.add.sprite(200,550,'rawFood').setScale(this.data.img.size/100).setDepth(1);    
-        this.food = this.scene.add.sprite(200,550,'rawFood').setInteractive();
+        this.food = this.scene.add.sprite(200,350,'rawFood').setScale(this.data.img.size/100).setDepth(1).setInteractive();  
+        this.scene.input.setDraggable(this.food);
+        this.food.on('pointerover', function () {this.setTint(0x00ff00);});
+        this.food.on('pointerout', function () {this.clearTint();});
+        
+        const cookTimeLabel = this.scene.add.text(200,350,'',{fontSize:32,fill:'#000'})
 
-        // this.food.setName(this.id)
-        // this.timer.start(this.countEnd.bind(this),2000)
+        this.timer = new CookingTimer(this.scene,cookTimeLabel)
+        this.timer.start(this.countEnd.bind(this),2000)
 
-        return this.food
+        return this
        
     }
 
-    // countEnd(){
-    //     switch (this.foodcountdown) {
-    //         case 1:
-    //             this.food.setTexture('halfFood')
-    //             break;
-    //         case 2:
-    //             this.food.setTexture('wellFood')
-    //             break
-    //         default:
-    //             break;
-    //     }
-    //     if(this.foodcountdown===3){
-    //         this.timer.stop()
-    //     }else{
-    //         this.timer.start(this.countEnd.bind(this),2000)
-    //         this.timer.keepStart()
-    //         this.foodcountdown++
-    //     }
-
-
-    // }
+    countEnd(){
+        switch (this.foodcountdown) {
+            case 1:
+                this.food.setTexture('halfFood')
+                break;
+            case 2:
+                this.food.setTexture('wellFood')
+                break
+            default:
+                break;
+        }
+        if(this.foodcountdown===3){
+            this.timer.stop()
+        }else{
+            this.timer.start(this.countEnd.bind(this),2000)
+            this.timer.keepStart()
+            this.foodcountdown++
+        }
+    }
 
 }
