@@ -10,12 +10,9 @@ import PinballGameScene from './scenes/PinballGame/PinballGameScene';
 // eslint-disable-next-line import/no-anonymous-default-export
 const modifyGameConfig = {
 	type: Phaser.AUTO,
-	// type: Phaser.CANVAS,
 	parent: 'phaser-container',
 	width:  360, //800
 	height: 640, //600
-	// width:  window.innerWidth * window.devicePixelRatio, //800
-	// height: window.innerHeight * window.devicePixelRatio, //600
 	backgroundColor: '#000111',
 	dom: {
 		createContainer: true,
@@ -31,7 +28,29 @@ const modifyGameConfig = {
 			gravity: { x: 0, y: 0 },
 		},
 	},
-	scene: [],
+	scene: []
+};
+
+const playGameConfig = {
+	type: Phaser.AUTO,
+	parent: 'phaser-play-screen',
+	width:  360, 
+	height: 640, 
+	backgroundColor: '#000111',
+	dom: {
+		createContainer: true,
+	},
+	scale:{
+		mode:Phaser.Scale.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH,
+	},
+	physics: {
+		default: 'arcade',
+		arcade: {
+			gravity: { x: 0, y: 0 },
+		},
+	},
+	scene: []
 };
 
 const modifyGameConfigMatter = {
@@ -83,27 +102,7 @@ const playGameConfigMatter = {
 	scene: []
 };
 
-const playGameConfig = {
-	type: Phaser.AUTO,
-	parent: 'phaser-play-screen',
-	width:  360, 
-	height: 640, 
-	backgroundColor: '#000111',
-	dom: {
-		createContainer: true,
-	},
-	scale:{
-		mode:Phaser.Scale.FIT,
-		autoCenter: Phaser.Scale.CENTER_BOTH,
-	},
-	physics: {
-		default: 'arcade',
-		arcade: {
-			gravity: { x: 0, y: 0 },
-		},
-	},
-	scene: []
-};
+
 
 export default function startGame(gameId,gameModifyDatas,type){
 	// console.log(type);
@@ -115,6 +114,7 @@ export default function startGame(gameId,gameModifyDatas,type){
 			case "PokeGetItem":
 			case "CatchFruit":
 			case "Cooking":
+				console.log('using playGame');
 				game = new Phaser.Game(playGameConfig)
 				break
 			default:
@@ -128,6 +128,7 @@ export default function startGame(gameId,gameModifyDatas,type){
 			case "PokeGetItem":
 			case "CatchFruit":
 			case "Cooking":
+				console.log('using game');
 				game = new Phaser.Game(modifyGameConfig)
 				break
 			default:

@@ -7,10 +7,6 @@ export default class GameoverMessage{
             {message: message.gameoverMessage.message[1], scoreCondition: message.gameoverMessage.score[1]},
             {message: message.gameoverMessage.message[2], scoreCondition: message.gameoverMessage.score[2]}
         ]
-        // this.message = message.gameoverMessage.message
-        // this.scoreCondition = message.gameoverMessage.score.sort(function(a, b) {
-        //     return b - a;
-        // })
         this.messages.sort(function(a, b) {
             return b.scoreCondition - a.scoreCondition;
         })

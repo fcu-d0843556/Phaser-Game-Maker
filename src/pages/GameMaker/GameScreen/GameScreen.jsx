@@ -31,7 +31,7 @@ export default class GameScreen extends Component {
                 </div>
               
             : 
-              <div style={{visibility: mobileModifyMode === "game" ? "visible" : "hidden", zIndex: 1}} className={width >= 440 && height >= 850 ? "phone-style": ""}>
+              <div style={{visibility: mobileModifyMode === "game" ? "visible" : "hidden"}} className={width >= 440 && height >= 850 ? "phone-style": ""}>
                 <div className="phone" id="phaser-container"></div>
               </div>
           }
