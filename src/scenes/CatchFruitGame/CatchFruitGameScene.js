@@ -21,7 +21,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        console.log(this.modifyDatas);
+        // console.log(this.modifyDatas);
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
             this.modifyDatas[key].items.forEach((itemObj)=>{

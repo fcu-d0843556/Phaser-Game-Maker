@@ -45,6 +45,7 @@ export default class Home extends Component {
             <IntroSampleBox width={width}></IntroSampleBox>
             <IntroStepBox width={width}></IntroStepBox>
 
+            {/* 回到首頁按鈕 */}
             <BackTop duration={300}>
               <div className='back-top-button'>
                 <VerticalAlignTopOutlined />
