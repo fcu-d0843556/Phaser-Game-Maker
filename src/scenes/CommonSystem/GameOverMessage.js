@@ -14,7 +14,7 @@ export default class GameoverMessage{
         this.messages.sort(function(a, b) {
             return b.scoreCondition - a.scoreCondition;
         })
-        console.log( this.messages);
+        // console.log( this.messages);
     }
 
     create(){
