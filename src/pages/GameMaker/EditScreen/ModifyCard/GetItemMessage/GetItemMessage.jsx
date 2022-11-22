@@ -21,7 +21,6 @@ export default class GetItemMessage extends Component {
 
     render() {
         const {content,modifyTitle,inputType,unit,min, max,size} = this.props.text
-        console.log(this.props.text);
         const changeNumberValue = (value) => {
             const {textDatas} = this.state
             textDatas.text.content = value

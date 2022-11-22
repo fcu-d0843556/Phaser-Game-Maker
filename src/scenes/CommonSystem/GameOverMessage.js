@@ -10,26 +10,25 @@ export default class GameoverMessage{
         this.messages.sort(function(a, b) {
             return b.scoreCondition - a.scoreCondition;
         })
-        // console.log( this.messages);
     }
 
     create(){
-        let gameoverLabel = this.scene.add.image(180,325,'gameoverLabel').setScale(0.52,0.52).setDepth(2);
-        let playAgainButton = this.scene.add.image(180,550,'playAgainButton').setScale(0.4,0.4).setDepth(2);
+        let gameoverLabel = this.scene.add.image(180,325,'gameoverLabel').setScale(0.52,0.52).setDepth(6);
+        let playAgainButton = this.scene.add.image(180,550,'playAgainButton').setScale(0.4,0.4).setDepth(6);
         const scoreTextStyle = {
             fontSize: 26,
             fill: "#000",
             wordWrap: { width: 320, useAdvancedWrap: true }
         }
 
-        let scoreText = this.scene.add.text(35,105,"\n你的得分是：" + this.score , scoreTextStyle).setDepth(2);
+        let scoreText = this.scene.add.text(35,105,"\n你的得分是：" + this.score , scoreTextStyle).setDepth(6);
 
         const messageStyle = {
             fontSize: 26,
             fill: "#000",
             wordWrap: { width: 280, useAdvancedWrap: true }
         }
-        let messageHeader = this.scene.add.text(35,150,"\n你的評價是：",messageStyle).setDepth(2);
+        let messageHeader = this.scene.add.text(35,150,"\n你的評價是：",messageStyle).setDepth(6);
         
         const gameoverMessageStyle = {
             fontSize: 32,
@@ -38,15 +37,14 @@ export default class GameoverMessage{
         }
         let gameoverMessage;
         if(this.score > this.messages[0].scoreCondition){
-            gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[0].message,gameoverMessageStyle).setDepth(2);
+            gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[0].message,gameoverMessageStyle).setDepth(6);
         }else if(this.score > this.messages[1].scoreCondition){
-            gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[1].message,gameoverMessageStyle).setDepth(2);
+            gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[1].message,gameoverMessageStyle).setDepth(6);
         }else{
-            gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[2].message,gameoverMessageStyle).setDepth(2);
+            gameoverMessage = this.scene.add.text(65,220,"\n" + this.messages[2].message,gameoverMessageStyle).setDepth(6);
         }
 
         playAgainButton.setInteractive().on('pointerdown',function(){
-            // console.log('game restart')
             scoreText.destroy()
             gameoverLabel.destroy()
             playAgainButton.destroy()

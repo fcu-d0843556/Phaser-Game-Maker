@@ -52,6 +52,7 @@ export default class CookingGameScene extends Phaser.Scene{
 
 
     create(){
+        this.foodCreatedNum = 0
         this.isGameStart = false
 
         //background custom OK.
@@ -88,10 +89,11 @@ export default class CookingGameScene extends Phaser.Scene{
         this.foodCan.setInteractive().on('pointerdown',function(){
             let foodSpawner = new FoodSpawner(this,food.items)
             let newFood = foodSpawner.spawn()
-            let foodGroupLen = Object.keys(this.foodGroup).length
-            newFood.food.setData('name', foodGroupLen)
+            let foodGroupLen = this.foodCreatedNum
+            newFood.food.setData('name', this.foodCreatedNum)
             newFood.food.setData('type', 'rawFood')
             this.foodGroup[foodGroupLen] = newFood
+            this.foodCreatedNum++
         },this)
     }
 
@@ -116,10 +118,10 @@ export default class CookingGameScene extends Phaser.Scene{
                 let name = gameObject.getData('name')
                 
                 //debug
-                if(this.foodGroup[name].timer.label){
-                    this.foodGroup[name].timer.label.x = gameObject.x
-                    this.foodGroup[name].timer.label.y = gameObject.y
-                }
+                // if(this.foodGroup[name].timer.label){
+                //     this.foodGroup[name].timer.label.x = gameObject.x
+                //     this.foodGroup[name].timer.label.y = gameObject.y
+                // }
 
 
                 if(this.foodGroup[name].timer.timerEvent){
@@ -134,10 +136,10 @@ export default class CookingGameScene extends Phaser.Scene{
                 let name = gameObject.getData('name')
 
                 // debug
-                if(this.foodGroup[name].timer.label){
-                    this.foodGroup[name].timer.label.x = gameObject.x
-                    this.foodGroup[name].timer.label.y = gameObject.y
-                }
+                // if(this.foodGroup[name].timer.label){
+                //     this.foodGroup[name].timer.label.x = gameObject.x
+                //     this.foodGroup[name].timer.label.y = gameObject.y
+                // }
 
                 if(this.foodGroup[name].timer.timerEvent){
                     this.foodGroup[name].timer.pause()
@@ -179,9 +181,9 @@ export default class CookingGameScene extends Phaser.Scene{
         this.physics.pause()
 
         //遊戲結束時讓食物不可以拖動了
-        for(let i=0;i<this.foodGroup.length;i++){
-            this.input.setDraggable(this.foodGroup[i].food, false);
-        }
+        Object.keys(this.foodGroup).forEach((food)=>{
+            this.input.setDraggable(this.foodGroup[food].food, false);
+        })
 
         //遊戲結束評語
         const {gameoverMessage} = this.modifyDatas

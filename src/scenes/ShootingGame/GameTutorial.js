@@ -3,10 +3,10 @@ export default class GameTutorial{
         this.scene = scene
         this.balloons = balloons
         this.text = text
-        // console.log(text);
 
     }
-    //.setScale(this.balloons[type-1].img.size/100)
+
+
     create(){
         let startGameLabel = this.scene.add.image(180,325,'startGameLabel').setScale(0.52,0.52).setDepth(2);
         let startGameButton = this.scene.add.image(180,550,'startGameButton').setScale(0.4,0.4).setDepth(2);

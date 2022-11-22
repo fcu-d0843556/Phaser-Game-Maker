@@ -3,13 +3,12 @@ export default class GameTutorial{
         this.scene = scene
         this.food = food
         this.text = text
-        console.log(food);
 
     }
-    //.setScale(this.balloons[type-1].img.size/100)
+
     create(){
-        let startGameLabel = this.scene.add.image(180,325,'startGameLabel').setScale(0.52,0.52).setDepth(2);
-        let startGameButton = this.scene.add.image(180,550,'startGameButton').setScale(0.4,0.4).setDepth(2);
+        let startGameLabel = this.scene.add.image(180,325,'startGameLabel').setScale(0.52,0.52).setDepth(5);
+        let startGameButton = this.scene.add.image(180,550,'startGameButton').setScale(0.4,0.4).setDepth(5);
 
         let foodArr = []
         let scoreTextArr = []
@@ -19,16 +18,16 @@ export default class GameTutorial{
             "fill": "#000"
         }
 
-        foodArr.push(this.scene.add.image(75,405, this.food[1].name).setScale(this.food[1].img.size/100).setDepth(3));
-        foodArr.push(this.scene.add.image(225,405, this.food[1].name).setScale(this.food[1].img.size/100).setDepth(3).setTint(0xe3c0ad));
+        foodArr.push(this.scene.add.image(75,405, this.food[1].name).setScale(this.food[1].img.size/100).setDepth(6));
+        foodArr.push(this.scene.add.image(225,405, this.food[1].name).setScale(this.food[1].img.size/100).setDepth(6).setTint(0xe3c0ad));
 
-        foodArr.push(this.scene.add.image(225,470, this.food[3].name).setScale(this.food[3].img.size/100).setDepth(3).setTint(0x5C4033));
-        foodArr.push(this.scene.add.image(75,470, this.food[3].name).setScale(this.food[3].img.size/100).setDepth(3));
+        foodArr.push(this.scene.add.image(225,470, this.food[3].name).setScale(this.food[3].img.size/100).setDepth(6).setTint(0x5C4033));
+        foodArr.push(this.scene.add.image(75,470, this.food[3].name).setScale(this.food[3].img.size/100).setDepth(6));
 
-        scoreTextArr.push(this.scene.add.text(115,395, this.food[1].score.content, scoreTextStyle).setDepth(3))
-        scoreTextArr.push(this.scene.add.text(115,460, this.food[3].score.content, scoreTextStyle).setDepth(3))
-        scoreTextArr.push(this.scene.add.text(255,460, this.food[4].score.content, scoreTextStyle).setDepth(3))
-        scoreTextArr.push(this.scene.add.text(255,395, this.food[2].score.content, scoreTextStyle).setDepth(3))
+        scoreTextArr.push(this.scene.add.text(115,395, this.food[1].score.content, scoreTextStyle).setDepth(6))
+        scoreTextArr.push(this.scene.add.text(115,460, this.food[3].score.content, scoreTextStyle).setDepth(6))
+        scoreTextArr.push(this.scene.add.text(255,460, this.food[4].score.content, scoreTextStyle).setDepth(6))
+        scoreTextArr.push(this.scene.add.text(255,395, this.food[2].score.content, scoreTextStyle).setDepth(6))
            
 
         const style = {
@@ -36,7 +35,7 @@ export default class GameTutorial{
             fill: "#000",
             wordWrap: { width: 280, useAdvancedWrap: true }
         }
-        let description = this.scene.add.text(50, 80, "\n"+ this.text.text.content, style).setDepth(3)
+        let description = this.scene.add.text(50, 80, "\n"+ this.text.text.content, style).setDepth(6)
 
         startGameButton.setInteractive().on('pointerdown',function(){
             // console.log('startGame!')
