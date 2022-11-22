@@ -64,14 +64,14 @@ export default class GetItemMessage extends Component {
                 </Col>
 
                 {
-                    size ? 
+                    size !== undefined ? 
                         <Col span={24}>
                             <Card 
                                 title={<Title className='modify-card-card-tile' level={4}>說 明 文 字 大 小</Title>}
                                 bordered={false}
                             >
                                 <InputNumber 
-                                    min={1} max={1000} 
+                                    min={1} max={50} 
                                     value={size} 
                                     onChange={changeSizeValue} 
                                 />

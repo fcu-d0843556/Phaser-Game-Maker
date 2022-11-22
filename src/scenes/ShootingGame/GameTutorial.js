@@ -22,7 +22,7 @@ export default class GameTutorial{
         }
 
         const style = {
-            fontSize: 24,
+            fontSize: this.text.text.size,
             fill: "#000",
             wordWrap: { width: 280, useAdvancedWrap: true }
         }

@@ -9,7 +9,7 @@ export default class GameTutorial{
         let startGameButton = this.scene.add.image(180,550,'startGameButton').setScale(0.4,0.4).setDepth(2);
 
         const style = {
-            fontSize: 24,
+            fontSize: this.text.text.size,
             fill: "#000",
             wordWrap: { width: 280, useAdvancedWrap: true }
         }
