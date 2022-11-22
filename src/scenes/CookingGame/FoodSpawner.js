@@ -37,6 +37,9 @@ export default class foodSpawner{
             case 2:
                 this.food.setTexture('wellFood')
                 break
+            case 3:
+                this.food.setTexture('overcookedFood')
+                break
             default:
                 break;
         }
