@@ -36,10 +36,11 @@ export default class foodSpawner{
                 this.food.setData('type', 'halfFood')
                 break;
             case 2:
-                this.food.setTexture('wellFood')
                 this.food.setData('type', 'wellFood')
                 this.food.setScale(this.data[3].img.size/100)
                 this.food.clearTint()
+                this.food.setTexture('wellFood')
+
                 break
             case 3:
                 this.food.setTint(0x5C4033)
