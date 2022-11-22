@@ -73,7 +73,7 @@ export default class EditScreen extends Component {
                 {/* 響應式設計的相關code */}
                 <Col span={width >=1000 ? 8:0}></Col>
 
-                <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 2}}>
+                <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 15}}>
                     <div className="modify-cards-screen" style={{marginRight: width >= 845 ? 4.5 : 0}}>
                         <Form> 
                             <List
@@ -118,7 +118,7 @@ export default class EditScreen extends Component {
                 </Col>
                 
                 {/* 下方的編輯按鈕 */}
-                <Layout style={{zIndex: 10}}>
+                <Layout style={{zIndex: 30}}>
                     <Footer className="fixed-game-footer" >
 
                         <Popconfirm placement="top" title="您確定要回到默認遊戲資料嗎？" onConfirm={this.backToDefaultDatas} okText="好" cancelText="取消">

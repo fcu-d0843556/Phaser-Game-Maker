@@ -18,7 +18,7 @@ export default class CookingGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        // console.log("modifyDatas : ", this.modifyDatas)
+        console.log("modifyDatas : ", this.modifyDatas)
 
         // load image
         Object.keys(this.modifyDatas).forEach((key)=>{
@@ -42,6 +42,7 @@ export default class CookingGameScene extends Phaser.Scene{
         this.load.image('panel','/img/Games/CookingGame/cookpanel.png')
         this.load.image('blackBlock','/img/Games/CookingGame/blackBlock.png')
 
+        this.load.image('trashCan','/img/Games/CookingGame/trashCan.png')
 
         this.load.image('cookSpot','/img/Games/CookingGame/cookSpot.png')
 
@@ -61,8 +62,10 @@ export default class CookingGameScene extends Phaser.Scene{
 
         this.add.image(400,480,'panel');
         this.add.image(400,620,'blackBlock')
-
+        // this.add.image(40,610,'trashCan').setScale(0.15)
         
+        this.createTrashCan()
+
         this.cookHitBoxGroup = this.createCookHitBox()
 
         
@@ -89,7 +92,6 @@ export default class CookingGameScene extends Phaser.Scene{
             let foodGroupLen = Object.keys(this.foodGroup).length
             newFood.food.setData('name', foodGroupLen)
             this.foodGroup[foodGroupLen] = newFood
-            console.log( this.foodGroup);
         },this)
     }
 
@@ -130,7 +132,7 @@ export default class CookingGameScene extends Phaser.Scene{
             if(dropZone.texture.key === "cookSpot"){
                 dropZone.clearTint();
                 let name = gameObject.getData('name')
-console.log("gameob",gameObject.timer);
+
                 // debug
                 if(this.foodGroup[name].timer.label){
                     this.foodGroup[name].timer.label.x = gameObject.x
@@ -158,10 +160,15 @@ console.log("gameob",gameObject.timer);
                         this.customer.setTexture('happyCustomer')
                         this.scoreText.addScore(10)
                         break
+                    case 'overCookedFood':
+                        this.customer.setTexture('angryCustomer')
+                        this.scoreText.addScore(-50)
+                        break
                 }
                 delete this.foodGroup[gameObject.getData('name')]
-                console.log("after", this.foodGroup);
-                // this.foodGroup.splice(gameObject.getData('name'), 1)
+                gameObject.destroy(true,true)
+            }else if(dropZone.texture.key === "trashCan"){
+                delete this.foodGroup[gameObject.getData('name')]
                 gameObject.destroy(true,true)
             }
         },this);
@@ -179,6 +186,11 @@ console.log("gameob",gameObject.timer);
         const {gameoverMessage} = this.modifyDatas
         this.gameoverMessage = new GameoverMessage(this,this.scoreText.getScore(),gameoverMessage.items[0])
         this.gameoverMessage.create()
+    }
+
+    createTrashCan(){
+        this.trashCan = this.physics.add.image(40,610,'trashCan').setScale(0.15).setInteractive()
+        this.trashCan.input.dropZone = true
     }
 
     //建造4個煮東西的判定
