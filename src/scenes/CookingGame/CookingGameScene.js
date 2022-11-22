@@ -80,14 +80,16 @@ export default class CookingGameScene extends Phaser.Scene{
     }
 
     createFoodCan(){
-        this.foodGroup = []
+        this.foodGroup = {}
         const {food} = this.modifyDatas
         this.foodCan = this.physics.add.sprite(130,340,'foodCan').setScale(food.items[0].img.size/100).setDepth(2);
         this.foodCan.setInteractive().on('pointerdown',function(){
             let foodSpawner = new FoodSpawner(this,food.items[1])
             let newFood = foodSpawner.spawn()
-            newFood.food.setData('name', this.foodGroup.length)
-            this.foodGroup.push(newFood)
+            let foodGroupLen = Object.keys(this.foodGroup).length
+            newFood.food.setData('name', foodGroupLen)
+            this.foodGroup[foodGroupLen] = newFood
+            console.log( this.foodGroup);
         },this)
     }
 
@@ -128,7 +130,7 @@ export default class CookingGameScene extends Phaser.Scene{
             if(dropZone.texture.key === "cookSpot"){
                 dropZone.clearTint();
                 let name = gameObject.getData('name')
-
+console.log("gameob",gameObject.timer);
                 // debug
                 if(this.foodGroup[name].timer.label){
                     this.foodGroup[name].timer.label.x = gameObject.x
@@ -157,8 +159,9 @@ export default class CookingGameScene extends Phaser.Scene{
                         this.scoreText.addScore(10)
                         break
                 }
-
-                this.foodGroup.splice(gameObject.getData('name'), 1)
+                delete this.foodGroup[gameObject.getData('name')]
+                console.log("after", this.foodGroup);
+                // this.foodGroup.splice(gameObject.getData('name'), 1)
                 gameObject.destroy(true,true)
             }
         },this);
@@ -210,9 +213,10 @@ export default class CookingGameScene extends Phaser.Scene{
             this.gameTimer.update()
 
             //顯示食物計時器，debug
-            for(var i= 0 ;i<this.foodGroup.length;i++){
-                this.foodGroup[i].timer.update()
-            }
+            Object.keys(this.foodGroup).forEach((food)=>{
+                this.foodGroup[food].timer.update()
+            })
+
         }
     }
 
