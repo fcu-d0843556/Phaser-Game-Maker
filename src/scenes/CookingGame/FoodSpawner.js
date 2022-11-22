@@ -15,10 +15,10 @@ export default class foodSpawner{
     }
 
     spawn(){
-        this.food = this.scene.add.sprite(200,350,'rawFood').setScale(this.data.img.size/100).setDepth(1).setInteractive();  
+        this.food = this.scene.add.sprite(200,350,'rawFood').setScale(this.data[1].img.size/100).setDepth(2).setInteractive();  
         this.scene.input.setDraggable(this.food);
-        this.food.on('pointerover', function () {this.setTint(0x00ff00);});
-        this.food.on('pointerout', function () {this.clearTint();});
+        // this.food.on('pointerover', function () {this.setTint(0x00ff00);});
+        // this.food.on('pointerout', function () {this.clearTint();});
         
         const cookTimeLabel = this.scene.add.text(200,350,'',{fontSize:32,fill:'#000'})
 
@@ -32,13 +32,18 @@ export default class foodSpawner{
     countEnd(){
         switch (this.foodcountdown) {
             case 1:
-                this.food.setTexture('halfFood')
+                this.food.setTint(0xe3c0ad)
+                this.food.setData('type', 'halfFood')
                 break;
             case 2:
                 this.food.setTexture('wellFood')
+                this.food.setData('type', 'wellFood')
+                this.food.setScale(this.data[3].img.size/100)
+                this.food.clearTint()
                 break
             case 3:
-                this.food.setTexture('overcookedFood')
+                this.food.setTint(0x5C4033)
+                this.food.setData('type', 'overcookedFood')
                 break
             default:
                 break;
@@ -46,7 +51,7 @@ export default class foodSpawner{
         if(this.foodcountdown===3){
             this.timer.stop()
         }else{
-            this.timer.start(this.countEnd.bind(this),2000)
+            this.timer.start(this.countEnd.bind(this),3000)
             this.timer.keepStart()
             this.foodcountdown++
         }

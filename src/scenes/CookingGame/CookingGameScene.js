@@ -60,9 +60,8 @@ export default class CookingGameScene extends Phaser.Scene{
 
         
 
-        this.add.image(400,480,'panel');
-        this.add.image(400,620,'blackBlock')
-        // this.add.image(40,610,'trashCan').setScale(0.15)
+        this.add.image(400,480,'panel').setDepth(1);
+        this.add.image(400,620,'blackBlock').setDepth(1)
         
         this.createTrashCan()
 
@@ -77,20 +76,21 @@ export default class CookingGameScene extends Phaser.Scene{
         
 
         //gameStart Tutorial
-        const {gameTutorialText} = this.modifyDatas
-        this.gameTutorialMessage = new GameTutorial(this, gameTutorialText.items[0])
+        const {gameTutorialText,food} = this.modifyDatas
+        this.gameTutorialMessage = new GameTutorial(this,food.items, gameTutorialText.items[0])
         this.gameTutorialMessage.create()
     }
 
     createFoodCan(){
         this.foodGroup = {}
         const {food} = this.modifyDatas
-        this.foodCan = this.physics.add.sprite(130,340,'foodCan').setScale(food.items[0].img.size/100).setDepth(2);
+        this.foodCan = this.physics.add.sprite(food.items[0].img.position.x,food.items[0].img.position.y,'foodCan').setScale(food.items[0].img.size/100).setDepth(2);
         this.foodCan.setInteractive().on('pointerdown',function(){
-            let foodSpawner = new FoodSpawner(this,food.items[1])
+            let foodSpawner = new FoodSpawner(this,food.items)
             let newFood = foodSpawner.spawn()
             let foodGroupLen = Object.keys(this.foodGroup).length
             newFood.food.setData('name', foodGroupLen)
+            newFood.food.setData('type', 'rawFood')
             this.foodGroup[foodGroupLen] = newFood
         },this)
     }
@@ -99,8 +99,8 @@ export default class CookingGameScene extends Phaser.Scene{
     setInputInteractive(){
 
         
-        this.input.on('dragstart', function (pointer, gameObject) {gameObject.setTint(0xff0000);});
-        this.input.on('dragend', function (pointer, gameObject) {gameObject.clearTint();});
+        // this.input.on('dragstart', function (pointer, gameObject) {gameObject.setTint(0xff0000);});
+        // this.input.on('dragend', function (pointer, gameObject) {gameObject.clearTint();});
 
 
 
@@ -147,22 +147,23 @@ export default class CookingGameScene extends Phaser.Scene{
 
         this.input.on('drop', function (pointer, gameObject, dropZone) {
             if(dropZone.texture.key === "wantedItem"){
-                switch(gameObject.texture.key){
+                const {food} = this.modifyDatas
+                switch(gameObject.getData('type')){
                     case 'rawFood':
                         this.customer.setTexture('angryCustomer')
-                        this.scoreText.addScore(-10)
+                        this.scoreText.addScore(food.items[1].score.content)
                         break
                     case 'halfFood':
                         this.customer.setTexture('neturalCustomer')
-                        this.scoreText.addScore(5)
+                        this.scoreText.addScore(food.items[2].score.content)
                         break
                     case 'wellFood':
                         this.customer.setTexture('happyCustomer')
-                        this.scoreText.addScore(10)
+                        this.scoreText.addScore(food.items[3].score.content)
                         break
-                    case 'overCookedFood':
+                    case 'overcookedFood':
                         this.customer.setTexture('angryCustomer')
-                        this.scoreText.addScore(-50)
+                        this.scoreText.addScore(food.items[4].score.content)
                         break
                 }
                 delete this.foodGroup[gameObject.getData('name')]
@@ -225,9 +226,9 @@ export default class CookingGameScene extends Phaser.Scene{
             this.gameTimer.update()
 
             //顯示食物計時器，debug
-            Object.keys(this.foodGroup).forEach((food)=>{
-                this.foodGroup[food].timer.update()
-            })
+            // Object.keys(this.foodGroup).forEach((food)=>{
+            //     this.foodGroup[food].timer.update()
+            // })
 
         }
     }
@@ -236,7 +237,8 @@ export default class CookingGameScene extends Phaser.Scene{
         // create score board
         this.createScoreBoard()
         this.scoreText.showScoreText()
-        let customerSpawner  = new CustomerSpawner(this,this.scoreText)
+        const {food, customer} = this.modifyDatas
+        let customerSpawner  = new CustomerSpawner(this,this.scoreText,food.items[3], customer.items)
         this.customer = customerSpawner.spawn()
         
         //創建食物桶，可以用來生成生的食物
@@ -260,7 +262,7 @@ export default class CookingGameScene extends Phaser.Scene{
         this.gameTimer.start(this.gameover.bind(this),gameTimer.text.content * 1000)//5s
     }
 
-    createScoreBoard(){
+    createScoreBoard(){ 
         //Score
         const scoreTextLabel = this.add.text(16,-10, "", {
             "fontSize": 32,
