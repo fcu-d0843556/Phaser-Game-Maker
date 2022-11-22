@@ -18,7 +18,6 @@ const modifyGameConfig = {
 		createContainer: true,
 	},
 	scale:{
-		//autoCenter: Phaser.Scale.CENTER_BOTH,
 		mode:Phaser.Scale.FIT,
 	},
 	physics: {
@@ -55,18 +54,14 @@ const playGameConfig = {
 
 const modifyGameConfigMatter = {
 	type: Phaser.AUTO,
-	// type: Phaser.CANVAS,
 	parent: 'phaser-container',
 	width:  360, //800
 	height: 640, //600
-	// width:  window.innerWidth * window.devicePixelRatio, //800
-	// height: window.innerHeight * window.devicePixelRatio, //600
 	backgroundColor: '#000111',
 	dom: {
 		createContainer: true,
 	},
 	scale:{
-		//autoCenter: Phaser.Scale.CENTER_BOTH,
 		mode:Phaser.Scale.FIT,
 	},
 	physics: {
@@ -105,7 +100,6 @@ const playGameConfigMatter = {
 
 
 export default function startGame(gameId,gameModifyDatas,type){
-	// console.log(type);
 	let game;
 	if(type === "playGame"){
 		switch(gameId){
@@ -114,7 +108,6 @@ export default function startGame(gameId,gameModifyDatas,type){
 			case "PokeGetItem":
 			case "CatchFruit":
 			case "Cooking":
-				console.log('using playGame');
 				game = new Phaser.Game(playGameConfig)
 				break
 			default:
@@ -128,7 +121,6 @@ export default function startGame(gameId,gameModifyDatas,type){
 			case "PokeGetItem":
 			case "CatchFruit":
 			case "Cooking":
-				console.log('using game');
 				game = new Phaser.Game(modifyGameConfig)
 				break
 			default:
