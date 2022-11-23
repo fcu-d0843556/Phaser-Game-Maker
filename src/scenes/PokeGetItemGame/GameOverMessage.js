@@ -3,7 +3,6 @@ export default class GameoverMessage{
         this.scene = scene
         this.items = items 
         this.gameoverMessage = gameoverMessage
-        console.log(items);
     }
 
     create(){
