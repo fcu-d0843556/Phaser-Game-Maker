@@ -67,7 +67,7 @@ export default class RenderGame extends Component {
 
   fullScreen = () => {
     const getScreen = document.getElementById("phaser-play-screen")
-    console.log(getScreen);
+    // console.log(getScreen);
     if (getScreen.requestFullscreen) {
       getScreen.requestFullscreen();
     }

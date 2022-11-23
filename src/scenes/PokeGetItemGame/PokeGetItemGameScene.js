@@ -1,5 +1,10 @@
 import Phaser from "phaser";
 
+
+//Common System Scripts
+import UsefulMath from "../CommonSystem/UsefulMath";
+
+//PokeGetItem Game Scripts
 import WordDisappearTimer from './WordDisappearTimer';
 import GameoverMessage from "./GameOverMessage";
 
@@ -58,6 +63,20 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
 
         this.add.image(180,400,'box')
 
+        
+
+        //顯示提示訊息
+        const {gameMessage} = this.modifyDatas
+        const gameMessageStyle = {
+            fontSize: gameMessage.items[0].text.size,
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 2,
+            wordWrap: { width: 320, useAdvancedWrap: true }
+        }
+        this.add.text(20,70, '\n' + gameMessage.items[0].text.content, gameMessageStyle)
+
+        //顯示可以戳幾次
         const {gameRule} = this.modifyDatas
         this.hitTimes = gameRule.items[0].text.content
         const hitTimesStyle = {
@@ -69,28 +88,36 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
         }
         this.hitTimesText = this.add.text(20,6, '\n您還可以戳 ' + this.hitTimes + ' 次', hitTimesStyle)
 
-
-        const {gameMessage} = this.modifyDatas
-        const gameMessageStyle = {
-            fontSize: gameMessage.items[0].text.size,
-            fill: "#fff",
-            stroke: "#000",
-            strokeThickness: 2,
-            wordWrap: { width: 320, useAdvancedWrap: true }
-        }
-        this.add.text(20,70, '\n' + gameMessage.items[0].text.content, gameMessageStyle)
-
-
+        //生成盒子外觀，盒子裡的物品
         const {boxObject,boxSkin} = this.modifyDatas
         let smallBoxs = this.physics.add.group()
         let smallBoxsTimes = 0
+        if(gameRule.items[1].selection.selected === 'random'){
+            const usefulMath = new UsefulMath(this)
+            this.randomLocationKey = [...this.locationKey]
+            usefulMath.shuffle(this.randomLocationKey)
+        }
+        this.boxObjectModifyDatas = {}
+        for(let i=0;i< boxObject.items.length;i++){
+            this.boxObjectModifyDatas[boxObject.items[i].name.replace("Object","")] = {
+                text: boxObject.items[i].text.content,
+                size: boxObject.items[i].img.size
+            }
+        }
         for(let y = 300,timesY = 0;timesY<3; y+= 100,timesY++){
             for(let x = 80,timesX = 0;timesX<3; x+= 100,timesX++){
                 let smallBox = this.physics.add.sprite(x,y, 'smallBox')
                 this.add.image(x,y, this.locationKey[smallBoxsTimes] + 'Skin').setScale(boxSkin.items[smallBoxsTimes].img.size/100)
-                smallBox.setData('getItemKey', this.locationKey[smallBoxsTimes] + 'Object')
-                smallBox.setData('text', boxObject.items[smallBoxsTimes].text.content)
-                smallBox.setData('size', boxObject.items[smallBoxsTimes].img.size)
+                if(gameRule.items[1].selection.selected === 'stick'){
+                    smallBox.setData('getItemKey', this.locationKey[smallBoxsTimes] + 'Object')   
+                    smallBox.setData('text', this.boxObjectModifyDatas[this.locationKey[smallBoxsTimes]].text)
+                    smallBox.setData('size', this.boxObjectModifyDatas[this.locationKey[smallBoxsTimes]].size)
+                }else if(gameRule.items[1].selection.selected === 'random'){
+                    smallBox.setData('getItemKey', this.randomLocationKey[smallBoxsTimes] + 'Object')   
+                    smallBox.setData('text', this.boxObjectModifyDatas[this.randomLocationKey[smallBoxsTimes]].text)
+                    smallBox.setData('size', this.boxObjectModifyDatas[this.randomLocationKey[smallBoxsTimes]].size)
+                }
+                
                 smallBoxs.add(smallBox)
                 smallBoxsTimes++
             }       

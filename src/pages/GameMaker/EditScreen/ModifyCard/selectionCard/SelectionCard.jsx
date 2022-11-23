@@ -13,7 +13,7 @@ export default class SelectionCard extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props);
+        // console.log(this.props);
         this.setState({
             selectionDatas: {...this.props}
         })

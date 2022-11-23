@@ -1,7 +1,6 @@
 import Phaser from "phaser"
 
 //Common System Scripts
-// import GetMouseSpot from "../CommonSystem/GetMouseSpot"
 import GameTimer from "../CommonSystem/GameTimer"
 import Score from "../CommonSystem/Score"
 import DropTimeCounter from "../CommonSystem/DropTimeCounter"
