@@ -9,6 +9,8 @@ import QuestionCard from './QuestionCard/QuestionCard'
 import ScoreCard from './ScoreCard/ScoreCard'
 import PriorityCard from './PriorityCard/PriorityCard'
 import GameoverMessage from './GameoverMessage/GameoverMessage'
+import SelectionCard from './selectionCard/SelectionCard'
+
 
 import './ModifyCard.css'
 
@@ -23,9 +25,9 @@ export default class ModifyCard extends Component {
 
   render() {
 
-    const {modifyTitle,img,text,name,question,score,priority,gameoverMessage} = this.props
+    const {modifyTitle,img,text,name,question,score,priority,gameoverMessage,selection} = this.props
     const {activeTab} = this.state
-
+    // console.log(this.props);
     const changeTab = (key) => {
       this.setState({activeTab: key})
     }
@@ -86,6 +88,14 @@ export default class ModifyCard extends Component {
                 </Panel>
               :
               <div></div>
+            }
+
+            {
+              selection ? 
+                <Panel style={{background: activeTab === selection.modifyTitle ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6"}} header={<Title level={4} style={{margin: 0}}>{selection.modifyTitle}</Title>} key={selection.modifyTitle}>
+                  <SelectionCard {...this.props}></SelectionCard>
+                </Panel>
+              : <div></div>
             }
         </Collapse>
     )
