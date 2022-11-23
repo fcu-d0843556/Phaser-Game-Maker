@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
-import GetMouseSpot from "../CommonSystem/GetMouseSpot"
 import WordDisappearTimer from './WordDisappearTimer';
+import GameoverMessage from "./GameOverMessage";
 
 export default class PokeGetItemGameScene extends Phaser.Scene{
     constructor(userID,appSpot){
@@ -30,13 +30,22 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
             })
         })
 
+        this.load.image('gameoverLabel','/img/Games/Common/gameover/gameoverLabel.png')
+        this.load.image('playAgainButton', '/img/Games/Common/gameover/playAgainButton.png')
+
         this.load.image('box','/img/Games/PokeGetItemGame/chuochuobox.png')
         this.load.image('smallBox','/img/Games/PokeGetItemGame/smallBox.png')
         this.load.image('smallBoxBreak','/img/Games/PokeGetItemGame/smallBoxBreak.png')
         this.load.image('finger','/img/Games/PokeGetItemGame/finger.png')
-        this.load.image('heart','/img/Games/PokeGetItemGame/heartRed.png')
 
-
+    }
+    
+    gameover(){
+        console.log('gameover!!');
+        //遊戲結束評語
+        const {gameoverMessage} = this.modifyDatas
+        this.gameoverMessage = new GameoverMessage(this,this.getItemObjs,gameoverMessage.items)
+        this.gameoverMessage.create()
     }
 
     create(){
@@ -44,17 +53,26 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
             'upperLeft','upperMiddle','upperRight',
             'middleLeft','center','middleRight',
             'lowerLeft','lowerMiddle','lowerRight']
-
+        this.getItemObjs = []
         //background custom OK.
         const {background} = this.modifyDatas
         this.add.image(background.items[0].img.position.x, background.items[0].img.position.y ,'background').setScale(background.items[0].img.size/100)
 
         this.add.image(180,400,'box')
 
+        const {gameRule} = this.modifyDatas
+        this.hitTimes = gameRule.items[0].text.content
+        const hitTimesStyle = {
+            fontSize: 28,
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 2,
+            wordWrap: { width: 320, useAdvancedWrap: true }
+        }
+        this.hitTimesText = this.add.text(20,6, '\n您還可以戳 ' + this.hitTimes + ' 次', hitTimesStyle)
 
-        // this.add.text(20,70,'選個洞戳戳看有什麼獎品吧！',{fontSize:25,fill:'#fff',backgroundColor:'rgba(0,255,0,0.25)'})
+
         const {gameMessage} = this.modifyDatas
-        // console.log(gameMessage);
         const gameMessageStyle = {
             fontSize: gameMessage.items[0].text.size,
             fill: "#fff",
@@ -66,7 +84,6 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
 
 
         const {boxObject,boxSkin} = this.modifyDatas
-        // console.log(boxObject);
         let smallBoxs = this.physics.add.group()
         let smallBoxsTimes = 0
         for(let y = 300,timesY = 0;timesY<3; y+= 100,timesY++){
@@ -84,10 +101,22 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
         Phaser.Actions.Call(smallBoxs.getChildren(),function(child){
             child.setInteractive()
             child.on('pointerdown',function(){
-                // console.log('you distroy ' + child.texture.key)
+                const getItemObj = {
+                    key: child.getData('getItemKey'),
+                    size: child.getData('size')
+                }
+                this.getItemObjs.push(getItemObj)
                 this.getItemTimer = new WordDisappearTimer(this,child)
                 this.getItemTimer.fingerStart(this.getItemTimer.fingerStop(),1000)
                 child.disableInteractive()
+
+                this.hitTimes--
+                this.hitTimesText.text = '\n您還可以戳 ' + this.hitTimes + ' 次'
+
+                if(this.hitTimes === 0){
+                    this.gameover()
+                }
+                
             },this)
         }, this)
     }
