@@ -31,120 +31,12 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
         })
 
         this.load.image('box','/img/Games/PokeGetItemGame/chuochuobox.png')
-        this.load.image('smallBox','/img/Games/PokeGetItemGame/smallBoxStar.png')
-        this.load.image('smallBoxBreak','/img/Games/PokeGetItemGame/smallBoxStarBreak.png')
+        this.load.image('smallBox','/img/Games/PokeGetItemGame/smallBox.png')
+        this.load.image('smallBoxBreak','/img/Games/PokeGetItemGame/smallBoxBreak.png')
         this.load.image('finger','/img/Games/PokeGetItemGame/finger.png')
         this.load.image('heart','/img/Games/PokeGetItemGame/heartRed.png')
 
-        this.load.image('background','/img/Games/Common/background.png')
 
-        this.allJsonData.boxObject = {
-            items: [
-            {
-                modifyTitle: "左 上 方 塊",
-                name: "balloons",
-                text: "你獲得了balloons！",
-                src: "/img/Games/PokeGetItemGame/balloons.png",
-                position: {
-                x: 80,
-                y: 300
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "中 上 方 塊",
-                name: "moonYellow",
-                text: "你獲得了moonYellow！",
-                src: "/img/Games/PokeGetItemGame/moonYellow.png",
-                position: {
-                x: 180,
-                y: 300
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "右 上 方 塊",
-                name: "heartRed",
-                text: "你獲得了heartRed！",
-                src: "/img/Games/PokeGetItemGame/heartRed.png",
-                position: {
-                x: 280,
-                y: 300
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "左 中 方 塊",
-                name: "heartYellow",
-                text: "你獲得了heartYellow！",
-                src: "/img/Games/PokeGetItemGame/heartYellow.png",
-                position: {
-                x: 80,
-                y: 400
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "正 中 方 塊",
-                name: "heartAqua",
-                text: "你獲得了heartAqua！",
-                src: "/img/Games/PokeGetItemGame/heartAqua.png",
-                position: {
-                x: 180,
-                y: 400
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "右 中 方 塊",
-                name: "heartOrange",
-                text: "你獲得了heartOrange！",
-                src: "/img/Games/PokeGetItemGame/heartOrange.png",
-                position: {
-                x: 280,
-                y: 400
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "左 下 方 塊",
-                name: "heartPink",
-                text: "你獲得了heartPink！",
-                src: "/img/Games/PokeGetItemGame/heartPink.png",
-                position: {
-                x: 80,
-                y: 500
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "中 下 方 塊",
-                name: "starYellow",
-                text: "你獲得了starYellow！",
-                src: "/img/Games/PokeGetItemGame/starYellow.png",
-                position: {
-                x: 180,
-                y: 500
-                },
-                size: 100
-            },
-            {
-                modifyTitle: "右 下 方 塊",
-                name: "smile",
-                text: "你獲得了smile！",
-                src: "/img/Games/PokeGetItemGame/smile.png",
-                position: {
-                x: 280,
-                y: 500
-                },
-                size: 100
-            }
-            ]
-        }
-
-        // for(let s=0; s<this.allJsonData.boxObject.items.length; s++){
-        //     this.load.image(this.allJsonData.boxObject.items[s].name, this.allJsonData.boxObject.items[s].src)
-        // }
     }
 
     create(){
@@ -161,16 +53,26 @@ export default class PokeGetItemGameScene extends Phaser.Scene{
 
 
         // this.add.text(20,70,'選個洞戳戳看有什麼獎品吧！',{fontSize:25,fill:'#fff',backgroundColor:'rgba(0,255,0,0.25)'})
-        this.add.text(20,70,'選個洞戳戳看要吃什麼！',{fontSize:25,fill:'#fff',backgroundColor:'rgba(0,255,0,0.25)'})
+        const {gameMessage} = this.modifyDatas
+        // console.log(gameMessage);
+        const gameMessageStyle = {
+            fontSize: gameMessage.items[0].text.size,
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 2,
+            wordWrap: { width: 320, useAdvancedWrap: true }
+        }
+        this.add.text(20,70, '\n' + gameMessage.items[0].text.content, gameMessageStyle)
 
 
-        const {boxObject} = this.modifyDatas
-        console.log(boxObject);
+        const {boxObject,boxSkin} = this.modifyDatas
+        // console.log(boxObject);
         let smallBoxs = this.physics.add.group()
         let smallBoxsTimes = 0
         for(let y = 300,timesY = 0;timesY<3; y+= 100,timesY++){
             for(let x = 80,timesX = 0;timesX<3; x+= 100,timesX++){
-                let smallBox = this.physics.add.sprite(x,y,'smallBox')
+                let smallBox = this.physics.add.sprite(x,y, 'smallBox')
+                this.add.image(x,y, this.locationKey[smallBoxsTimes] + 'Skin').setScale(boxSkin.items[smallBoxsTimes].img.size/100)
                 smallBox.setData('getItemKey', this.locationKey[smallBoxsTimes] + 'Object')
                 smallBox.setData('text', boxObject.items[smallBoxsTimes].text.content)
                 smallBox.setData('size', boxObject.items[smallBoxsTimes].img.size)

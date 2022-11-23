@@ -3,7 +3,7 @@ export default class WordDisappearTimer {
         this.scene = scene
         this.child = child
         this.getItemKey = this.child.getData('getItemKey')
-        console.log(this.getItemKey);
+        // console.log(this.getItemKey);
         this.text = this.child.getData('text')
         this.size = this.child.getData('size')/100
         this.x = child.x
@@ -32,7 +32,7 @@ export default class WordDisappearTimer {
 
     fingerStop(){
         if(this.fingerTimerEvent){
-            this.child.setTexture('smallBoxBreak')
+            this.scene.add.image(this.x,this.y, 'smallBoxBreak').setDepth(5)
             this.fingerTimerEvent.destroy()
             this.fingerTimerEvent = undefined
             this.finger.destroy(true,true)
@@ -45,8 +45,14 @@ export default class WordDisappearTimer {
         this.heart = this.scene.physics.add.image(this.x,this.y,this.getItemKey).setScale(this.size)
 
         this.scene.physics.moveToObject(this.heart, {x:this.x,y:0}, 50);
-
-        this.textTimer = this.scene.add.text(20,130,this.text,{fontSize:25,fill:'#fff',backgroundColor:'rgba(0,255,0,0.25)'})
+        const textTimerStyle = {
+            fontSize: 20,
+            fill: "#fff",
+            stroke: "#000",
+            strokeThickness: 2,
+            wordWrap: { width: 320, useAdvancedWrap: true }
+        }
+        this.textTimer = this.scene.add.text(20,130,this.text,textTimerStyle)
         this.BreakTimerEvent = this.scene.time.addEvent({
             delay: duration,
             callback: ()=>{

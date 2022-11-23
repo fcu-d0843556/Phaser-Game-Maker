@@ -67,7 +67,7 @@ export default class GetItemMessage extends Component {
                     size !== undefined ? 
                         <Col span={24}>
                             <Card 
-                                title={<Title className='modify-card-card-tile' level={4}>說 明 文 字 大 小</Title>}
+                                title={<Title className='modify-card-card-tile' level={4}>訊 息 文 字 大 小</Title>}
                                 bordered={false}
                             >
                                 <InputNumber 
