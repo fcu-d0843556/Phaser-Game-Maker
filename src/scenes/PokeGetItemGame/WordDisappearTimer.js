@@ -42,7 +42,7 @@ export default class WordDisappearTimer {
     breakStart(callback,duration){
         
 
-        this.heart = this.scene.physics.add.image(this.x,this.y,this.getItemKey).setScale(this.size)
+        this.heart = this.scene.physics.add.image(this.x,this.y,this.getItemKey).setScale(this.size).setDepth(7)
 
         this.scene.physics.moveToObject(this.heart, {x:this.x,y:0}, 50);
         const textTimerStyle = {
@@ -52,7 +52,7 @@ export default class WordDisappearTimer {
             strokeThickness: 2,
             wordWrap: { width: 320, useAdvancedWrap: true }
         }
-        this.textTimer = this.scene.add.text(20,130,this.text,textTimerStyle)
+        this.textTimer = this.scene.add.text(20,130,'\n' + this.text,textTimerStyle)
         this.BreakTimerEvent = this.scene.time.addEvent({
             delay: duration,
             callback: ()=>{
