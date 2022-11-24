@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import cloneDeep from 'lodash.clonedeep';
 import {Button, Layout, message, Space} from 'antd';
-import { List, Collapse, Row,Col, Popconfirm, Form, Tooltip,Typography } from 'antd';
+import { List, Collapse, Row,Col, Popconfirm, Form, Tooltip,Typography , Divider} from 'antd';
 
 import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined, QuestionCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 
@@ -62,6 +63,33 @@ export default class EditScreen extends Component {
             }
         }
 
+        const addNewItem = (key) => {
+            return () => {
+                const {gameModifyDatas} = this.props
+                if(key === 'questions'){
+                    let num = 0
+                    let saveLatestItem
+                    while(true){
+                        num++
+                        if(gameModifyDatas[key].items.find((item)=> {return item.name === ('question' + num)}) === undefined){
+                            break
+                        }else{
+                            saveLatestItem = cloneDeep(gameModifyDatas[key].items.find((item)=> {return item.name === ('question' + num)}))
+                        }
+                    }
+                    if(num === 1){
+                        saveLatestItem = cloneDeep(gameModifyDatas[key].items[0])
+                    }
+
+                    saveLatestItem.name = ('question' + num)
+                    gameModifyDatas[key].items.push(saveLatestItem)
+                    PubSub.publishSync("ChangeAllItemsDatas",{parent: key ,items: gameModifyDatas[key].items})
+
+                }
+                
+            }
+        } 
+
         const deleteItem = (nowItem) => {
             return () => {
                 const {gameModifyDatas} = this.props
@@ -73,7 +101,6 @@ export default class EditScreen extends Component {
                     let changedGameModifyDatas = gameModifyDatas[nowItem.parent].items.filter((item)=>{
                         return item.name !== nowItem.name
                     })
-                    console.log("hihi",gameModifyDatas[nowItem.parent],changedGameModifyDatas);    
                     PubSub.publishSync("ChangeAllItemsDatas",{parent: nowItem.parent ,items: changedGameModifyDatas})
 
                 }
@@ -82,7 +109,6 @@ export default class EditScreen extends Component {
         }
 
         const {gameModifyDatas,gameId,username} = this.props
-        // console.log("props", this.props);
         const {width} = this.props
         const {mobileModifyMode,nowPanel} = this.state;
         const data = Object.keys(gameModifyDatas)
@@ -94,13 +120,14 @@ export default class EditScreen extends Component {
 
                 <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 15}}>
                     <div className="modify-cards-screen" style={{marginRight: width >= 845 ? 4.5 : 0}}>
-                        <Form> 
+                        <Form style={{marginBottom: 80}}> 
                             <List
                                 bordered={false}
                                 style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}}
                                 itemLayout="horizontal"
                                 dataSource={data}
                                 renderItem={function(key) {
+                                    // console.log(key);
                                     return (
                                         // 主要drawer的生成
                                         <Collapse className={  key === nowPanel  ? "editscreen-list-collapse editscreen-list-selected" : "editscreen-list-collapse editscreen-list-unselected"}  onChange={changeCollapsePanel} activeKey={nowPanel}>
@@ -110,19 +137,19 @@ export default class EditScreen extends Component {
                                             >
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
-                                                        // console.log(gameModifyDatas[key],item)
+                                                        // console.log("darwerName", item.name)
 
                                                         return (
                                                             // 主要drawer裡，子按鈕的生成
                                                             <List.Item style={{borderRadius: 0}} key={item.name} >
 
+                                                                {/* 修改按鈕 */}
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
                                                                 
                                                                 {/* 敘述按鈕內容 */}
                                                                 <Tooltip title={gameModifyDatas[key].modifyDetail} placement="left">
                                                                     {
                                                                         item.question !==undefined ?
-
                                                                             <Popconfirm placement="left" title="您確定要刪除這項問題？" onConfirm={deleteItem(item)} okText="好" cancelText="取消">
                                                                                 <CloseCircleTwoTone twoToneColor="#F55D47" className='delete-item-icon' style={{float: "right", fontSize: '24px'}} />
                                                                             </Popconfirm>
@@ -136,6 +163,19 @@ export default class EditScreen extends Component {
                                                         )
                                                     })
                                                 }
+
+                                                {
+                                                    key === 'questions' ?
+                                                        <div>
+                                                            <Divider style={{visibility: "hidden", marginTop: 0}}>
+                                                            </Divider>
+                                                            <Button onClick={addNewItem(key)} className='drawer-list-button' block>新增問題</Button>
+
+                                                            
+                                                        </div>
+                                                    :   <div></div>
+                                                }
+                                                
                                             </Panel>
                                         </Collapse>
                                     )

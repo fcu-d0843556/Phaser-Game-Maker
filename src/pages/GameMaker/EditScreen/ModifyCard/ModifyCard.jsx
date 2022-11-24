@@ -27,7 +27,6 @@ export default class ModifyCard extends Component {
 
     const {modifyTitle,img,text,name,question,score,priority,gameoverMessage,selection} = this.props
     const {activeTab} = this.state
-    // console.log(this.props);
     const changeTab = (key) => {
       this.setState({activeTab: key})
     }

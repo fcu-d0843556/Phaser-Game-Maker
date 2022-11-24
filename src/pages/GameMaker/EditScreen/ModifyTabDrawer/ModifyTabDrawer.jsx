@@ -64,9 +64,8 @@ export default class ModifyTabDrawer extends Component {
     };
 
     render() {
-        const {modifyTitle, gameId} = this.props
-        const {visible,isDefaultDrawerOpened, width,DefaultFileBoxInit} = this.state
-        // console.log("width", width);
+        const {modifyTitle, gameId,name} = this.props
+        const {visible,isDefaultDrawerOpened, width,DefaultFileBoxInit, darwerName} = this.state
         
 
         return (

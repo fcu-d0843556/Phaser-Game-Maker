@@ -43,7 +43,7 @@ export default class QuestionCard extends Component {
   
     render() {
         const {modifyTitle,content,question,description} = this.props.question
-        console.log(this.props.question);
+        // console.log("question",this.props.question);
         const selected = content.find((selection)=>{ return selection.answer === 'O' })
 
         const changeTextValue = (index) => {
