@@ -43,13 +43,17 @@ export default class QuestionCard extends Component {
   
     render() {
         const {modifyTitle,content,question,description} = this.props.question
-        
-        // const changeTextValue = (event) => {
-        //     const {textDatas} = this.state
-        //     // console.log(textDatas,  event.target.value);
-        //     textDatas.gameoverMessage.message[Number(event.currentTarget.id)] = event.target.value
-        //     PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
-        // }
+        console.log(this.props.question);
+        const selected = content.find((selection)=>{ return selection.answer === 'O' })
+
+        const changeTextValue = (index) => {
+            return (event) => {
+                const {questionDatas} = this.state
+                questionDatas.question.content[index].text = event.target.value
+                PubSub.publishSync("setFormDatas",{name: this.props.name, values: questionDatas})
+            }
+        }
+
         return (
             <Col span={24}>
                 <Card 
@@ -64,14 +68,13 @@ export default class QuestionCard extends Component {
                     <Input placeholder="題目的問題：" onChange={this.changeValue("question")} value={question}/>
                     <br/><br/>
 
-                    <Radio.Group>
+                    <Radio.Group value={selected.id}>
                         <Space direction="vertical">
                             {
                                 content.map((selection,index)=>{
                                     return (
                                         <Radio value={(index+1)} key={(index+1)} onChange={this.changeValue("answer", index)}> 
-                                            {/* <Input placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} /> */}
-                                            <input onChange={this.changeValue("content", index)} value={selection.text}/>
+                                            <Input placeholder={modifyTitle} allowClear value={selection.text} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue(index)} />
                                         </Radio>
                                     )
                                 })
