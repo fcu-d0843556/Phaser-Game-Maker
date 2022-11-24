@@ -122,7 +122,10 @@ export default class EditScreen extends Component {
                                                                 <Tooltip title={gameModifyDatas[key].modifyDetail} placement="left">
                                                                     {
                                                                         item.question !==undefined ?
-                                                                            <CloseCircleTwoTone twoToneColor="#F55D47" onClick={deleteItem(item)} className='delete-item-icon' style={{float: "right", fontSize: '24px'}} />
+
+                                                                            <Popconfirm placement="left" title="您確定要刪除這項問題？" onConfirm={deleteItem(item)} okText="好" cancelText="取消">
+                                                                                <CloseCircleTwoTone twoToneColor="#F55D47" className='delete-item-icon' style={{float: "right", fontSize: '24px'}} />
+                                                                            </Popconfirm>
                                                                         :
                                                                             <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
                                                                     }
