@@ -3,7 +3,7 @@ import PubSub from 'pubsub-js'
 import {Button, Layout, message, Space} from 'antd';
 import { List, Collapse, Row,Col, Popconfirm, Form, Tooltip,Typography } from 'antd';
 
-import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
+import { DeleteFilled,CloudUploadOutlined, PlayCircleOutlined, EditOutlined, QuestionCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 
 //Pages
 import ModifyTabDrawer from './ModifyTabDrawer/ModifyTabDrawer';
@@ -62,6 +62,25 @@ export default class EditScreen extends Component {
             }
         }
 
+        const deleteItem = (nowItem) => {
+            return () => {
+                const {gameModifyDatas} = this.props
+                let {items} = gameModifyDatas[nowItem.parent] 
+                if(items.length === 1){
+                    message.warning('至少需要一個問題！')
+                }else{
+
+                    let changedGameModifyDatas = gameModifyDatas[nowItem.parent].items.filter((item)=>{
+                        return item.name !== nowItem.name
+                    })
+                    console.log("hihi",gameModifyDatas[nowItem.parent],changedGameModifyDatas);    
+                    PubSub.publishSync("ChangeAllItemsDatas",{parent: nowItem.parent ,items: changedGameModifyDatas})
+
+                }
+                
+            }
+        }
+
         const {gameModifyDatas,gameId,username} = this.props
         // console.log("props", this.props);
         const {width} = this.props
@@ -91,8 +110,9 @@ export default class EditScreen extends Component {
                                             >
                                                 {
                                                     gameModifyDatas[key].items.map((item)=>{
+                                                        // console.log(gameModifyDatas[key],item)
+
                                                         return (
-                                                            
                                                             // 主要drawer裡，子按鈕的生成
                                                             <List.Item style={{borderRadius: 0}} key={item.name} >
 
@@ -100,7 +120,12 @@ export default class EditScreen extends Component {
                                                                 
                                                                 {/* 敘述按鈕內容 */}
                                                                 <Tooltip title={gameModifyDatas[key].modifyDetail} placement="left">
-                                                                    <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
+                                                                    {
+                                                                        item.question !==undefined ?
+                                                                            <CloseCircleTwoTone twoToneColor="#F55D47" onClick={deleteItem(item)} className='delete-item-icon' style={{float: "right", fontSize: '24px'}} />
+                                                                        :
+                                                                            <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
+                                                                    }
                                                                 </Tooltip>
                 
                                                             </List.Item>

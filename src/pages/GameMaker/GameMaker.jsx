@@ -78,6 +78,17 @@ export default class GameMaker extends Component {
         })
       })
 
+      //用來新增、刪除不需要的item項
+      PubSub.subscribe("ChangeAllItemsDatas", (msg,datas)=>{
+        const {gameModifyDatas} = this.state
+        this.setState({
+          gameModifyDatas: {...gameModifyDatas, [datas.parent]: {
+            ...gameModifyDatas[datas.parent],
+            items: datas.items
+          }}
+        })
+      })
+
       //重開一次遊戲
       PubSub.subscribe("refreshGame", (msg)=>{
         const {game,gameId,gameModifyDatas} = this.state

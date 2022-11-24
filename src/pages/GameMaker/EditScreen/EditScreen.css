@@ -125,3 +125,7 @@ background: #F69653;
     color: #5C5C5C;
     border-color: white;
 }
+
+.delete-item-icon{
+    cursor: pointer;
+}

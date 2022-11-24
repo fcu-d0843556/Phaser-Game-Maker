@@ -117,10 +117,11 @@ export default class ModifyTabDrawer extends Component {
                             </Col>
                         </Drawer> 
                 }
-
+                
                 <Button onClick={this.showDrawer} className='drawer-list-button'>
                     {modifyTitle} 
-                </Button>   
+                </Button>  
+                 
             </div> 
         )
     }
