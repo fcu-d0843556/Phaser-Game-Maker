@@ -9,6 +9,11 @@
     background: #F7E9DF;
 }
 
+/* 上傳檔案的垃圾桶顯示 */
+.modify-card-collapse .ant-upload-list-item-card-actions .ant-btn{
+    display: contents;
+}
+
 .modify-card-card-tile{
     margin-left: 15px;
 }
