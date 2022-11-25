@@ -2,8 +2,10 @@ import React, { Component }  from 'react'
 import PubSub from 'pubsub-js'
 
 import { QuestionCircleTwoTone } from '@ant-design/icons';
-import { Input, Radio, Space,Tooltip } from 'antd';
+import { Input, Radio, Space,Tooltip, Divider,Typography } from 'antd';
 import { Col,Card } from 'antd';
+const { TextArea } = Input;
+const { Title} = Typography;
 
 
 export default class QuestionCard extends Component {
@@ -57,7 +59,7 @@ export default class QuestionCard extends Component {
         return (
             <Col span={24}>
                 <Card 
-                    title="輸入題目："
+                    title={<Title level={4} style={{margin: 0}}>輸入題目：</Title>}
                     headStyle={{fontSize: 24}}
                     extra={
                         <Tooltip title={description} placement="left">
@@ -65,8 +67,8 @@ export default class QuestionCard extends Component {
                         </Tooltip>
                     }
                 >
-                    <Input placeholder="題目的問題：" onChange={this.changeValue("question")} value={question}/>
-                    <br/><br/>
+                    <TextArea rows={6} placeholder="題目的問題：" allowClear value={question} onKeyDown={e => e.stopPropagation()} onChange={this.changeValue("question")} />
+                    <Divider style={{marginTop: 20}}></Divider>
 
                     <Radio.Group value={selected.id}>
                         <Space direction="vertical">
