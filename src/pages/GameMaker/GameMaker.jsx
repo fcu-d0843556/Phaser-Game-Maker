@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
 import axios from 'axios'
+import cloneDeep from 'lodash.clonedeep';
+
 import {Button,Row,Col} from 'antd'
  
 
@@ -58,35 +60,33 @@ export default class GameMaker extends Component {
 
       //預覽變化後做的操作，存儲更改的資料
       PubSub.subscribe("setFormDatas", (msg,datas)=>{
-        const {parent} = datas.values
-        const {items} = this.state.gameModifyDatas[parent]
-        const {gameModifyDatas} = this.state
 
-        const newItems = items.map((itemObj)=>{
-          if(itemObj.name === datas.values.name){
-            return datas.values
-          }else{
-            return itemObj
+        let newGameModifyDatas = this.state.gameModifyDatas
+        let items = this.state.gameModifyDatas[datas.values.parent]
+
+        //移除掉多餘的key
+        delete datas.values.darwerName
+        delete datas.values.gameId
+        delete datas.values.username
+        delete datas.values.width
+
+        if(items !== undefined){
+          for(let i=0;i<items.length;i++){
+            if(items[i].name === datas.name && datas.name !== ''){
+              items[i] = cloneDeep(datas.values)
+            }
           }
-        })
-        
-        this.setState({
-          gameModifyDatas: {...gameModifyDatas, [parent]: {
-            ...gameModifyDatas[parent],
-            items: newItems
-          }}
-        })
+          this.setState({gameModifyDatas: newGameModifyDatas})
+        }
       })
 
       //用來新增、刪除不需要的item項
       PubSub.subscribe("ChangeAllItemsDatas", (msg,datas)=>{
-        const {gameModifyDatas} = this.state
-        this.setState({
-          gameModifyDatas: {...gameModifyDatas, [datas.parent]: {
-            ...gameModifyDatas[datas.parent],
-            items: datas.items
-          }}
-        })
+        let newGameModifyDatas = this.state.gameModifyDatas
+        if(newGameModifyDatas[datas.parent] !== undefined){
+          newGameModifyDatas[datas.parent].items = cloneDeep(datas.items)
+          this.setState({gameModifyDatas: newGameModifyDatas})
+        }
       })
 
       //重開一次遊戲
