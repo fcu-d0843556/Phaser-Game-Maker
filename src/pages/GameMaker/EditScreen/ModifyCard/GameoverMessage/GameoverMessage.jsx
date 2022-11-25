@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
+import cloneDeep from 'lodash.clonedeep';
 
 
 import { Input,InputNumber,Row, Typography} from 'antd';
 import { Col,Card } from 'antd';
-
-const { Paragraph, Title} = Typography;
 
 const ids = [0,1,2]
 export default class GameoverMessage extends Component {
@@ -17,6 +16,19 @@ export default class GameoverMessage extends Component {
     componentDidMount(){
         this.setState({
             textDatas: {...this.props}
+        })
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {textDatas} = this.state
+            if(gameModifyDatas[textDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
+                    if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
+                        this.setState({
+                            textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
+            }
         })
     }
 

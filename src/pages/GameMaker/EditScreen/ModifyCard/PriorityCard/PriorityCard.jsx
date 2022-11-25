@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Col,Card, Typography,Slider } from 'antd';
+import { Col,Card,Slider } from 'antd';
+import cloneDeep from 'lodash.clonedeep';
 
 import PubSub from 'pubsub-js'
 
 import './PriorityCard.less'
-const { Paragraph, Title} = Typography;
 
 export default class PriorityCard extends Component {
     
@@ -15,6 +15,20 @@ export default class PriorityCard extends Component {
     componentDidMount(){
         this.setState({
             itemDatas: {...this.props}
+        })
+
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {itemDatas} = this.state
+            if(gameModifyDatas[itemDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[itemDatas.parent].items.length;i++){
+                    if(gameModifyDatas[itemDatas.parent].items[i].name === itemDatas.name){
+                        this.setState({
+                            itemDatas: cloneDeep(gameModifyDatas[itemDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
+            }
         })
     }
 

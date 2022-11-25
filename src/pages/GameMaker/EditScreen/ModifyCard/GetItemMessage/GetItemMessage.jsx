@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js'
-
-import { Input,InputNumber, Typography} from 'antd';
-import { Col,Card } from 'antd';
+import cloneDeep from 'lodash.clonedeep';
+import { Input,InputNumber, Typography, Tooltip, Col,Card} from 'antd';
+import { QuestionCircleTwoTone } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const { Title} = Typography
@@ -16,6 +16,19 @@ export default class GetItemMessage extends Component {
     componentDidMount(){
         this.setState({
             textDatas: {...this.props}
+        })
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {textDatas} = this.state
+            if(gameModifyDatas[textDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
+                    if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
+                        this.setState({
+                            textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
+            }
         })
     }
 
@@ -48,14 +61,19 @@ export default class GetItemMessage extends Component {
                         
                         {
                             (inputType === "number") ? 
-                                <InputNumber 
-                                    min={min} 
-                                    max={max} 
-                                    value={content} 
-                                    onChange={changeNumberValue} 
-                                    formatter={(value) => `${value}${unit}`}
-                                    parser={(value) => value.replace(unit, '')}
-                                />
+                                <div>
+                                    <InputNumber 
+                                        min={min} 
+                                        max={max} 
+                                        value={content} 
+                                        onChange={changeNumberValue} 
+                                        addonAfter={unit}
+                                    />
+
+                                    <Tooltip title={`請填入 ${min} 到 ${max} 之間的數字`} placement="left">
+                                        <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
+                                    </Tooltip>
+                                </div>
                             :
                                 <TextArea rows={12} placeholder={modifyTitle} allowClear value={content} onKeyDown={e => e.stopPropagation()} onChange={changeTextValue} />
                         }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PubSub from 'pubsub-js';
 import axios from 'axios';
+import cloneDeep from 'lodash.clonedeep';
 
 import {  InputNumber, Image, Button, Space, Upload, message,Input,Row,Card,Col,Divider,Typography } from 'antd';
 import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
@@ -8,7 +9,7 @@ import { UploadOutlined, SyncOutlined } from '@ant-design/icons';
 
 import './ImageSettings.less'
 
-const { Paragraph, Title} = Typography;
+const { Title} = Typography;
 
 export default class ImageSettings extends Component {
 
@@ -32,6 +33,20 @@ export default class ImageSettings extends Component {
                 ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
                 this.setState({ImageDatas})
                 PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
+            }
+        })
+
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {ImageDatas} = this.state
+            if(gameModifyDatas[ImageDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[ImageDatas.parent].items.length;i++){
+                    if(gameModifyDatas[ImageDatas.parent].items[i].name === ImageDatas.name){
+                        this.setState({
+                            ImageDatas: cloneDeep(gameModifyDatas[ImageDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
             }
         })
     }
@@ -259,8 +274,7 @@ export default class ImageSettings extends Component {
                             min={1} max={1000} 
                             value={size} 
                             onChange={changeSizeValue} 
-                            formatter={(value) => `${value}%`}
-                            parser={(value) => value.replace('%', '')}
+                            addonAfter="%"
                         />
                     </Card>
                 </Col>

@@ -1,5 +1,6 @@
 import React, { Component }  from 'react'
 import PubSub from 'pubsub-js'
+import cloneDeep from 'lodash.clonedeep';
 
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 import { Input, Radio, Space,Tooltip, Divider,Typography } from 'antd';
@@ -15,11 +16,23 @@ export default class QuestionCard extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props);
         this.setState({
             questionDatas: {...this.props}
         })
-        
+
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {questionDatas} = this.state
+            if(gameModifyDatas[questionDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[questionDatas.parent].items.length;i++){
+                    if(gameModifyDatas[questionDatas.parent].items[i].name === questionDatas.name){
+                        this.setState({
+                            questionDatas: cloneDeep(gameModifyDatas[questionDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
+            }
+        })
     }
 
     changeValue = (type,index) => {

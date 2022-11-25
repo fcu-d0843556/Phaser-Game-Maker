@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { InputNumber } from 'antd';
-import { Col,Card } from 'antd';
+import { InputNumber,Col,Card,Tooltip } from 'antd';
+import cloneDeep from 'lodash.clonedeep';
+
+
+import { QuestionCircleTwoTone } from '@ant-design/icons';
 
 import PubSub from 'pubsub-js'
 
@@ -14,6 +17,20 @@ export default class ScoreCard extends Component {
     componentDidMount(){
         this.setState({
             textDatas: {...this.props}
+        })
+
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {textDatas} = this.state
+            if(gameModifyDatas[textDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
+                    if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
+                        this.setState({
+                            textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
+            }
         })
     }
 
@@ -30,15 +47,18 @@ export default class ScoreCard extends Component {
         return (
             <Col span={24}>
                 <Card 
-
+                    
                 >
                     <InputNumber 
                         min={min} max={max} 
                         value={content} 
                         onChange={changeValue}
-                        formatter={(value) => `${value}分`}
-                        parser={(value) => value.replace('分', '')}
+                        addonAfter="分"
                     />
+
+                    <Tooltip title={`請填入 ${min} 到 ${max} 之間的數字`} placement="left">
+                        <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
+                    </Tooltip>
                 </Card>
             </Col>
         )

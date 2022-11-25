@@ -1,8 +1,8 @@
 import React, { Component }  from 'react'
 import PubSub from 'pubsub-js'
+import cloneDeep from 'lodash.clonedeep';
 
-import { QuestionCircleTwoTone } from '@ant-design/icons';
-import { Input, Radio, Space,Tooltip } from 'antd';
+import { Input, Radio, Space } from 'antd';
 import { Col,Card } from 'antd';
 
 
@@ -13,11 +13,23 @@ export default class SelectionCard extends Component {
     }
 
     componentDidMount(){
-        // console.log(this.props);
         this.setState({
             selectionDatas: {...this.props}
         })
         
+        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+            const {selectionDatas} = this.state
+            if(gameModifyDatas[selectionDatas.parent] !== undefined){
+                for(let i=0;i<gameModifyDatas[selectionDatas.parent].items.length;i++){
+                    if(gameModifyDatas[selectionDatas.parent].items[i].name === selectionDatas.name){
+                        this.setState({
+                            selectionDatas: cloneDeep(gameModifyDatas[selectionDatas.parent].items[i])
+                        })
+                        break
+                    }
+                }
+            }
+        })
     }
 
     changeValue = (type,value) => {

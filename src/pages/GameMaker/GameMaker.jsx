@@ -61,8 +61,7 @@ export default class GameMaker extends Component {
       //預覽變化後做的操作，存儲更改的資料
       PubSub.subscribe("setFormDatas", (msg,datas)=>{
 
-        let newGameModifyDatas = this.state.gameModifyDatas
-        let items = this.state.gameModifyDatas[datas.values.parent]
+        let curParent = this.state.gameModifyDatas[datas.values.parent]
 
         //移除掉多餘的key
         delete datas.values.darwerName
@@ -70,10 +69,14 @@ export default class GameMaker extends Component {
         delete datas.values.username
         delete datas.values.width
 
-        if(items !== undefined){
-          for(let i=0;i<items.length;i++){
-            if(items[i].name === datas.name && datas.name !== ''){
-              items[i] = cloneDeep(datas.values)
+        let newGameModifyDatas
+        if(curParent !== undefined){
+          for(let i=0;i<curParent.items.length;i++){
+            if(curParent.items[i].name === datas.name && datas.name !== ''){
+              newGameModifyDatas = this.state.gameModifyDatas
+              // console.log(datas,newGameModifyDatas);
+              
+              newGameModifyDatas[datas.values.parent].items[i] = cloneDeep(datas.values)
             }
           }
           this.setState({gameModifyDatas: newGameModifyDatas})
@@ -143,10 +146,12 @@ export default class GameMaker extends Component {
         ).then(
           response => {
             
-            gameModifyDatas = response.data.gameDatas
+            gameModifyDatas = cloneDeep(response.data.gameDatas)
             // console.log("message: ",response.data.message );
             if(type === "default"){
               this.setState({gameModifyDatas})
+              // console.log("dd",gameModifyDatas);
+              PubSub.publishSync('backToDefaultDatas',gameModifyDatas)
             }else{
               this.setState({
                 game: startGame(gameId,gameModifyDatas,"modifyGame"),
