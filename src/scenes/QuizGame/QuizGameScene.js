@@ -1,6 +1,12 @@
 import Phaser from "phaser"
 
+//Common System Scripts
 import Score from "../CommonSystem/Score"
+import GameoverMessage from "../CommonSystem/GameOverMessage"
+
+
+//Quiz Game Scripts
+import GameTutorial from "./GameTutorial"
 import ImgControl from "./ImgControl"
 
 export default class QuizGameScene extends Phaser.Scene{
@@ -11,7 +17,7 @@ export default class QuizGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        console.log("modifyDatas : ", this.modifyDatas)
+        // console.log("modifyDatas : ", this.modifyDatas)
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
@@ -25,8 +31,13 @@ export default class QuizGameScene extends Phaser.Scene{
             })
         })
 
-       this.load.image('correct','/img/Games/QuizGame/correct.png')
-       this.load.image('incorrect','/img/Games/QuizGame/incorrect.png')
+        this.load.image('startGameLabel','/img/Games/Common/gameover/startGameLabel.png')
+        this.load.image('startGameButton', '/img/Games/Common/gameover/startGameButton.png')
+        this.load.image('gameoverLabel','/img/Games/Common/gameover/gameoverLabel.png')
+        this.load.image('playAgainButton', '/img/Games/Common/gameover/playAgainButton.png')
+
+        this.load.image('correct','/img/Games/QuizGame/correct.png')
+        this.load.image('incorrect','/img/Games/QuizGame/incorrect.png')
        
     }
 
@@ -56,7 +67,6 @@ export default class QuizGameScene extends Phaser.Scene{
         for(let i=0;i<questions.items.length;i++){
             this.questions.push(questions.items[i].question)
         }
-        console.log(this.questions);
 
         this.createQuestion(this.questions[this.questionNumber],this.questionNumber+1)        
     }
