@@ -148,7 +148,7 @@ export default class ImageSettings extends Component {
         }
 
         const uploadFile = (file) => {
-            const {username} = this.props
+            const {username,gameId} = this.props
             // console.log("file:",file);
 
             if(file.file.status === "removed"){
@@ -161,6 +161,7 @@ export default class ImageSettings extends Component {
                     url: '/uploadFile',
                     params: {
                         username: username,
+                        gameId: gameId,
                         fileName: name,
                         fileContent: file.file
                     }

@@ -8,6 +8,7 @@ const fs = require('fs')
 
 const userData = {
   username: '',
+  gameId: ''
 }
 
 const storage = multer.diskStorage({
@@ -23,7 +24,7 @@ const storage = multer.diskStorage({
 
         //2.按照日期生成圖片存儲目錄，mkdirp是一個異步的方法
         // let dir = path.join("src/pages/GameMaker/EditScreen/ModifyCard/ImageSettings/upload",userData.username)
-        let dir = path.join("public/upload",userData.username)
+        let dir = path.join("public/upload",userData.username,userData.gameId)
 
         // console.log("dir",dir);
         await mkdirp(dir)
@@ -66,8 +67,9 @@ module.exports = function(app) {
 // 
   app.post('/uploadFile',multer({storage: storage}).any(), function(req,res){
     
-    const {username,fileName,fileContent} = req.query;
+    const {username,fileName,fileContent,gameId} = req.query;
     userData.username = username
+    userData.gameId = gameId
     let extname;
     if(typeof(fileContent) === "string"){
       // console.log(req.query);
@@ -82,7 +84,7 @@ module.exports = function(app) {
       // console.log(username);
       res.json({
         success: true,
-        uploadFileImgSrc: `/upload/${username}/${fileName + extname}`,
+        uploadFileImgSrc: `/upload/${username}/${gameId}/${fileName + extname}`,
         selectedName: fileName
       })
     }

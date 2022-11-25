@@ -35,9 +35,11 @@ class MyHeader extends Component {
         })
 
         PubSub.subscribe("setUsername", (msg,username)=>{
+            // console.log('setUsername', username);
             this.setState({username})
             localStorage.setItem('username', username)
         })
+
     }
 
     logOut = () => {
