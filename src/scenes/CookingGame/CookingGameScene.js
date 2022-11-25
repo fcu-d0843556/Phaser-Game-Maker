@@ -18,7 +18,7 @@ export default class CookingGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        console.log("modifyDatas : ", this.modifyDatas)
+        // console.log("modifyDatas : ", this.modifyDatas)
 
         // load image
         Object.keys(this.modifyDatas).forEach((key)=>{
