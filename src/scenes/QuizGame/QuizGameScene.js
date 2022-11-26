@@ -3,6 +3,7 @@ import Phaser from "phaser"
 //Common System Scripts
 import Score from "../CommonSystem/Score"
 import GameoverMessage from "../CommonSystem/GameOverMessage"
+import UsefulMath from "../CommonSystem/UsefulMath";
 
 
 //Quiz Game Scripts
@@ -17,7 +18,7 @@ export default class QuizGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        console.log("modifyDatas : ", this.modifyDatas)
+        // console.log("modifyDatas : ", this.modifyDatas)
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
@@ -63,9 +64,14 @@ export default class QuizGameScene extends Phaser.Scene{
         const {questions,gameTutorialText} = this.modifyDatas
         this.questions = []
         for(let i=0;i<questions.items.length;i++){
-            this.questions.push(questions.items[i].question)
+            this.questions.push(questions.items[i])
         }
 
+        const {gameRule} = this.modifyDatas
+        if(gameRule.items[0].selection.selected === 'random'){
+            const usefulMath = new UsefulMath(this)
+            usefulMath.shuffle(this.questions)
+        }
 
         //gameStart Tutorial
         this.gameTutorialMessage = new GameTutorial(this,gameTutorialText.items[0])
@@ -96,7 +102,7 @@ export default class QuizGameScene extends Phaser.Scene{
         this.scoreText = new Score(this,scoreTextLabel,"\n得分",0)
     }
 
-    createQuestion(question,index){
+    createQuestion(item,index){
         let questionStyle = {
             fontSize: '32px',
             fontFamily: 'Arial',
@@ -107,7 +113,7 @@ export default class QuizGameScene extends Phaser.Scene{
             wordWrap: { width: 350, useAdvancedWrap: true }
         }
 
-        this.questionText = this.add.text(0,45, `問題 ${index}: \n` + question.question,questionStyle)
+        this.questionText = this.add.text(0,45, `問題 ${index}: \n` + item.question.question,questionStyle)
 
 
         let answerStyle = [
@@ -134,9 +140,13 @@ export default class QuizGameScene extends Phaser.Scene{
             }
         ]
         let selectionList = []
+
+        const usefulMath = new UsefulMath(this)
+        usefulMath.shuffle(item.question.content)
+        
         for(let i=0;i<4;i++){
-            
-            let text = this.add.text(answerStyle[i].x,answerStyle[i].y,answerStyle[i].text + '\n' + question.content[i].text ,{
+            // console.log(item);
+            let text = this.add.text(answerStyle[i].x,answerStyle[i].y,answerStyle[i].text + '\n' + item.question.content[i].text ,{
                 fontSize: '32px',
                 fontFamily: 'Arial',
                 color: '#ffffff',
@@ -146,26 +156,27 @@ export default class QuizGameScene extends Phaser.Scene{
                 align: 'center',
                 wordWrap: { width: 150, useAdvancedWrap: true }
             })
-            text.setData('answer', question.content[i].answer)
+            text.setData('answer', item.question.content[i].answer)
+            text.setData('score',item.score.content)
             text.setInteractive().on('pointerdown',function(){
+                // console.log(item.question.content[i]);
                 for(let i=0;i<4;i++){
                     selectionList[i].disableInteractive()
                 }
                 if(text.getData('answer')==='O'){
                     this.correct.setImgVisible(true)
                     this.incorrect.setImgVisible(false)
-                    this.scoreText.addScore(10)
+                    this.scoreText.addScore(text.getData('score'))
                     
                 }else if(text.getData('answer')==='X'){
                     this.incorrect.setImgVisible(true)
                     this.correct.setImgVisible(false)
-                    this.scoreText.addScore(-10)
+                    this.scoreText.addScore(-text.getData('score'))
                 }
                 if(this.questions.length > this.questionNumber + 1){
                     this.questionNumber++
                     this.createQuestion(this.questions[this.questionNumber], this.questionNumber+1)  
                 }else{
-                    console.log('gameover');
                     this.gameover()
                 }
                 
