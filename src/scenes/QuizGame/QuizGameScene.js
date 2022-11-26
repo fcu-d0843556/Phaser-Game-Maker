@@ -103,8 +103,9 @@ export default class QuizGameScene extends Phaser.Scene{
     }
 
     createQuestion(item,index){
+        let fontSize = item.question.size || 32
         let questionStyle = {
-            fontSize: '32px',
+            fontSize: 28,
             fontFamily: 'Arial',
             color: 'white',
             backgroundColor: '#000000',
@@ -142,12 +143,13 @@ export default class QuizGameScene extends Phaser.Scene{
         let selectionList = []
 
         const usefulMath = new UsefulMath(this)
-        usefulMath.shuffle(item.question.content)
+        let randomSelections = [...item.question.content]
+        usefulMath.shuffle(randomSelections)
         
         for(let i=0;i<4;i++){
             // console.log(item);
-            let text = this.add.text(answerStyle[i].x,answerStyle[i].y,answerStyle[i].text + '\n' + item.question.content[i].text ,{
-                fontSize: '32px',
+            let text = this.add.text(answerStyle[i].x,answerStyle[i].y,answerStyle[i].text + '\n' + randomSelections[i].text ,{
+                fontSize: fontSize,
                 fontFamily: 'Arial',
                 color: '#ffffff',
                 backgroundColor: answerStyle[i].backgroundColor,
@@ -156,7 +158,7 @@ export default class QuizGameScene extends Phaser.Scene{
                 align: 'center',
                 wordWrap: { width: 150, useAdvancedWrap: true }
             })
-            text.setData('answer', item.question.content[i].answer)
+            text.setData('answer', randomSelections[i].answer)
             text.setData('score',item.score.content)
             text.setInteractive().on('pointerdown',function(){
                 // console.log(item.question.content[i]);
