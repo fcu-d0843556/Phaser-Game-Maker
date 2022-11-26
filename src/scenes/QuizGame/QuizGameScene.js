@@ -17,7 +17,7 @@ export default class QuizGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        // console.log("modifyDatas : ", this.modifyDatas)
+        console.log("modifyDatas : ", this.modifyDatas)
 
         //load image
         Object.keys(this.modifyDatas).forEach((key)=>{
@@ -51,9 +51,7 @@ export default class QuizGameScene extends Phaser.Scene{
             fontSize: '24px',
             fontFamily: 'Arial',
             color: 'black',
-            backgroundColor: 'white',
-            fixedWidth: 360,
-            fixedHeight: 45
+            
         }
         const scoreTextLabel = this.add.text(0,0, '得分', scoreStyle)
         this.scoreText = new Score(this,scoreTextLabel,'得分',0)
@@ -62,13 +60,40 @@ export default class QuizGameScene extends Phaser.Scene{
 
 
 
-        const {questions} = this.modifyDatas
+        const {questions,gameTutorialText} = this.modifyDatas
         this.questions = []
         for(let i=0;i<questions.items.length;i++){
             this.questions.push(questions.items[i].question)
         }
 
+
+        //gameStart Tutorial
+        this.gameTutorialMessage = new GameTutorial(this,gameTutorialText.items[0])
+        this.gameTutorialMessage.create()
+    }
+
+    startGame = () => {
+        //create score board
+        this.createScoreBoard()
+        this.scoreText.showScoreText()
+
         this.createQuestion(this.questions[this.questionNumber],this.questionNumber+1)        
+        
+    }
+
+    createScoreBoard(){
+        //Score
+        const style = {
+            fontSize: 24,
+            fill: "#fff",
+            stroke: "#000",
+            backgroundColor: 'white',
+            strokeThickness: 2,
+            fixedWidth: 360,
+            fixedHeight: 55
+        }
+        const scoreTextLabel = this.add.text(0,-15, "", style)
+        this.scoreText = new Score(this,scoreTextLabel,"\n得分",0)
     }
 
     createQuestion(question,index){
@@ -94,22 +119,23 @@ export default class QuizGameScene extends Phaser.Scene{
             },{
                 x: 185,
                 y: 295,
-                backgroundColor: '#4DC9DB',
+                backgroundColor: '#538CF5',
                 text: 'B'
             },{
                 x: 0,
                 y: 470,
-                backgroundColor: '#F2C052',
+                backgroundColor: '#F5A86C',
                 text: 'C'
             },{
                 x: 185,
                 y: 470,
-                backgroundColor: '#9e66ff',
+                backgroundColor: '#7B5FF5',
                 text: 'D'
             }
         ]
-
+        let selectionList = []
         for(let i=0;i<4;i++){
+            
             let text = this.add.text(answerStyle[i].x,answerStyle[i].y,answerStyle[i].text + '\n' + question.content[i].text ,{
                 fontSize: '32px',
                 fontFamily: 'Arial',
@@ -122,7 +148,9 @@ export default class QuizGameScene extends Phaser.Scene{
             })
             text.setData('answer', question.content[i].answer)
             text.setInteractive().on('pointerdown',function(){
-
+                for(let i=0;i<4;i++){
+                    selectionList[i].disableInteractive()
+                }
                 if(text.getData('answer')==='O'){
                     this.correct.setImgVisible(true)
                     this.incorrect.setImgVisible(false)
@@ -138,11 +166,23 @@ export default class QuizGameScene extends Phaser.Scene{
                     this.createQuestion(this.questions[this.questionNumber], this.questionNumber+1)  
                 }else{
                     console.log('gameover');
+                    this.gameover()
                 }
                 
             },this)
+            selectionList.push(text)
+            // text.disableInteractive()
         }
     }
+
+    gameover(){
+        const {gameoverMessage} = this.modifyDatas
+        
+        this.physics.pause()
+        this.gameoverMessage = new GameoverMessage(this,this.scoreText.getScore(),gameoverMessage.items[0])
+        this.gameoverMessage.create()
+    }
+
 
     update(){
 

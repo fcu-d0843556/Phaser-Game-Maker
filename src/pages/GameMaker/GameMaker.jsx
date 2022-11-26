@@ -49,7 +49,7 @@ export default class GameMaker extends Component {
 
       pubsubList.push(
         PubSub.subscribe("subscribePubSub",(msg,type)=>{
-          console.log('hello');
+          // console.log('hello');
         })
       )
 
@@ -123,7 +123,7 @@ export default class GameMaker extends Component {
 
           this.setState({isRenderDone: false})
           const {gameId,gameModifyDatas} = this.state
-          console.log("save",gameModifyDatas,gameId);
+          // console.log("save",gameModifyDatas,gameId);
           const username = localStorage.getItem('username')
 
           axios({
@@ -148,7 +148,7 @@ export default class GameMaker extends Component {
       )
 
       this.setState({pubsubList})
-      console.log(pubsubList);
+      // console.log(pubsubList);
   }
 
   componentWillUnmount(){
@@ -179,7 +179,7 @@ export default class GameMaker extends Component {
           response => {
             
             gameModifyDatas = cloneDeep(response.data.gameDatas)
-            console.log("message: ",response.data.gameDatas );
+            // console.log("message: ",response.data.gameDatas );
             if(type === "default"){
               this.setState({gameModifyDatas})
               // console.log("dd",gameModifyDatas);
