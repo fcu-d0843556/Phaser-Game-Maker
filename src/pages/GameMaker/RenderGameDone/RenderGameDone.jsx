@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
-
 import {Typography, Result, Button,Modal} from 'antd'
 import { SmileTwoTone } from '@ant-design/icons';
-
-
+import { LineShareButton } from "react-share";
 
 import './RenderGameDone.less'
 
@@ -72,8 +70,7 @@ class RenderGameDone extends Component {
                                 {"http://140.134.26.66:5051/" + gameUrl}
                             </Paragraph>
 
-                            <div className="line-it-button" data-lang="zh_Hant" data-type="share-a" data-env="REAL" data-url="http://123456" data-color="default" data-size="small" data-count="true" data-ver="3" style={{display: "black"}}>123</div>
-                                    
+                            <LineShareButton className='line-share-button' size={12} title='分享！' url={"http://140.134.26.66:5051/" + gameUrl} />
                         </pre>
                     </Typography>
 
