@@ -11,7 +11,7 @@ const { Title, Paragraph, Text } = Typography;
 class IntroStartBox extends Component {
 
   clickEvent = () => {
-    if(localStorage.getItem("username") !== ""){
+    if(localStorage.getItem("username").length !== 0){
       this.props.history.push('/selectGame')
     }else{
       this.props.history.push('/userAuth')
