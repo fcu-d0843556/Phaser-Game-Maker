@@ -14,7 +14,6 @@ export default class ballonSpawner{
     constructor(scene,score,balloons,balloonSpeed) {
         this.scene = scene
         this.score = score
-        
         this.speed = balloonSpeed.priority.selected
 
         this.balloons = balloons

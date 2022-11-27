@@ -52,6 +52,9 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.createScoreBoard()
         this.scoreText.showScoreText()
         
+        //Balloons custom OK.
+        const {balloon,balloonSpeed} = this.modifyDatas
+        this.balloon = new ballonSpawner(this,this.scoreText, balloon.items, balloonSpeed.items[0]) 
 
         //Ballon Timer
         this.starCoolDown = new DropTimeCounter(this,"")
@@ -73,11 +76,10 @@ export default class ShootingGameScene extends Phaser.Scene{
         this.add.image(170,550,'gun').setScale(0.21,0.21).setDepth(1);
 
         
-        //Balloons custom OK.
-        const {balloon,balloonSpeed, gameTutorialText} = this.modifyDatas
-        this.balloon = new ballonSpawner(this,this.scoreText, balloon.items, balloonSpeed.items[0]) 
+        
 
         //gameStart Tutorial
+        const {balloon,gameTutorialText} = this.modifyDatas
         this.gameTutorialMessage = new GameTutorial(this, balloon.items, gameTutorialText.items[0])
         this.gameTutorialMessage.create()
 
