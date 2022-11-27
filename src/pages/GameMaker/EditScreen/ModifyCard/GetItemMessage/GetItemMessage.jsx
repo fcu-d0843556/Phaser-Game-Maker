@@ -67,6 +67,20 @@ export default class GetItemMessage extends Component {
                                         max={max} 
                                         value={content} 
                                         onChange={changeNumberValue} 
+                                        formatter={(value) => {
+                                            if(value === ''){
+                                                return 0
+                                            }else{
+                                                return value
+                                            }
+                                        }}
+                                        parser={(value) => {
+                                            if(value === ''){
+                                                return 0
+                                            }else{
+                                                return value
+                                            }
+                                        }}
                                         addonAfter={unit}
                                     />
 

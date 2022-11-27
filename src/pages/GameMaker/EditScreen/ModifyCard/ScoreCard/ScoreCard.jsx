@@ -53,6 +53,20 @@ export default class ScoreCard extends Component {
                         min={min} max={max} 
                         value={content} 
                         onChange={changeValue}
+                        formatter={(value) => {
+                            if(value === ''){
+                                return 0
+                            }else{
+                                return value
+                            }
+                        }}
+                        parser={(value) => {
+                            if(value === ''){
+                                return 0
+                            }else{
+                                return value
+                            }
+                        }}
                         addonAfter="分"
                     />
 

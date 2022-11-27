@@ -73,7 +73,27 @@ export default class GameoverMessage extends Component {
                                                 <div></div>
                                             :
                                                 <Col span={12} onChange={changeNumberValue}>
-                                                    <InputNumber id={id} min={0} max={100000} controls={false} value={score[id]} />
+                                                    <InputNumber 
+                                                        id={id} 
+                                                        min={0} 
+                                                        max={100000} 
+                                                        controls={false} 
+                                                        value={score[id]} 
+                                                        formatter={(value) => {
+                                                            if(value === ''){
+                                                                return 0
+                                                            }else{
+                                                                return value
+                                                            }
+                                                        }}
+                                                        parser={(value) => {
+                                                            if(value === ''){
+                                                                return 0
+                                                            }else{
+                                                                return value
+                                                            }
+                                                        }}
+                                                    />
                                                 </Col>
 
                                         }

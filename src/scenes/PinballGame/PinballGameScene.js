@@ -90,6 +90,9 @@ export default class PinballGameScene extends Phaser.Scene{
         this.pinballGoal5 = this.createRectHitBox({x: 46, y: 80, label: 'pinballGoal5'}, {x: 235, y: 453}, 'pinWall', {score: pinballGoal.items[4].score.content})
         for(let i=0;i< 5;i++){
             let xSpot = 20 + i * 51
+            if(pinballGoal.items[i].score.content === null){
+                pinballGoal.items[i].score.content = 0
+            }
             if(pinballGoal.items[i].score.content.toString().length === 3){
                 xSpot -= 5
             }else if(pinballGoal.items[i].score.content.toString().length === 4){
