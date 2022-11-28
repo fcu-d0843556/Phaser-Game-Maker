@@ -71,7 +71,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
             stroke: "#000",
             strokeThickness: 2
         }
-        const gameTimerLabel = this.add.text(16, 34, "時間", style)
+        const gameTimerLabel = this.add.text(16, 34, "時間", style).setDepth(20)
         this.gameTimer = new GameTimer(this, gameTimerLabel, "\n時間")
         this.gameTimer.start(this.gameover.bind(this),gameTimer.text.content * 1000)//5s
     }
@@ -83,7 +83,7 @@ export default class CatchFruitGameScene extends Phaser.Scene{
             "fill": "#fff",
             "stroke": "#000",
             "strokeThickness": 2
-        })
+        }).setDepth(20)
         this.scoreText = new Score(this,scoreTextLabel,"\n分數",0)
         
     }

@@ -98,7 +98,7 @@ export default class QuizGameScene extends Phaser.Scene{
             fixedWidth: 360,
             fixedHeight: 55
         }
-        const scoreTextLabel = this.add.text(0,-15, "", style)
+        const scoreTextLabel = this.add.text(0,-15, "", style).setDepth(20)
         this.scoreText = new Score(this,scoreTextLabel,"\n得分",0)
     }
 

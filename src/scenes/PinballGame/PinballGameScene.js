@@ -281,7 +281,7 @@ export default class PinballGameScene extends Phaser.Scene{
         this.powerTimer.start()
         this.powerTimer.pause()
         this.hsv = Phaser.Display.Color.HSVColorWheel();
-        this.graphics = this.add.graphics({ x: 80, y: 610 }).setDepth(2);
+        this.graphics = this.add.graphics({ x: 80, y: 610 }).setDepth(29);
 
         this.add.text(10,595, "\n力 道 : ", {
             "fontSize": 16,
@@ -302,7 +302,7 @@ export default class PinballGameScene extends Phaser.Scene{
             "fill": "#fff",
             "stroke": "#000",
             "strokeThickness": 2
-        })
+        }).setDepth(20)
         this.scoreText = new Score(this,scoreTextLabel,"\n得 分",0)
         
     }

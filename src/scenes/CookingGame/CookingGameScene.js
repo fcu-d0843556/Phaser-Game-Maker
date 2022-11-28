@@ -18,7 +18,7 @@ export default class CookingGameScene extends Phaser.Scene{
 
     preload(){
         this.modifyDatas = this.scene.settings.data
-        // console.log("modifyDatas : ", this.modifyDatas)
+        console.log("modifyDatas : ", this.modifyDatas)
 
         // load image
         Object.keys(this.modifyDatas).forEach((key)=>{
@@ -107,12 +107,13 @@ export default class CookingGameScene extends Phaser.Scene{
 
 
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+            // console.log(gameObject);
             gameObject.x = dragX;
             gameObject.y = dragY;
         });
 
         this.input.on('dragover', function (pointer, gameObject, dropZone) {
-
+            // console.log('dragover');
             if(dropZone.texture.key === "cookSpot"){
                 dropZone.setTint(0xffffff);
                 let name = gameObject.getData('name')
@@ -259,7 +260,7 @@ export default class CookingGameScene extends Phaser.Scene{
             stroke: "#000",
             strokeThickness: 2
         }
-        const gameTimerLabel = this.add.text(16, 34, "時間", style)
+        const gameTimerLabel = this.add.text(16, 34, "時間", style).setDepth(20).setDepth(20)
         this.gameTimer = new GameTimer(this, gameTimerLabel, "\n時間")
         this.gameTimer.start(this.gameover.bind(this),gameTimer.text.content * 1000)//5s
     }
@@ -271,7 +272,7 @@ export default class CookingGameScene extends Phaser.Scene{
             "fill": "#fff",
             "stroke": "#000",
             "strokeThickness": 2
-        })
+        }).setDepth(20)
         this.scoreText = new Score(this,scoreTextLabel,"\n分數",0)
     }
 }
