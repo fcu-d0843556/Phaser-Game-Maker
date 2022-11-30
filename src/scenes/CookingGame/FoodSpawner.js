@@ -15,16 +15,21 @@ export default class foodSpawner{
     }
 
     spawn(){
-        this.food = this.scene.add.sprite(200,350,'rawFood').setScale(this.data[1].img.size/100).setDepth(2).setInteractive();  
-        this.food.setTint(0x808080)
+        this.food = this.scene.add.image(200,350,'rawFood').setScale(this.data[1].img.size/100).setDepth(2).setInteractive();  
+        // this.food.setTint(0x808080)
         this.scene.input.setDraggable(this.food);
-        // this.food.on('pointerover', function () {this.setTint(0x00ff00);});
-        // this.food.on('pointerout', function () {this.clearTint();});
+        this.food.on('pointerover', function () {this.setTint(0x00ff00);});
+        this.food.on('pointerout', function () {this.clearTint();});
         
         const cookTimeLabel = this.scene.add.text(200,350,'',{fontSize:32,fill:'#000'})
 
         this.timer = new CookingTimer(this.scene,cookTimeLabel)
         this.timer.start(this.countEnd.bind(this),2000)
+
+        this.scene.input.on('drag',function (pointer,gameObject,dragX,dragY){
+            gameObject.x=dragX;
+            gameObject.y=dragY;
+        });
 
         return this
        
@@ -40,10 +45,12 @@ export default class foodSpawner{
                 // console.log('wellFood',this.food);
                 this.food.setData('type', 'wellFood')
                 // this.food.setTint(0x5C4033)
-
-                // this.food.setScale(this.data[3].img.size/100).setDepth(10).setInteractive(); 
                 this.food.clearTint()
-                // this.food.setTexture('wellFood')
+
+                this.food.setScale(this.data[3].img.size/100).setDepth(10).setInteractive(); 
+                this.food.setTexture('wellFood')
+                
+                // this.scene.add.image(200,350,'wellFood').setScale(this.data[1].img.size/100).setDepth(2).setInteractive();
                 // this.scene.input.setDraggable(this.food);
 
                 break

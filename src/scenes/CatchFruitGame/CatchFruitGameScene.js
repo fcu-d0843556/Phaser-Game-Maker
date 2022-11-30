@@ -45,9 +45,11 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         this.load.image('ground', '/img/Games/CatchFruitGame/platform.png');
         this.load.image('arrowButton','/img/Games/CatchFruitGame/arrowButton.png');
 
-        this.load.spritesheet('dude','/img/Games/CatchFruitGame/dude.png',{
-            frameWidth: 32, frameHeight:48
-        });
+        this.load.image('player','/img/Games/CatchFruitGame/boy.png');
+        
+        // this.load.spritesheet('dude','/img/Games/CatchFruitGame/dude.png',{
+        //     frameWidth: 32, frameHeight:48
+        // });
     }
 
     startGame = () => {
@@ -177,41 +179,26 @@ export default class CatchFruitGameScene extends Phaser.Scene{
     }
 
     createPlayer(){
-        const player = this.physics.add.sprite(180,515,'dude')
-        player.setCollideWorldBounds(true)
-        this.anims.create({
-            key: 'goLeft',
-            frames: this.anims.generateFrameNumbers('dude',{ start: 0,end: 3 }),
-            frameRate: 10,
-            repeat: -1
-        })
+        const {player} = this.modifyDatas
+        console.log(player);
+        let newPlayer = this.physics.add.sprite(player.items[0].img.position.x,player.items[0].img.position.y,'player').setScale(player.items[0].img.size/100)
+        newPlayer.setCollideWorldBounds(true)
+        newPlayer.setGravity(0,300)
 
-        this.anims.create({
-            key: 'goRight',
-            frames: this.anims.generateFrameNumbers('dude',{ start: 5, end: 8}),
-            frameRate: 10,
-            repeat: -1
-        })
-
-        this.anims.create({
-            key: 'stop',
-            frames: [{key:'dude', frame:4}],
-            frameRate: 20
-        })
-        return player
+        return newPlayer
     }
 
     update(){
 
         if(this.cursor.left.isDown){
             this.player.setVelocityX(this.playerMoveSpeed * -1)
-            this.player.anims.play('goLeft',true)
+            // this.player.anims.play('goLeft',true)
         }else if(this.cursor.right.isDown){
             this.player.setVelocityX(this.playerMoveSpeed)
-            this.player.anims.play('goRight',true)
+            // this.player.anims.play('goRight',true)
         }else if(!this.isMousePress){
             this.player.setVelocityX(0)
-            this.player.anims.play('stop',true)
+            // this.player.anims.play('stop',true)
         }
 
         if(this.cursor.up.isDown && this.player.body.touching.down){

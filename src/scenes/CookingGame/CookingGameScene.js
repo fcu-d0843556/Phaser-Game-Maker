@@ -25,6 +25,7 @@ export default class CookingGameScene extends Phaser.Scene{
             this.modifyDatas[key].items.forEach((itemObj)=>{
                 if( itemObj.img ) {
                     if(this.textures.list[itemObj.name]){
+                        console.log(itemObj);
                         this.textures.remove(itemObj.name)
                     }
                     this.load.image( itemObj.name, itemObj.img.src )

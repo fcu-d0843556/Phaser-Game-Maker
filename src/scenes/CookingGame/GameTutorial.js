@@ -36,7 +36,7 @@ export default class GameTutorial{
             wordWrap: { width: 280, useAdvancedWrap: true }
         }
         let description = this.scene.add.text(50, 80, "\n"+ this.text.text.content, style).setDepth(30)
-
+        
         startGameButton.setInteractive().on('pointerdown',function(){
             // console.log('startGame!')
             this.scene.isGameStart = true;
