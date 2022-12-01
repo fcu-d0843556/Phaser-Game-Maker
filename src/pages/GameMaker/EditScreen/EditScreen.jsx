@@ -22,7 +22,7 @@ const { Title} = Typography;
 export default class EditScreen extends Component {
 
     state = {
-        mobileModifyMode: "modify",
+        mobileModifyMode: "game",
         nowPanel: ""
     }
 

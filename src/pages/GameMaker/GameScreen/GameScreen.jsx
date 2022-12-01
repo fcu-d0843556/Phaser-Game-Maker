@@ -6,7 +6,7 @@ import './GameScreen.css'
 export default class GameScreen extends Component {
 
   state = {
-    mobileModifyMode: "modify"
+    mobileModifyMode: "game"
   }
 
   componentDidMount(){
