@@ -31,7 +31,7 @@ export default class IntroSampleBox extends Component {
                 content: ( 
                     <Typography>
                         <Paragraph>
-                            <Title level={5}>遊戲來源：射擊遊戲</Title>
+                            <Title level={5}>遊戲來源：打氣球遊戲</Title>
                         </Paragraph>
                         <Paragraph>
                             <Text>藉此遊戲來增加過新年的氣氛</Text>
@@ -44,7 +44,7 @@ export default class IntroSampleBox extends Component {
                 content: ( 
                     <Typography>
                         <Paragraph>
-                            <Title level={5}>遊戲來源：煮菜遊戲</Title>
+                            <Title level={5}>遊戲來源：煮料理遊戲</Title>
                         </Paragraph>
                         <Paragraph>
                             <Text>藉此遊戲傳達對媽媽做菜的辛苦</Text>
@@ -57,7 +57,7 @@ export default class IntroSampleBox extends Component {
                 content: ( 
                     <Typography>
                         <Paragraph>
-                            <Title level={5}>遊戲來源：接星星遊戲</Title>
+                            <Title level={5}>遊戲來源：接水果遊戲</Title>
                         </Paragraph>
                         <Paragraph>
                             <Text>想要製作遊戲給比自己年紀小的小孩子</Text>
