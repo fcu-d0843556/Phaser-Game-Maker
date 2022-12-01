@@ -69,22 +69,26 @@ export default class EditScreen extends Component {
                 if(key === 'questions'){
                     let num = 0
                     let saveLatestItem
-                    while(true){
-                        num++
-                        if(gameModifyDatas[key].items.find((item)=> {return item.name === ('question' + num)}) === undefined){
-                            break
-                        }else{
-                            saveLatestItem = cloneDeep(gameModifyDatas[key].items.find((item)=> {return item.name === ('question' + num)}))
+                    let {items} = gameModifyDatas[key] 
+                    if(items.length !== 20){
+                        while(true){
+                            num++
+                            if(gameModifyDatas[key].items.find((item)=> {return item.name === ('question' + num)}) === undefined){
+                                break
+                            }else{
+                                saveLatestItem = cloneDeep(gameModifyDatas[key].items.find((item)=> {return item.name === ('question' + num)}))
+                            }
                         }
-                    }
-                    if(num === 1){
-                        saveLatestItem = cloneDeep(gameModifyDatas[key].items[0])
-                    }
+                        if(num === 1){
+                            saveLatestItem = cloneDeep(gameModifyDatas[key].items[0])
+                        }
 
-                    saveLatestItem.name = ('question' + num)
-                    gameModifyDatas[key].items.push(saveLatestItem)
-                    PubSub.publishSync("ChangeAllItemsDatas",{parent: key ,items: gameModifyDatas[key].items})
-
+                        saveLatestItem.name = ('question' + num)
+                        gameModifyDatas[key].items.push(saveLatestItem)
+                        PubSub.publishSync("ChangeAllItemsDatas",{parent: key ,items: gameModifyDatas[key].items})
+                    }else{
+                        message.warning('問題太多了！')  
+                    }
                 }
                 
             }
