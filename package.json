@@ -31,7 +31,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=5051 && react-app-rewired --max-http-header-size=80000 start",
+    "start": "set PORT=5051 && react-app-rewired --max-http-header-size=50000 start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
