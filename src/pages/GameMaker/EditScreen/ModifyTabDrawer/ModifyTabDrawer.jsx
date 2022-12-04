@@ -36,11 +36,6 @@ export default class ModifyTabDrawer extends Component {
 
         this.setState({darwerName: this.props.darwerName})
 
-        pubsubList.push(
-            PubSub.subscribe("subscribePubSub",(msg,type)=>{
-                console.log('hello');
-            })
-        )
         pubsubList.push(PubSub.subscribe("closeAllDrawer",(msg)=>{this.setState({visible: false});}))
         pubsubList.push(PubSub.subscribe("closeAllDefaultCardDrawer",(msg)=>{this.setState({isDefaultDrawerOpened: false});}))
         pubsubList.push(PubSub.subscribe("showDefaultCardDrawer",(msg,name)=>{
@@ -54,7 +49,6 @@ export default class ModifyTabDrawer extends Component {
         }))
 
         pubsubList.push(PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
-            console.log('get',datas);
             this.setState({
                 defaultFilesData: datas.items
             })
@@ -65,7 +59,7 @@ export default class ModifyTabDrawer extends Component {
     }
 
     componentWillUnmount(){
-        console.log('end');
+        // console.log('end');
         window.removeEventListener("resize", this.updateDimensions)
 
         const {pubsubList} = this.state
@@ -109,11 +103,6 @@ export default class ModifyTabDrawer extends Component {
                                 {/* 內部細項設定 */}
                                 <ModifyCard {...this.props}></ModifyCard>
 
-                                {/* 需要使用這個，解決drawer打開後還未初始化的問題 */}
-                                {/* <div style={{display: "none"}}>
-                                    <DefaultFileBox defaultFilesData={defaultFilesData} gameId={gameId}></DefaultFileBox>
-                                </div>  */}
-
                                 {/* 開啟預設圖片的drawer */}
                                 <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width - 410} zIndex="10" title={<Title level={4} style={{margin: 0}}>使用預設圖片</Title>} placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>
                                     <Col span={width >= 1350 ?12: width >= 1120 ? 11 : 10}>
@@ -130,11 +119,6 @@ export default class ModifyTabDrawer extends Component {
                             <Col span={width >= 845 ?11:24}>
                                 {/* 內部細項設定 */}
                                 <ModifyCard {...this.props}></ModifyCard>
-
-                                {/* 需要使用這個，解決drawer打開後還未初始化的問題 */}
-                                {/* <div style={{display: "none"}}>
-                                    <DefaultFileBox defaultFilesData={defaultFilesData} gameId={gameId}></DefaultFileBox>
-                                </div>  */}
 
                                 {/* 開啟預設圖片的drawer */}
                                 <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width} zIndex={width >= 845 ?10:0}  title={<Title level={4} style={{margin: 0}}>使用預設圖片</Title>} placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>

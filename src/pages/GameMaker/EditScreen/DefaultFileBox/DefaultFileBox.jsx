@@ -37,11 +37,11 @@ export default class DefaultFileBox extends Component {
                 const {defaultFilesData} = this.props
                 const defaultFileKeys = Object.keys(defaultFilesData)
                 let targetItem
-                console.log('id',id,"selectediD", selectedId);
+                // console.log('id',id,"selectediD", selectedId);
                 defaultFileKeys.forEach((key)=>{
                     if(targetItem === undefined){
                         targetItem = defaultFilesData[key].items.find((item)=>{
-                            return item.defaultData.description === id
+                            return item.description === id
                         })
                     }
                 })
@@ -81,20 +81,20 @@ export default class DefaultFileBox extends Component {
                                             return (   
                                                 <List.Item >
                                                     <Card 
-                                                        id={item.defaultData.description}
-                                                        onClick={selectDefaultCard(item.defaultData.description)}
+                                                        id={item.description}
+                                                        onClick={selectDefaultCard(item.description)}
                                                         hoverable 
                                                         // loading={isLoading}
-                                                        headStyle={{background: selectedId === item.defaultData.description ? "linear-gradient(0deg, rgb(246, 150, 83) 0%, rgb(255, 172, 112) 100%)" : "linear-gradient(0deg, #538CF6 0%, #70A2FF 100%)"}}
+                                                        headStyle={{background: selectedId === item.description ? "linear-gradient(0deg, rgb(246, 150, 83) 0%, rgb(255, 172, 112) 100%)" : "linear-gradient(0deg, #538CF6 0%, #70A2FF 100%)"}}
                                                         cover={
                                                             <img
                                                                 className='default-card-img'
                                                                 alt="..."
-                                                                src={item.img.src}
+                                                                src={item.src}
                                                             />
                                                         }
                                                         extra={
-                                                            selectedId === item.defaultData.description ? 
+                                                            selectedId === item.description ? 
                                                                 <CheckCircleTwoTone 
                                                                     twoToneColor="#f56a00" 
                                                                     style={{
@@ -111,7 +111,7 @@ export default class DefaultFileBox extends Component {
                                                         }
                                                     >
                                                         <Meta
-                                                            title = {item.defaultData.description}
+                                                            title = {item.description}
                                                         />
                                                     </Card>
                                                 </List.Item>

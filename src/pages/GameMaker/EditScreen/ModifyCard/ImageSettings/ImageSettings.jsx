@@ -32,10 +32,8 @@ export default class ImageSettings extends Component {
 
         pubsubList.push(
             PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
-                // console.log(status);
                 const {ImageDatas,saveImageSrc} = this.state
-                // console.log("img",ImageDatas);
-                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
+                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.src : saveImageSrc
                 this.setState({ImageDatas})
                 PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
             })
@@ -59,8 +57,6 @@ export default class ImageSettings extends Component {
     }
 
     componentWillUnmount(){
-        console.log('imageSetting end');
-
         const {pubsubList} = this.state
         for(let i=0;i< pubsubList.length;i++){
             PubSub.unsubscribe(pubsubList[i])
@@ -69,19 +65,12 @@ export default class ImageSettings extends Component {
     }
 
     loadDefaultDatas = (parent) => {
-        const {gameId} = this.props
-
         axios({
             method: "get",
-            url: "/api1/getDefaultImgDatas",
-            params: {
-                gameId: gameId,
-                name: parent
-            }
+            url: "/api1/getDefaultImgDatas"
         }).then(
             response => {
                 const {ImageDatas} = this.state
-                console.log(response.data);
                 PubSub.publish("saveDefaultCardDatas", {
                     parent: ImageDatas.parent,
                     name: ImageDatas.name,
@@ -135,7 +124,6 @@ export default class ImageSettings extends Component {
         }
 
         const setPositionValueToCenter = () => {
-            // console.log("dd");
             const {ImageDatas} = this.state
             ImageDatas.img.position.x = 180
             ImageDatas.img.position.y = 310
