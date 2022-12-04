@@ -9,27 +9,39 @@ import { Col,Card } from 'antd';
 export default class SelectionCard extends Component {
     
     state = {
-        selectionDatas: {}
+        selectionDatas: {},
+        pubsubList: []
     }
 
     componentDidMount(){
         this.setState({
             selectionDatas: {...this.props}
         })
-        
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {selectionDatas} = this.state
-            if(gameModifyDatas[selectionDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[selectionDatas.parent].items.length;i++){
-                    if(gameModifyDatas[selectionDatas.parent].items[i].name === selectionDatas.name){
-                        this.setState({
-                            selectionDatas: cloneDeep(gameModifyDatas[selectionDatas.parent].items[i])
-                        })
-                        break
+
+        let {pubsubList} = this.state
+
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {selectionDatas} = this.state
+                if(gameModifyDatas[selectionDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[selectionDatas.parent].items.length;i++){
+                        if(gameModifyDatas[selectionDatas.parent].items[i].name === selectionDatas.name){
+                            this.setState({
+                                selectionDatas: cloneDeep(gameModifyDatas[selectionDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
+    }
+
+    componentWillUnmount(){
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
     }
 
     changeValue = (type,value) => {

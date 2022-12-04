@@ -11,7 +11,8 @@ import PubSub from 'pubsub-js'
 export default class ScoreCard extends Component {
     
     state = {
-        textDatas: {}
+        textDatas: {},
+        pubsubList: []
     }
 
     componentDidMount(){
@@ -19,22 +20,32 @@ export default class ScoreCard extends Component {
             textDatas: {...this.props}
         })
 
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {textDatas} = this.state
-            if(gameModifyDatas[textDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
-                    if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
-                        this.setState({
-                            textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
-                        })
-                        break
+        let {pubsubList} = this.state
+
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {textDatas} = this.state
+                if(gameModifyDatas[textDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
+                        if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
+                            this.setState({
+                                textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
     }
 
-  
+    componentWillUnmount(){
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
+    }
+
     render() {
         const changeValue = (value) => {
             const {textDatas} = this.state

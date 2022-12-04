@@ -108,6 +108,9 @@ export default class EditScreen extends Component {
         // console.log("gameModifyDatas",gameModifyDatas);
 
         const changeTab = (key) => {
+            // console.log(key);
+            PubSub.publishSync("closeAllDrawer")
+            PubSub.publishSync("closeAllDefaultCardDrawer")
             this.setState({activeTab: key})
         }
 
@@ -116,7 +119,7 @@ export default class EditScreen extends Component {
                 {/* 響應式設計的相關code */}
                 <Col span={width >=1000 ? 8:0}></Col>
 
-                <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 15}}>
+                <Col offset={width >=1000 ? 10: width >= 845 ? 16 : 0} span={width >=1000 ? 6: width >= 845 ? 8 : 24} style={{zIndex: 15}}>
                     <div className="modify-cards-screen" style={{marginRight: width >= 845 ? 4.5 : 0}}>
                         <Form style={{marginBottom: 80}}> 
                             <Collapse onChange={changeTab} style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}} accordion>
@@ -155,6 +158,15 @@ export default class EditScreen extends Component {
                                                         )
                                                     }}
                                                 />
+
+                                                {
+                                                    key === 'questions' ?
+                                                        <div>
+                                                            <Divider style={{visibility: "hidden", marginTop: 0}}></Divider>
+                                                            <Button onClick={addNewItem(key)} className='drawer-list-button' block>新增問題</Button>
+                                                        </div>
+                                                    :   <div></div>
+                                                }
                                             </Panel>
                                         )
                                     })
