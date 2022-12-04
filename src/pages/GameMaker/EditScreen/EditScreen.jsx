@@ -112,7 +112,7 @@ export default class EditScreen extends Component {
         const {width} = this.props
         const {mobileModifyMode,nowPanel} = this.state;
         const data = Object.keys(gameModifyDatas)
-
+        // console.log("data",data);
         return (
             <Row>
                 {/* 響應式設計的相關code */}

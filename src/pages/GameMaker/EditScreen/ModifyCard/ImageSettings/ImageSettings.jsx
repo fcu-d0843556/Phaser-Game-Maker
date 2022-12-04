@@ -28,12 +28,14 @@ export default class ImageSettings extends Component {
         })
 
         PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
+            console.log(status);
             const {ImageDatas,saveImageSrc} = this.state
-            if(ImageDatas.name === status.selectedName){
+            console.log("img",ImageDatas);
+            // if(ImageDatas.name === status.selectedName){
                 ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
                 this.setState({ImageDatas})
                 PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-            }
+            // }
         })
 
         PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
@@ -66,10 +68,11 @@ export default class ImageSettings extends Component {
         }).then(
             response => {
                 const {ImageDatas} = this.state
+                console.log(response.data);
                 PubSub.publish("saveDefaultCardDatas", {
                     parent: ImageDatas.parent,
                     name: ImageDatas.name,
-                    items: response.data.items,
+                    items: response.data,
                     modifyTitle: ImageDatas.modifyTitle
                 })
             },
