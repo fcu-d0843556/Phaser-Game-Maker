@@ -23,7 +23,7 @@ export default class EditScreen extends Component {
 
     state = {
         mobileModifyMode: "game",
-        nowPanel: ""
+        activeTab: ""
     }
 
     refreshGame = (event) => {
@@ -55,13 +55,6 @@ export default class EditScreen extends Component {
     
 
     render() {
-        const changeCollapsePanel = (nowPanel) => {
-            if(nowPanel.length === 2){
-                this.setState({nowPanel:nowPanel[1]})
-            }else{
-                this.setState({nowPanel:nowPanel[0]})
-            }
-        }
 
         const addNewItem = (key) => {
             return () => {
@@ -110,9 +103,14 @@ export default class EditScreen extends Component {
 
         const {gameModifyDatas,gameId,username} = this.props
         const {width} = this.props
-        const {mobileModifyMode,nowPanel} = this.state;
-        const data = Object.keys(gameModifyDatas)
-        // console.log("data",data);
+        const {mobileModifyMode,activeTab} = this.state;
+        const gameModifyDataKeys = Object.keys(gameModifyDatas)
+        // console.log("gameModifyDatas",gameModifyDatas);
+
+        const changeTab = (key) => {
+            this.setState({activeTab: key})
+        }
+
         return (
             <Row>
                 {/* 響應式設計的相關code */}
@@ -121,31 +119,27 @@ export default class EditScreen extends Component {
                 <Col offset={width >=1000 ? 8: width >= 845 ? 12 : 0} span={width >=1000 ? 8: width >= 845 ? 12 : 24} style={{zIndex: 15}}>
                     <div className="modify-cards-screen" style={{marginRight: width >= 845 ? 4.5 : 0}}>
                         <Form style={{marginBottom: 80}}> 
-                            <List
-                                bordered={false}
-                                style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}}
-                                itemLayout="horizontal"
-                                dataSource={data}
-                                renderItem={function(key) {
-                                    // console.log(key);
-                                    return (
-                                        // 主要drawer的生成
-                                        <Collapse className={  key === nowPanel  ? "editscreen-list-collapse editscreen-list-selected" : "editscreen-list-collapse editscreen-list-unselected"}  onChange={changeCollapsePanel} activeKey={nowPanel}>
-                                            <Panel style={{borderRadius: 0}} 
-                                                   header={<Title level={4} style={{margin: 0}}>{gameModifyDatas[key].modifyTitle}</Title>} 
-                                                   key={key} 
+                            <Collapse onChange={changeTab} style={{visibility: mobileModifyMode === "modify" || width >=845 ? "visible" : "hidden"}} accordion>
+                                {
+                                    gameModifyDataKeys.map((key) => {
+                                        return (
+                                            <Panel 
+                                                destroyInactivePanel={true} 
+                                                style={{
+                                                    background: activeTab === key ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6", padding: 0, borderRadius: 0,
+                                                }}
+                                                header={<Title level={4} style={{margin: 0}}>{gameModifyDatas[key].modifyTitle}</Title>} 
+                                                key={key} 
                                             >
-                                                {
-                                                    gameModifyDatas[key].items.map((item)=>{
-                                                        // console.log("darwerName", item.name)
-
-                                                        return (
-                                                            // 主要drawer裡，子按鈕的生成
-                                                            <List.Item style={{borderRadius: 0}} key={item.name} >
-
-                                                                {/* 修改按鈕 */}
+                                                <List
+                                                    dataSource={gameModifyDatas[key].items}
+                                                    
+                                                    renderItem={item => {
+                                                        // console.log(item);
+                                                        return (   
+                                                            <List.Item>
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>
-                                                                
+                                                            
                                                                 {/* 敘述按鈕內容 */}
                                                                 <Tooltip title={gameModifyDatas[key].modifyDetail} placement="left">
                                                                     {
@@ -157,30 +151,15 @@ export default class EditScreen extends Component {
                                                                             <QuestionCircleTwoTone twoToneColor="#f56a00" style={{float: "right", fontSize: '24px'}} />
                                                                     }
                                                                 </Tooltip>
-                
                                                             </List.Item>
-                                                                
                                                         )
-                                                    })
-                                                }
-
-                                                {
-                                                    key === 'questions' ?
-                                                        <div>
-                                                            <Divider style={{visibility: "hidden", marginTop: 0}}>
-                                                            </Divider>
-                                                            <Button onClick={addNewItem(key)} className='drawer-list-button' block>新增問題</Button>
-
-                                                            
-                                                        </div>
-                                                    :   <div></div>
-                                                }
-                                                
+                                                    }}
+                                                />
                                             </Panel>
-                                        </Collapse>
-                                    )
-                                } }
-                            />
+                                        )
+                                    })
+                                }
+                            </Collapse>
                         </Form>
                     </div>  
                 </Col>
