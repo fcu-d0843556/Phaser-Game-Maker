@@ -152,6 +152,7 @@ export default class GameMaker extends Component {
   }
 
   componentWillUnmount(){
+    window.removeEventListener("resize", this.updateDimensions)
     const {pubsubList} = this.state
     for(let i=0;i< pubsubList.length;i++){
       PubSub.unsubscribe(pubsubList[i])

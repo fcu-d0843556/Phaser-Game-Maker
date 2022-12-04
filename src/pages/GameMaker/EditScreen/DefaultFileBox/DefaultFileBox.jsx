@@ -35,7 +35,7 @@ export default class DefaultFileBox extends Component {
         // console.log("de",selectedId,modifyTitle);
         const {defaultFilesData} = this.props
         const defaultFileKeys = Object.keys(defaultFilesData)
-        // console.log('get default', defaultFilesData,);
+        console.log('get default', defaultFilesData,);
 
         const selectDefaultCard = (id) => {
             return () => {
@@ -43,13 +43,13 @@ export default class DefaultFileBox extends Component {
                 const {defaultFilesData} = this.props
                 const defaultFileKeys = Object.keys(defaultFilesData)
                 let targetItem
-                console.log('select',id, selectedId);
+                console.log('id',id,"selectediD", selectedId);
                 defaultFileKeys.forEach((key)=>{
                     targetItem = defaultFilesData[key].items.find((item)=>{
                         return item.defaultData.description === id
                     })
                 })
-                console.log(targetItem);
+                // console.log(targetItem);
 
                 this.setState({
                     selectedId: selectedId === id ? "" : id,

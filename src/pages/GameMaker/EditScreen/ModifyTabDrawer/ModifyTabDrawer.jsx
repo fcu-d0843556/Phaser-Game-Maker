@@ -20,7 +20,8 @@ export default class ModifyTabDrawer extends Component {
         isDefaultDrawerOpened: false,
         DefaultFileBoxInit: false,
 
-        defaultFilesData: {}
+        defaultFilesData: {},
+        pubsubList: []
     }
 
     updateDimensions = () => {
@@ -30,12 +31,19 @@ export default class ModifyTabDrawer extends Component {
     }
 
     componentDidMount(){
+        let {pubsubList} = this.state
         window.addEventListener("resize", this.updateDimensions);
 
         this.setState({darwerName: this.props.darwerName})
-        PubSub.subscribe("closeAllDrawer",(msg)=>{this.setState({visible: false});})
-        PubSub.subscribe("closeAllDefaultCardDrawer",(msg)=>{this.setState({isDefaultDrawerOpened: false});})
-        PubSub.subscribe("showDefaultCardDrawer",(msg,name)=>{
+
+        pubsubList.push(
+            PubSub.subscribe("subscribePubSub",(msg,type)=>{
+                console.log('hello');
+            })
+        )
+        pubsubList.push(PubSub.subscribe("closeAllDrawer",(msg)=>{this.setState({visible: false});}))
+        pubsubList.push(PubSub.subscribe("closeAllDefaultCardDrawer",(msg)=>{this.setState({isDefaultDrawerOpened: false});}))
+        pubsubList.push(PubSub.subscribe("showDefaultCardDrawer",(msg,name)=>{
             const {darwerName} = this.state
             if(darwerName === name){
                 const {isDefaultDrawerOpened} = this.state
@@ -43,14 +51,28 @@ export default class ModifyTabDrawer extends Component {
             }else{
                 this.setState({isDefaultDrawerOpened: false})
             }
-        })
+        }))
 
-        PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
+        pubsubList.push(PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
             console.log('get',datas);
             this.setState({
                 defaultFilesData: datas.items
             })
-        })
+        }))
+
+        this.setState({pubsubList})
+
+    }
+
+    componentWillUnmount(){
+        console.log('end');
+        window.removeEventListener("resize", this.updateDimensions)
+
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
+        PubSub.publish('subscribePubSub')
     }
 
     showDrawer = () => {
@@ -110,9 +132,9 @@ export default class ModifyTabDrawer extends Component {
                                 <ModifyCard {...this.props}></ModifyCard>
 
                                 {/* 需要使用這個，解決drawer打開後還未初始化的問題 */}
-                                <div style={{display: "none"}}>
+                                {/* <div style={{display: "none"}}>
                                     <DefaultFileBox defaultFilesData={defaultFilesData} gameId={gameId}></DefaultFileBox>
-                                </div> 
+                                </div>  */}
 
                                 {/* 開啟預設圖片的drawer */}
                                 <Drawer drawerStyle={{background:"#F69653"}} push={false} width={width} zIndex={width >= 845 ?10:0}  title={<Title level={4} style={{margin: 0}}>使用預設圖片</Title>} placement="right" onClose={this.closeDefaultCardDrawer} open={isDefaultDrawerOpened}>

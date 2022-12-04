@@ -17,43 +17,58 @@ export default class ImageSettings extends Component {
         ImageDatas: {},
         saveImageSrc: "",
         isUploadFile: false,
-        isUploading: false
+        isUploading: false,
+
+        pubsubList: []
     }
 
     componentDidMount(){
+        let {pubsubList} = this.state
 
         this.setState({
             ImageDatas: {...this.props},
             saveImageSrc: this.props.img.src
         })
 
-        PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
-            console.log(status);
-            const {ImageDatas,saveImageSrc} = this.state
-            console.log("img",ImageDatas);
-            // if(ImageDatas.name === status.selectedName){
-                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
-                this.setState({ImageDatas})
-                PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-            // }
-        })
+        pubsubList.push(
+            PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
+                console.log(status);
+                const {ImageDatas,saveImageSrc} = this.state
+                console.log("img",ImageDatas);
+                // if(ImageDatas.name === status.selectedName){
+                    ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
+                    this.setState({ImageDatas})
+                    PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
+                // }
+            })
+        )
 
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {ImageDatas} = this.state
-            if(gameModifyDatas[ImageDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[ImageDatas.parent].items.length;i++){
-                    if(gameModifyDatas[ImageDatas.parent].items[i].name === ImageDatas.name){
-                        this.setState({
-                            ImageDatas: cloneDeep(gameModifyDatas[ImageDatas.parent].items[i])
-                        })
-                        break
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {ImageDatas} = this.state
+                if(gameModifyDatas[ImageDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[ImageDatas.parent].items.length;i++){
+                        if(gameModifyDatas[ImageDatas.parent].items[i].name === ImageDatas.name){
+                            this.setState({
+                                ImageDatas: cloneDeep(gameModifyDatas[ImageDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
     }
 
-    
+    componentWillUnmount(){
+        console.log('imageSetting end');
+
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
+        PubSub.publish('subscribePubSub')
+    }
 
     loadDefaultDatas = (parent) => {
         const {gameId} = this.props
