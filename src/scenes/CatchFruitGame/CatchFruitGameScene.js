@@ -101,10 +101,6 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         this.add.image(background.items[0].img.position.x, background.items[0].img.position.y ,'background').setScale(background.items[0].img.size/100)
         
         this.createScoreBoard()
-    
-
-
-        
 
         //創建角色、星星等
         this.platforms = this.createPlatform()
@@ -125,8 +121,6 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         this.physics.add.collider(this.player,this.platforms)
         this.physics.add.overlap(this.player, this.starsGroup, this.collectStar,null,this)
         this.physics.add.collider(this.platforms, this.starsGroup,this.disableBody,null,this)
-        this.physics.add.collider(this.platforms, this.bombsGroup, this.hitBomb,null,this)
-        this.physics.add.collider(this.player, this.bombsGroup, this.hitBomb, null, this)
 
         // related to button 左箭頭右箭頭
         this.createMovingArrow()
@@ -159,10 +153,6 @@ export default class CatchFruitGameScene extends Phaser.Scene{
         disablePart.disableBody(true,true)
     }
 
-    hitBomb(player,bomb){
-        // bomb.disableBody(true,true)
-    }
-
     collectStar(player,star){
         star.disableBody(true,true)
         this.getItemMessage = new ShowMessage(this, star.getData('text'))
@@ -180,7 +170,6 @@ export default class CatchFruitGameScene extends Phaser.Scene{
 
     createPlayer(){
         const {player} = this.modifyDatas
-        console.log(player);
         let newPlayer = this.physics.add.sprite(player.items[0].img.position.x,player.items[0].img.position.y,'player').setScale(player.items[0].img.size/100)
         newPlayer.setCollideWorldBounds(true)
         newPlayer.setGravity(0,300)
@@ -192,19 +181,14 @@ export default class CatchFruitGameScene extends Phaser.Scene{
 
         if(this.cursor.left.isDown){
             this.player.setVelocityX(this.playerMoveSpeed * -1)
-            // this.player.anims.play('goLeft',true)
         }else if(this.cursor.right.isDown){
             this.player.setVelocityX(this.playerMoveSpeed)
-            // this.player.anims.play('goRight',true)
         }else if(!this.isMousePress){
             this.player.setVelocityX(0)
-            // this.player.anims.play('stop',true)
         }
-
         if(this.cursor.up.isDown && this.player.body.touching.down){
             this.player.setVelocityY(-120)
         }
-
 
         if(this.isGameStart){
             this.starCoolDown.update()

@@ -17,59 +17,64 @@ export default class ImageSettings extends Component {
         ImageDatas: {},
         saveImageSrc: "",
         isUploadFile: false,
-        isUploading: false
+        isUploading: false,
+
+        pubsubList: []
     }
 
     componentDidMount(){
+        let {pubsubList} = this.state
 
         this.setState({
             ImageDatas: {...this.props},
             saveImageSrc: this.props.img.src
         })
 
-        PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
-            const {ImageDatas,saveImageSrc} = this.state
-            if(ImageDatas.name === status.selectedName){
-                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
+        pubsubList.push(
+            PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
+                const {ImageDatas,saveImageSrc} = this.state
+                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.src : saveImageSrc
                 this.setState({ImageDatas})
                 PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-            }
-        })
+            })
+        )
 
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {ImageDatas} = this.state
-            if(gameModifyDatas[ImageDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[ImageDatas.parent].items.length;i++){
-                    if(gameModifyDatas[ImageDatas.parent].items[i].name === ImageDatas.name){
-                        this.setState({
-                            ImageDatas: cloneDeep(gameModifyDatas[ImageDatas.parent].items[i])
-                        })
-                        break
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {ImageDatas} = this.state
+                if(gameModifyDatas[ImageDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[ImageDatas.parent].items.length;i++){
+                        if(gameModifyDatas[ImageDatas.parent].items[i].name === ImageDatas.name){
+                            this.setState({
+                                ImageDatas: cloneDeep(gameModifyDatas[ImageDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
     }
 
-    
+    componentWillUnmount(){
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
+        PubSub.publish('subscribePubSub')
+    }
 
     loadDefaultDatas = (parent) => {
-        const {gameId} = this.props
-
         axios({
             method: "get",
-            url: "/api1/getDefaultImgDatas",
-            params: {
-                gameId: gameId,
-                name: parent
-            }
+            url: "/api1/getDefaultImgDatas"
         }).then(
             response => {
                 const {ImageDatas} = this.state
                 PubSub.publish("saveDefaultCardDatas", {
                     parent: ImageDatas.parent,
                     name: ImageDatas.name,
-                    items: response.data.items,
+                    items: response.data,
                     modifyTitle: ImageDatas.modifyTitle
                 })
             },
@@ -119,7 +124,6 @@ export default class ImageSettings extends Component {
         }
 
         const setPositionValueToCenter = () => {
-            // console.log("dd");
             const {ImageDatas} = this.state
             ImageDatas.img.position.x = 180
             ImageDatas.img.position.y = 310
