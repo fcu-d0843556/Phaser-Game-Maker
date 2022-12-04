@@ -32,14 +32,12 @@ export default class ImageSettings extends Component {
 
         pubsubList.push(
             PubSub.subscribe("usingDefaultDatas",(msg,status)=>{
-                console.log(status);
+                // console.log(status);
                 const {ImageDatas,saveImageSrc} = this.state
-                console.log("img",ImageDatas);
-                // if(ImageDatas.name === status.selectedName){
-                    ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
-                    this.setState({ImageDatas})
-                    PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
-                // }
+                // console.log("img",ImageDatas);
+                ImageDatas.img.src =  status.selectedItem !== undefined  ? status.selectedItem.img.src : saveImageSrc
+                this.setState({ImageDatas})
+                PubSub.publishSync("setFormDatas",{name: this.props.name, values: ImageDatas})
             })
         )
 

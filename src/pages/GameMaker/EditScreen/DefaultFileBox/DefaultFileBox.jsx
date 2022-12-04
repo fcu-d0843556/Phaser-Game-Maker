@@ -15,48 +15,42 @@ export default class DefaultFileBox extends Component {
 
     state = {
 
-        //在載入遠端文件完成時，存入傳入的ImageSettings名字和title
-        nowDrawerName: "",
-        modifyTitle: "",
 
         //所有的載入遠端文件
-        defaultCardDatas: [],
         isLoading: true,
         
         //選擇的物件和ID
-        selectedItem: {},
         selectedId: "",
 
         activeTab: ""
     }
 
     render() {
-        const {defaultCardDatas,isLoading, selectedId, modifyTitle,activeTab} = this.state
-        // console.log("de",selectedId,modifyTitle);
+        const {selectedId,activeTab} = this.state
         const {defaultFilesData} = this.props
         const defaultFileKeys = Object.keys(defaultFilesData)
-        console.log('get default', defaultFilesData,);
+        // console.log('get default', defaultFilesData,);
 
         const selectDefaultCard = (id) => {
             return () => {
-                const {selectedId,defaultCardDatas,nowDrawerName} = this.state
+                const {selectedId} = this.state
                 const {defaultFilesData} = this.props
                 const defaultFileKeys = Object.keys(defaultFilesData)
                 let targetItem
                 console.log('id',id,"selectediD", selectedId);
                 defaultFileKeys.forEach((key)=>{
-                    targetItem = defaultFilesData[key].items.find((item)=>{
-                        return item.defaultData.description === id
-                    })
+                    if(targetItem === undefined){
+                        targetItem = defaultFilesData[key].items.find((item)=>{
+                            return item.defaultData.description === id
+                        })
+                    }
                 })
-                // console.log(targetItem);
 
                 this.setState({
                     selectedId: selectedId === id ? "" : id,
                     selectedItem: selectedId === id ? undefined : targetItem
                 })
                 PubSub.publish("usingDefaultDatas", {
-                    selectedName: nowDrawerName,
                     selectedItem: selectedId === id ? undefined : targetItem
                 })
             }
