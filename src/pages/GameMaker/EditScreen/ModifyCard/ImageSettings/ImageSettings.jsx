@@ -61,10 +61,9 @@ export default class ImageSettings extends Component {
         for(let i=0;i< pubsubList.length;i++){
             PubSub.unsubscribe(pubsubList[i])
         }
-        PubSub.publish('subscribePubSub')
     }
 
-    loadDefaultDatas = (parent) => {
+    loadDefaultDatas = () => {
         axios({
             method: "get",
             url: "/api1/getDefaultImgDatas"
@@ -92,8 +91,7 @@ export default class ImageSettings extends Component {
         const showDefaultCardDrawer = (name) => {
             return () => {
                 PubSub.publishSync('showDefaultCardDrawer',name)
-                const {parent} = this.state.ImageDatas
-                this.loadDefaultDatas(parent)
+                this.loadDefaultDatas()
             }
         }
 

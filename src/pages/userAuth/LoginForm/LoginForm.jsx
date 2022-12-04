@@ -68,6 +68,7 @@ class LoginForm extends Component {
                     {
                       required: true,
                       message: '請輸入使用者名稱！',
+                      whitespace: true
                     },
                   ]}
                 >
@@ -80,6 +81,7 @@ class LoginForm extends Component {
                     {
                       required: true,
                       message: '請輸入密碼！',
+                      whitespace: true
                     },
                   ]}
                 >

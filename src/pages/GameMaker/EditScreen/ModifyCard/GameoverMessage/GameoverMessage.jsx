@@ -10,44 +10,51 @@ const ids = [0,1,2]
 export default class GameoverMessage extends Component {
     
     state = {
-        textDatas: {}
+        textDatas: {},
+        pubsubList: []
     }
 
     componentDidMount(){
         this.setState({
             textDatas: {...this.props}
         })
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {textDatas} = this.state
-            if(gameModifyDatas[textDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
-                    if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
-                        this.setState({
-                            textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
-                        })
-                        break
+        let {pubsubList} = this.state
+
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {textDatas} = this.state
+                if(gameModifyDatas[textDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[textDatas.parent].items.length;i++){
+                        if(gameModifyDatas[textDatas.parent].items[i].name === textDatas.name){
+                            this.setState({
+                                textDatas: cloneDeep(gameModifyDatas[textDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
+    }
+
+    componentWillUnmount(){
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
     }
 
     render() {
         
-        const {description,score,message,modifyTitle} = this.props.gameoverMessage
-        
-
-
+        const {score,message} = this.props.gameoverMessage
         const changeNumberValue = (event) => {
             const {textDatas} = this.state
-            // console.log("v",event.target);
             textDatas.gameoverMessage.score[Number(event.target.id)] = Number(event.target.value)
             PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         };
         
         const changeTextValue = (event) => {
             const {textDatas} = this.state
-            // console.log(textDatas,  event.target.value);
             textDatas.gameoverMessage.message[Number(event.currentTarget.id)] = event.target.value
             PubSub.publishSync("setFormDatas",{name: this.props.name, values: textDatas})
         }
@@ -55,7 +62,6 @@ export default class GameoverMessage extends Component {
         return (
             <Col span={24}>
                 <Card 
-                    // title={<Title className='modify-card-card-tile' level={4}>{modifyTitle}</Title>}
                     bordered={false}       
                 >
 

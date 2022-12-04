@@ -9,30 +9,40 @@ import './PriorityCard.less'
 export default class PriorityCard extends Component {
     
     state = {
-        itemDatas: {}
+        itemDatas: {},
+        pubsubList: []
     }
 
     componentDidMount(){
+        let {pubsubList} = this.state
+
         this.setState({
             itemDatas: {...this.props}
         })
 
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {itemDatas} = this.state
-            if(gameModifyDatas[itemDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[itemDatas.parent].items.length;i++){
-                    if(gameModifyDatas[itemDatas.parent].items[i].name === itemDatas.name){
-                        this.setState({
-                            itemDatas: cloneDeep(gameModifyDatas[itemDatas.parent].items[i])
-                        })
-                        break
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {itemDatas} = this.state
+                if(gameModifyDatas[itemDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[itemDatas.parent].items.length;i++){
+                        if(gameModifyDatas[itemDatas.parent].items[i].name === itemDatas.name){
+                            this.setState({
+                                itemDatas: cloneDeep(gameModifyDatas[itemDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
     }
 
-    
+    componentWillUnmount(){
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
+    }
   
     render() {
         const {modifyTitle, selected, content} = this.props.priority

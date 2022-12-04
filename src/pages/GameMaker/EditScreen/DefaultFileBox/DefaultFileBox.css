@@ -4,8 +4,8 @@
 }
 
 .default-file-box .ant-card-bordered{
-    border-color: rgb(61, 61, 61);
     border-radius: 0;
+    border: none;
 }
 
 .default-file-box .ant-card-bordered .ant-card-cover{

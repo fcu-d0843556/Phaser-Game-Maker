@@ -23,8 +23,6 @@
     background-color: #090225 !important;
 }
 
-
-
 /* 選擇左右箭頭 */
 .ant-pagination-item-link{
     background: linear-gradient(0deg, #538CF6 0%, #538CF6 100%) !important;
@@ -36,14 +34,21 @@
     border-color: #c2c2c2 !important;
 }
 
+
 /* 選擇數字按鈕 */
 .ant-pagination-item{
     background: linear-gradient(0deg, #538CF6 0%, #538CF6 100%) !important;
-    border-color: black !important;
+    border-color: black;
 }
+
 .ant-pagination-item:hover{
     background: linear-gradient(0deg, #538CF6 0%, #70A2FF 100%) !important;
     color: #F69653 !important;
     border-color: #c2c2c2 !important;
 }
 
+.ant-pagination-item-active{
+    color: #F69653 !important;
+    font-weight: normal;
+    border-color: #c2c2c2 !important;
+}

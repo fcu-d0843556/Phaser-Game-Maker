@@ -12,7 +12,8 @@ const { Title} = Typography;
 export default class QuestionCard extends Component {
     
     state = {
-        questionDatas: {}
+        questionDatas: {},
+        pubsubList: []
     }
 
     componentDidMount(){
@@ -20,19 +21,30 @@ export default class QuestionCard extends Component {
             questionDatas: {...this.props}
         })
 
-        PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
-            const {questionDatas} = this.state
-            if(gameModifyDatas[questionDatas.parent] !== undefined){
-                for(let i=0;i<gameModifyDatas[questionDatas.parent].items.length;i++){
-                    if(gameModifyDatas[questionDatas.parent].items[i].name === questionDatas.name){
-                        this.setState({
-                            questionDatas: cloneDeep(gameModifyDatas[questionDatas.parent].items[i])
-                        })
-                        break
+        let {pubsubList} = this.state
+        
+        pubsubList.push(
+            PubSub.subscribe('backToDefaultDatas', (msg,gameModifyDatas)=> {
+                const {questionDatas} = this.state
+                if(gameModifyDatas[questionDatas.parent] !== undefined){
+                    for(let i=0;i<gameModifyDatas[questionDatas.parent].items.length;i++){
+                        if(gameModifyDatas[questionDatas.parent].items[i].name === questionDatas.name){
+                            this.setState({
+                                questionDatas: cloneDeep(gameModifyDatas[questionDatas.parent].items[i])
+                            })
+                            break
+                        }
                     }
                 }
-            }
-        })
+            })
+        )
+    }
+
+    componentWillUnmount(){
+        const {pubsubList} = this.state
+        for(let i=0;i< pubsubList.length;i++){
+            PubSub.unsubscribe(pubsubList[i])
+        }
     }
 
     changeValue = (type,index) => {

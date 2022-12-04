@@ -3,18 +3,13 @@ import PubSub from 'pubsub-js';
 import qs from 'qs'
 import axios from 'axios';
 import {FullscreenOutlined,RetweetOutlined} from '@ant-design/icons';
-import {Button,Layout} from 'antd';
-
-//Pages
-// import GameScreen from '../GameMaker/GameScreen/GameScreen'
+import {Button,message} from 'antd';
 
 //Phaser Game
 import startGame from '../../PhaserGame'
 
-
 import './PlayGame.less'
 
-const { Footer } = Layout;
 
 export default class RenderGame extends Component {
 
@@ -28,7 +23,7 @@ export default class RenderGame extends Component {
     const {search} = this.props.location;
     const {gameId, username} = qs.parse(search.slice(1))
 
-    console.log(gameId,username);
+    // console.log(gameId,username);
 
     axios({
       method: 'get',
@@ -48,15 +43,13 @@ export default class RenderGame extends Component {
           })
           PubSub.publishSync("playGameMode", true);
         }else{
-          alert(response.data.message)
+          message.warning(response.data.message)
+          message.warning('請確認您使用的連結是正確的！')
         }
-        
-        // console.log("message: ",response.data.message );
-        // console.log(response.data.notFound);
-        // console.log("res", response);
       },
       error => {
-        console.log("err", error);
+        message.warning('請使用正確的連結才能進入遊戲！')
+        this.props.history.push('/Home')
       }
     )
   }
@@ -67,7 +60,6 @@ export default class RenderGame extends Component {
 
   fullScreen = () => {
     const getScreen = document.getElementById("phaser-play-screen")
-    // console.log(getScreen);
     if (getScreen.requestFullscreen) {
       getScreen.requestFullscreen();
     }
