@@ -23,7 +23,7 @@ const { Header } = Layout;
 class MyHeader extends Component {
 
     state = {
-        username: '',
+        isPlayGameMode: false
     }
     
     componentDidMount(){
@@ -35,15 +35,12 @@ class MyHeader extends Component {
         })
 
         PubSub.subscribe("setUsername", (msg,username)=>{
-            // console.log('setUsername', username);
-            this.setState({username})
             localStorage.setItem('username', username)
         })
 
     }
 
     logOut = () => {
-        this.setState({username: ''})
         localStorage.setItem('username', '')
         this.props.history.replace("/home")
     }
@@ -51,7 +48,6 @@ class MyHeader extends Component {
     menuClick = (id) => {
         return () => {
             const {pathname} = this.props.location
-            console.log(id);
             switch(id){
                 case '/logout':
                     this.logOut()
@@ -69,8 +65,8 @@ class MyHeader extends Component {
 
     render() {
         const {isPlayGameMode} = this.state
-        const username = localStorage.getItem('username') || ''
-
+        const username = localStorage.getItem('username')
+        // console.log(username);
         const backToHome = () => {
             const {pathname} = this.props.location
             if(pathname !== '/home'){
@@ -128,7 +124,7 @@ class MyHeader extends Component {
                             (!isPlayGameMode) ? 
                                 <Col offset={15} span={1}>
                                     {
-                                        username === "" 
+                                        username === '' || username === 'null' || username === 'undefined' || username === null || username === undefined
                                             ? 
                                                 <Avatar 
                                                     onClick={userAuthAction}

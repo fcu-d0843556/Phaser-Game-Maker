@@ -11,35 +11,48 @@ import './RegisterForm.less'
 
 class RegisterForm extends Component {
   render() {
-
-
     const onFinish = (values) => {
       const {username,password} = values
-      axios(
-        {
-          method: 'post',
-          url: '/api1/register',
-          params: {
-            username,
-            password
-          },
-        }
-      ).then(
-        response => {
-          if(response.data.isSuccessed){
-            PubSub.publishSync("setUsername",username)
-            message.success(`歡迎您！${username}`)
-            this.props.history.replace(`/home`,{ username })
-          }else{
-            alert(response.data.message)
+      
+      if(checkValue(username,password)){
+        axios(
+          {
+            method: 'post',
+            url: '/api1/register',
+            params: {
+              username,
+              password
+            },
           }
-        },
-        error => {console.log(error);}
-      )
+        ).then(
+          response => {
+            if(response.data.isSuccessed){
+              PubSub.publishSync("setUsername",username)
+              message.success(`歡迎您！${username}`)
+              this.props.history.replace(`/home`,{ username })
+            }else{
+              alert(response.data.message)
+            }
+          },
+          error => {console.log(error);}
+        )
+      }
     };
   
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
+    };
+
+    const checkValue = (username,password) => {
+      if(username === '' || username.toLowerCase() === 'null' || username.toLowerCase() === 'undefined' || username === null || username === undefined){
+        message.warning('請換個使用者名稱！')
+        return false
+      }
+      if(password === '' || password.toLowerCase() === 'null' || password.toLowerCase() === 'undefined' || password === null || password === undefined){
+        message.warning('請換個密碼！')
+        return false
+      }
+      return true
     };
 
     return (
@@ -66,6 +79,7 @@ class RegisterForm extends Component {
                     {
                       required: true,
                       message: '請輸入使用者名稱！',
+                      whitespace: true
                     },
                   ]}
                 >
@@ -78,6 +92,7 @@ class RegisterForm extends Component {
                     {
                       required: true,
                       message: '請輸入密碼！',
+                      whitespace: true
                     },
                   ]}
                 >
@@ -92,6 +107,7 @@ class RegisterForm extends Component {
                       {
                         required: true,
                         message: '請再輸入一次相同的密碼！',
+                        whitespace: true
                       },
                       ({ getFieldValue }) => ({
                         validator(_, value) {

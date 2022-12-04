@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Carousel,Pagination,Layout } from 'antd';
+import { Carousel,Pagination,Layout ,message} from 'antd';
 
 import './SelectGame.css'
 
@@ -35,9 +35,15 @@ export default class ChooseGame extends Component {
 
     goToGame = (name) => {
         return (event) => {
-            this.props.history.push('/gameMaker', {
-                gameId: name
-            })
+            let username = localStorage.getItem('username')
+            if(username === '' || username === 'null' || username === 'undefined' || username === null || username === undefined ){
+                message.warning('請登入！')
+                this.props.history.push('/userAuth')
+            }else{
+                this.props.history.push('/gameMaker', {
+                    gameId: name
+                })
+            }
         }
     }
 

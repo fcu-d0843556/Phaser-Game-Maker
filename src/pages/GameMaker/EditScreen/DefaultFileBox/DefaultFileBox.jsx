@@ -68,13 +68,13 @@ export default class DefaultFileBox extends Component {
                             return (
                                 <Panel style={{background: activeTab === key ? "linear-gradient(0deg, #F69653 0%, #FFAC70 100%)" : "#538CF6", padding: 0}} header={<Title level={4} style={{margin: 0}}>{defaultFilesData[key].title}</Title>} key={key}>
                                     <List
-                                        grid={{ gutter: 16, 
-                                            xs: 1,
-                                            sm: 2,
-                                            md: 2,
-                                            lg: 1,
-                                            xl: 2,
-                                            xxl: 3, 
+                                        grid={{ gutter: 0, 
+                                            xs: 2,
+                                            sm: 3,
+                                            md: 3,
+                                            lg: 2,
+                                            xl: 3,
+                                            xxl: 4, 
                                         }}
                                         dataSource={defaultFilesData[key].items}
                                         renderItem={item => {
