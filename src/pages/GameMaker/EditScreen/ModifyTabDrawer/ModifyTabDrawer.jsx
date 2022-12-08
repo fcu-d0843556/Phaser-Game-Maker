@@ -48,7 +48,6 @@ export default class ModifyTabDrawer extends Component {
         }))
 
         pubsubList.push(PubSub.subscribeOnce('saveDefaultCardDatas', (msg,datas)=>{
-            // console.log('save item');
             this.setState({
                 defaultFilesData: datas.items
             })
@@ -87,13 +86,12 @@ export default class ModifyTabDrawer extends Component {
         const {modifyTitle, gameId,name} = this.props
         const {visible,isDefaultDrawerOpened, width, darwerName,defaultFilesData} = this.state
         
-
         return (
             <div>
                 {
                     // 電腦等裝置size大的drawer
                     width >= 1000 ? 
-                        <Drawer drawerStyle={{background:"#F69653", borderRadius: 0}} push={false} width={width - 410} zIndex="10" title={<Title level={4} style={{margin: 0}}>{modifyTitle}</Title>} placement="right" onClose={this.closeDrawer} open={visible}>
+                        <Drawer destroyOnClose={true} drawerStyle={{background:"#F69653", borderRadius: 0}} push={false} width={width - 410} zIndex="10" title={<Title level={4} style={{margin: 0}}>{modifyTitle}</Title>} placement="right" onClose={this.closeDrawer} open={visible}>
                             <Col span={width >= 1350 ?15: width >= 1120 ? 14 : 13}>
 
                                 {/* 內部細項設定 */}
@@ -111,7 +109,7 @@ export default class ModifyTabDrawer extends Component {
                         </Drawer> 
                     :
                         // 手機等裝置size小的drawer
-                        <Drawer drawerStyle={{background:"#F69653"}} width={width} zIndex={width >= 845 ?10:0}  title={<Title level={4} style={{margin: 0}}>{modifyTitle}</Title>} placement="right" onClose={this.closeDrawer} open={visible}>
+                        <Drawer destroyOnClose={true} drawerStyle={{background:"#F69653"}} width={width} zIndex={width >= 845 ?10:0}  title={<Title level={4} style={{margin: 0}}>{modifyTitle}</Title>} placement="right" onClose={this.closeDrawer} open={visible}>
                             <Col span={width >= 845 ?15:24}>
                                 {/* 內部細項設定 */}
                                 <ModifyCard {...this.props}></ModifyCard>

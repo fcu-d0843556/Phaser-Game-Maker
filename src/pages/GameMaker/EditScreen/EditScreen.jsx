@@ -138,7 +138,6 @@ export default class EditScreen extends Component {
                                                     dataSource={gameModifyDatas[key].items}
                                                     
                                                     renderItem={item => {
-                                                        // console.log(item);
                                                         return (   
                                                             <List.Item>
                                                                 <ModifyTabDrawer darwerName={item.name} width={width} gameId={gameId} username={username} key={item.name} {...item}  ></ModifyTabDrawer>

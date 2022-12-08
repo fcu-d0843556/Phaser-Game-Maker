@@ -37,7 +37,6 @@ export default class DefaultFileBox extends Component {
                 const {defaultFilesData} = this.props
                 const defaultFileKeys = Object.keys(defaultFilesData)
                 let targetItem
-                // console.log('id',id,"selectediD", selectedId);
                 defaultFileKeys.forEach((key)=>{
                     if(targetItem === undefined){
                         targetItem = defaultFilesData[key].items.find((item)=>{
