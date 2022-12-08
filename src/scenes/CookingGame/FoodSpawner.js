@@ -18,8 +18,8 @@ export default class foodSpawner{
         this.food = this.scene.add.image(200,350,'rawFood').setScale(this.data[1].img.size/100).setDepth(2).setInteractive();  
         // this.food.setTint(0x808080)
         this.scene.input.setDraggable(this.food);
-        this.food.on('pointerover', function () {this.setTint(0x00ff00);});
-        this.food.on('pointerout', function () {this.clearTint();});
+        // this.food.on('pointerover', function () {this.setTint(0x00ff00);});
+        // this.food.on('pointerout', function () {this.clearTint();});
         
         const cookTimeLabel = this.scene.add.text(200,350,'',{fontSize:32,fill:'#000'})
 
