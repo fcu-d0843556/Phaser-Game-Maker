@@ -24,7 +24,7 @@ class IntroStartBox extends Component {
     return (
       // 歡迎區塊
         <Header className="intro-container">
-            <Title  className="intro-container-text">歡迎來到 Phaser Game Maker！</Title>
+            <Title  className="intro-container-text">歡迎來到 Web Game Maker！</Title>
             <Paragraph>
                 <Text>在這個網站中，您可以製作出簡單又有趣的客製化遊戲！</Text>
             </Paragraph>
