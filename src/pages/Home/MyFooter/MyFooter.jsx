@@ -18,7 +18,7 @@ export default class MyFooter extends Component {
 
           className="phaser-game-maker-footer"
         >
-              ©2022 Phaser Game Maker 
+              ©2022 Web Game Maker 
         </Footer>
     )
   }
