@@ -70,7 +70,7 @@ export default class IntroSampleBox extends Component {
 
         return (
             // 顯示作品預覽區塊的程式
-            <Content className='sample-box' style={{padding: width < 425 ? "64px 16px" : "64px 48px"}}>
+            <Content className='sample-box' style={{padding: width < 425 ? "64px 24px" : "64px 48px"}}>
                 <Title className='sample-title' style={{width: width >= 500 ? "400px" : "auto"}}>作 品 預 覽</Title>
 
                 <Paragraph>
