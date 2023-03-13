@@ -1,3 +1,9 @@
+我們需要利用docker架設3個路由
+1. Maker端（網頁前端）
+2. Server端（前後端連接）
+3. MongoDB端（資料庫）
+
+
 our color pattern
 main color: #F69653 (orange)
 complementary color: #538CF6 (blue)
